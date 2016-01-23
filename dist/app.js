@@ -96,7 +96,7 @@ var React = require('react')
 var ReactDOM = require('react-dom');
 
 ReactDOM.render(
-  React.createElement("h1", null, "Hello, world!"),
+  React.createElement("h1", null, "Are you ready to PARTY?"),
   document.getElementById('app')
 );
 

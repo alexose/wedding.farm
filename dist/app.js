@@ -145,6 +145,17 @@ ReactDOM.render(
 },{"./clothes.jsx":3,"./nav.jsx":5,"react":162,"react-dom":33}],3:[function(require,module,exports){
 var React = require('react')
 
+// Read contents of directories
+var files = [".DS_Store","23758-NV4VMA_03.png","23758-NV4VMA_05.png","23758-NV4VMA_07.png","23758-NV4VMA_10.png","23758-NV4VMA_11.png","23758-NV4VMA_13.png","23758-NV4VMA_15.png","23758-NV4VMA_17.png","23758-NV4VMA_22.png","23758-NV4VMA_23.png","23758-NV4VMA_24.png","23758-NV4VMA_26.png"];
+
+var Garment = React.createClass({displayName: "Garment",
+  render : function(){
+    return(
+      React.createElement("img", {src: 'img/clothes/' + this.props.src})
+    )
+  }
+});
+
 var Clothes = React.createClass({displayName: "Clothes",
   render: function(){
     return (
@@ -153,6 +164,13 @@ var Clothes = React.createClass({displayName: "Clothes",
           React.createElement("p", null, "Paperdolls here")
         ), 
         React.createElement("div", {className: "clothes"}, 
+          
+            files.map(function(path){
+              return (
+                React.createElement(Garment, {src: path})
+              )
+            }), 
+          
           React.createElement("p", null, "Clothes here")
         )
       )

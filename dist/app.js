@@ -146,12 +146,12 @@ ReactDOM.render(
 var React = require('react')
 
 // Read contents of directories
-var files = [".DS_Store","23758-NV4VMA_03.png","23758-NV4VMA_05.png","23758-NV4VMA_07.png","23758-NV4VMA_10.png","23758-NV4VMA_11.png","23758-NV4VMA_13.png","23758-NV4VMA_15.png","23758-NV4VMA_17.png","23758-NV4VMA_22.png","23758-NV4VMA_23.png","23758-NV4VMA_24.png","23758-NV4VMA_26.png"];
+var files = [".DS_Store","clothes_03.png","clothes_05.png","clothes_07.png","clothes_10.png","clothes_11.png","clothes_13.png","clothes_15.png","clothes_17.png","clothes_22.png","clothes_23.png","clothes_24.png","clothes_26.png"];
 
 var Garment = React.createClass({displayName: "Garment",
   render : function(){
     return(
-      React.createElement("img", {src: 'img/clothes/' + this.props.src})
+      React.createElement("img", {src: 'img/clothes/' + this.props.src, className: "garment"})
     )
   }
 });

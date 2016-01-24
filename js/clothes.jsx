@@ -6,7 +6,7 @@ var files = require('fs').readdirSync('./img/clothes');
 var Garment = React.createClass({
   render : function(){
     return(
-      <img src={'img/clothes/' + this.props.src} />
+      <img src={'img/clothes/' + this.props.src} className="garment" />
     )
   }
 });

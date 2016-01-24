@@ -1,33 +1,21 @@
 var React = require('react')
 
 var Nav = React.createClass({
-  getDefaultProps: function(){
-    return {
-      pages : [
-        {
-          name : 'home',
-          display : 'Home'
-        },
-        {
-          name : 'clothes',
-          display : 'Clothes'
-        }
-      ]
-    }
-  },
-  handleClick : function(e){
+  handleClick : function(page, e){
     e.preventDefault();
-    console.log('click');
+    this.props.onNavigate(page);
   },
   render: function(){
+    var handleClick = this.handleClick;
+    var context = this;
     return (
       <nav className="main-nav">
         <ul className="main-nav-inner">
           {
-            this.props.pages.map(function(page){
+            this.props.tabs.map(function(page){
               return (
                 <li>
-                  <a href={'#' + page.name} onClick={this.handleClick}>
+                  <a href={'#' + page.name} onClick={handleClick.bind(context, page)}>
                     {page.display}
                   </a>
                 </li>

@@ -98,12 +98,47 @@ var ReactDOM = require('react-dom');
 var Clothes = require('./clothes.jsx');
 var Nav = require('./nav.jsx');
 
+var Home = React.createClass({displayName: "Home",
+  render : function(){
+    return (
+      React.createElement("h1", null, "Are you ready to PARTY?")
+    )
+  }
+});
+
+// List of navigable elements
+var tabList = [
+  {
+    name : 'home',
+    display : 'Home',
+    component : React.createElement(Home, null)
+  },
+  {
+    name : 'clothes',
+    display : 'Clothes',
+    component : React.createElement(Clothes, null)
+  }
+];
+
+var App = React.createClass({displayName: "App",
+  getInitialState: function(){
+    return { tab : tabList[0] }
+  },
+  navigate : function(tab){
+    this.setState({ tab : tab });
+  },
+  render : function(){
+    return (
+      React.createElement("div", null, 
+        this.state.tab.component, 
+        React.createElement(Nav, {onNavigate: this.navigate, tabs: tabList})
+      )
+    )
+  }
+});
+
 ReactDOM.render(
-  React.createElement("div", null, 
-    React.createElement("h1", null, "Are you ready to PARTY?"), 
-    React.createElement(Clothes, null), 
-    React.createElement(Nav, null)
-  ),
+  React.createElement(App, null),
   document.getElementById('app')
 );
 
@@ -168,33 +203,23 @@ document.onmouseup = _destroy;
 var React = require('react')
 
 var Nav = React.createClass({displayName: "Nav",
-  getDefaultProps: function(){
-    return {
-      pages : [
-        {
-          name : 'home',
-          display : 'Home'
-        },
-        {
-          name : 'clothes',
-          display : 'Clothes'
-        }
-      ]
-    }
-  },
-  handleClick : function(e){
+  handleClick : function(page, e){
     e.preventDefault();
-    console.log('click');
+    this.props.onNavigate(page);
   },
   render: function(){
+    var handleClick = this.handleClick;
+    var context = this;
     return (
       React.createElement("nav", {className: "main-nav"}, 
         React.createElement("ul", {className: "main-nav-inner"}, 
           
-            this.props.pages.map(function(page){
+            this.props.tabs.map(function(page){
               return (
                 React.createElement("li", null, 
-                  React.createElement("a", {href: '#' + page.name, onClick: this.handleClick}, page.display)
+                  React.createElement("a", {href: '#' + page.name, onClick: handleClick.bind(context, page)}, 
+                    page.display
+                  )
                 )
               )
             })

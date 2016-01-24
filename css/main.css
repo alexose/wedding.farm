@@ -13,3 +13,25 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+
+.main-nav{
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.1);
+}
+
+.main-nav ul{
+  margin: 20px 0;
+  text-align: center;
+}
+
+.main-nav ul li{
+  display: inline;
+  margin: 10px 20px;
+}
+
+.main-nav ul li a{
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+}

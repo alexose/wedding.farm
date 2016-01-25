@@ -1,4 +1,5 @@
-var React = require('react')
+var React = require('react');
+var Draggable = require('react-draggable');
 
 // Read contents of directories
 var clothingFiles = require('fs').readdirSync('./img/clothes');
@@ -7,7 +8,9 @@ var paperdollFiles = require('fs').readdirSync('./img/bodies');
 var Garment = React.createClass({
   render : function(){
     return(
-      <img src={'img/clothes/' + this.props.src} className="garment" />
+      <Draggable>
+        <img src={'img/clothes/' + this.props.src} className="garment" draggable="false" />
+      </Draggable>
     )
   }
 });
@@ -30,7 +33,7 @@ var Clothes = React.createClass({
       context.setState({ current : event.target.value });
     };
     return (
-      <div>
+      <div className="clothing">
         <div className="paperdolls">
           <select onChange={changePaperdoll} >
             {
@@ -43,15 +46,13 @@ var Clothes = React.createClass({
           </select>
           <Paperdoll src={this.state.current} />
         </div>
-        <div className="clothes">
-          {
-            clothingFiles.map(function(path){
-              return (
-                <Garment src={path} />
-              )
-            })
-          }
-        </div>
+        {
+          clothingFiles.map(function(path){
+            return (
+              <Garment src={path} />
+            )
+          })
+        }
       </div>
     )
   }

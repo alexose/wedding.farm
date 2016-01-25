@@ -37,15 +37,15 @@ h1 {
   text-decoration: none;
 }
 
-.paperdolls,
-.clothes {
+.clothing {
   position: absolute;
-  top: 0; bottom: 0;
+  top: 0; bottom: 0; left: 0; right: 0;
   padding: 20px;
 }
 
 .paperdolls {
-  left: 0; right: 70%;
+  float: left;
+  padding: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +58,7 @@ h1 {
 }
 
 .garment {
-  max-height: 200px;
+  max-height: 100px;
 }
 
 .paperdoll {

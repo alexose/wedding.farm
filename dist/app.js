@@ -146,7 +146,8 @@ ReactDOM.render(
 var React = require('react')
 
 // Read contents of directories
-var files = [".DS_Store","clothes_03.png","clothes_05.png","clothes_07.png","clothes_10.png","clothes_11.png","clothes_13.png","clothes_15.png","clothes_17.png","clothes_22.png","clothes_23.png","clothes_24.png","clothes_26.png"];
+var clothingFiles = ["clothes_03.png","clothes_05.png","clothes_07.png","clothes_10.png","clothes_11.png","clothes_13.png","clothes_15.png","clothes_17.png","clothes_22.png","clothes_23.png","clothes_24.png","clothes_26.png"];
+var paperdollFiles = ["Female.png","Male.png"];
 
 var Garment = React.createClass({displayName: "Garment",
   render : function(){
@@ -156,22 +157,45 @@ var Garment = React.createClass({displayName: "Garment",
   }
 });
 
+var Paperdoll = React.createClass({displayName: "Paperdoll",
+  render : function(){
+    return(
+      React.createElement("img", {src: 'img/bodies/' + this.props.src, className: "paperdoll"})
+    )
+  }
+});
+
 var Clothes = React.createClass({displayName: "Clothes",
+  getInitialState: function(){
+    return { current : paperdollFiles[0] };
+  },
   render: function(){
+    var context = this;
+    var changePaperdoll = function(event){
+      context.setState({ current : event.target.value });
+    };
     return (
       React.createElement("div", null, 
         React.createElement("div", {className: "paperdolls"}, 
-          React.createElement("p", null, "Paperdolls here")
+          React.createElement("select", {onChange: changePaperdoll}, 
+            
+              paperdollFiles.map(function(path){
+                return (
+                  React.createElement("option", {value: path}, path)
+                )
+              })
+            
+          ), 
+          React.createElement(Paperdoll, {src: this.state.current})
         ), 
         React.createElement("div", {className: "clothes"}, 
           
-            files.map(function(path){
+            clothingFiles.map(function(path){
               return (
                 React.createElement(Garment, {src: path})
               )
-            }), 
+            })
           
-          React.createElement("p", null, "Clothes here")
         )
       )
     )

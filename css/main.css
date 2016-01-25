@@ -46,9 +46,8 @@ h1 {
 .paperdolls {
   float: left;
   padding: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
+  min-width: 300px;
 }
 
 .clothes {

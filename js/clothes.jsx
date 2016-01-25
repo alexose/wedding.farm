@@ -23,6 +23,38 @@ var Paperdoll = React.createClass({
   }
 });
 
+
+var text = [
+  'Loading analysis protocol...',
+  'Spinning up EC2 instances...',
+  'Analyzing...',
+  'Initial results recieved.  Please wait',
+  'Yes, you can wear this!'
+];
+
+var Analysis = React.createClass({
+  getInitialState : function(){
+    return { text : '' };
+  },
+  handleClick : function(){
+    var context = this;
+    text.forEach(function(d, i){
+      this.setTimeout(function(){
+        context.setState({ text : d });
+      }, i * 2000);
+    });
+
+  },
+  render : function(){
+    return(
+      <div>
+        <button onClick={this.handleClick} className="analysis">Analyze outfit</button>
+        <p>{this.state.text}</p>
+      </div>
+    )
+  }
+});
+
 var Clothes = React.createClass({
   getInitialState: function(){
     return { current : paperdollFiles[0] };
@@ -44,7 +76,10 @@ var Clothes = React.createClass({
               })
             }
           </select>
+          <br />
           <Paperdoll src={this.state.current} />
+          <br />
+          <Analysis />
         </div>
         {
           clothingFiles.map(function(path){

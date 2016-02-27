@@ -1,8 +1,9 @@
 var React = require('react')
 var ReactDOM = require('react-dom');
 
-var Clothes = require('./clothes.jsx');
 var Nav = require('./nav.jsx');
+var Clothes = require('./clothes.jsx');
+var Rsvp = require('./rsvp.jsx');
 
 var Home = React.createClass({
   render : function(){
@@ -23,6 +24,11 @@ var tabList = [
     name : 'clothes',
     display : 'Clothes',
     component : <Clothes />
+  },
+  {
+    name : 'rsvp',
+    display : 'RSVP',
+    component : <Rsvp />
   }
 ];
 

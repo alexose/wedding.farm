@@ -10,12 +10,54 @@ var text = [
 ];
 
 var questions = [
-  'Please write a short 5000 word essay on why you\'d like to attend this event.',
-  'Any special partying restrictions?',
-  'I need the following in order to have a good time:',
-  'Favorite Real Housewives series:',
-  'What\'s the deal with Lebron this year?',
-  'Favorite Julia Roberts role:',
+  { 
+    q : 'Please write a short 5000 word essay on why you\'d like to attend this event.',
+    a : [
+      '5000 words?  That\'s way too long.  Listen, asking me to go all the way to Southern Oregon is more than enough.',
+      "WELL, PRINCE, Genoa and Lucca are now no more than private estates of the Bonaparte family. No, I warn you, that if you do not tell me we are at war, if you again allow yourself to palliate all the infamies and atrocities of this Antichrist (upon my word, I believe he is), I don't know you in future, you are no longer my friend, no longer my faithful slave, as you say. There, how do you do, how do you do? I see I'm scaring you, sit down and talk to me.",
+      'Chapter 1 \r\n\r\nThe sky above the port was the color of television, tuned to a dead channel. \r\n\r\n\"It\'s not like I\'m using,\" Case heard someone say, as he shouldered his way through the crowd around the door of the Chat. \"It\'s like my body\'s developed this massive drug deficiency.\" It was a Sprawl voice and a Sprawl joke. The Chatsubo was a bar for professional expatriates; you could drink there for a week and never hear two words in Japanese.',
+      '\"I\'ve watched through his eyes, I\'ve listened through his ears, and I tell you he\'s the one. Or at least as close as we\'re going to get.\" \r\n\"That\'s what you said about the brother.\" \r\n\"The brother tested out impossible. For other reasons. Nothing to do with his ability.\" \r\n\"Same with the sister. And there are doubts about him. He\'s too malleable. Too willing to submerge himself in someone else\'s will.\" \r\n\"Not if the other person is his enemy.\"',
+    ]
+  },
+  { 
+    q : 'Any special partying restrictions?',
+    a : [
+      'No, I am prepared to meet this party head-on.',
+      'Yes, I might need to be done before 4am.',
+      'I need to make it home early so I can catch up on House of Cards'
+    ]
+  },
+  { 
+    q : 'I need the following in order to have a good time:',
+    a : [
+      'Nothing! This is great!'
+    ]
+  },
+  { 
+    q : 'Favorite Real Housewives series:',
+    a : [
+      'Real Housewives of Atlanta',
+      'Real Housewives of New Jersey',
+      'Real Housewives of Antarctica',
+      'Real Housewives of Space Station Mir'
+    ]
+  },
+  { 
+    q : 'What\'s the deal with Lebron this year?',
+    a : [
+      'Sorry, I don\'t follow sports',
+      'Who?',
+      "Listen kid, I've been hearing that crap ever since I was at UCLA. I'm out there busting my buns every night! Tell your old man to drag Walton and Lanier up and down the court for 48 minutes!"
+    ]
+  },
+  { 
+    q : 'Favorite Julia Roberts role:',
+    a : [
+      'Runaway bride, obviously',
+      'Oceans 11',
+      'Twister.  Wait, that was Helen Hunt'
+    ]
+  },
 ];
 
 var invitation = {
@@ -40,18 +82,28 @@ var Guest = React.createClass({
   render : function(){
     return (
       <div className="guest">
+
         <div className="form-group">
           <label className="control-label col-md-3" for="name">Your Name</label>
           <div className="col-md-6">
             <input id="name" name="name" type="text" placeholder={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
+
         <div className="form-group">
-          <label className="control-label col-md-3" for="needs">{this.props.question}</label>  
-          <div className="col-md-6">
-            <input id="needs" name="needs" type="text" placeholder="puppies" className="form-control input-md" />
+          <label className="col-md-3 control-label" for="question">{this.props.question}</label>
+          <div className="col-md-6">                     
+            <textarea rows="4" className="form-control" id="textarea" name="textarea">{this.props.answer}</textarea>
           </div>
         </div>
+
+        <div className="form-group">
+          <label className="control-label col-md-3" for="needs">How fancy are you?</label>  
+          <div className="col-md-6">
+            <input id="fancy" name="fancy" type="text" className="form-control input-md" />
+          </div>
+        </div>
+
         <hr />
       </div>
     )
@@ -62,8 +114,6 @@ var Form = React.createClass({
   render : function(){
 
     var shuffled = shuffle(questions);
-
-    console.log(shuffled);
 
     return (
       <div className="container page">
@@ -78,8 +128,12 @@ var Form = React.createClass({
              
           {
             invitation.people.map(function(d,i){
+
+              var question = shuffled[(i+1) % shuffled.length],
+                  answer = shuffle(question.a)[0];
+
               return (
-                <Guest name={d.name} question={shuffled[(i+1) % shuffled.length]} />
+                <Guest name={d.name} question={question.q} answer={answer} />
               )
             })
           }

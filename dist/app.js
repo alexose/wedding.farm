@@ -306,15 +306,15 @@ var invitation = {
   id : 123,
   people : [
     {
-      name : 'Bob Smith',
+      name : 'Mr. Bob J. Smith, Esq.',
       child : false
     },
     {
-      name : 'Sue Smith',
+      name : 'Mrs. Sue S. Smith',
       child : false
     },
     {
-      name : 'Bob Smith, jr.',
+      name : 'Bob Smith, Jr.',
       child : true
     }
   ]
@@ -324,13 +324,6 @@ var Guest = React.createClass({displayName: "Guest",
   render : function(){
     return (
       React.createElement("div", {className: "guest"}, 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-md-3"}), 
-          React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("h1", {className: "name"}, this.props.name)
-          )
-        ), 
-        React.createElement("hr", null), 
         React.createElement("div", {className: "form-group"}, 
           React.createElement("label", {className: "control-label col-md-3", for: "name"}, "Your Name"), 
           React.createElement("div", {className: "col-md-6"}, 
@@ -338,7 +331,7 @@ var Guest = React.createClass({displayName: "Guest",
           )
         ), 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "control-label col-md-3", for: "needs"}, "What do you need to have fun?"), 
+          React.createElement("label", {className: "control-label col-md-3", for: "needs"}, this.props.question), 
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("input", {id: "needs", name: "needs", type: "text", placeholder: "puppies", className: "form-control input-md"})
           )
@@ -351,6 +344,11 @@ var Guest = React.createClass({displayName: "Guest",
 
 var Form = React.createClass({displayName: "Form",
   render : function(){
+
+    var shuffled = shuffle(questions);
+
+    console.log(shuffled);
+
     return (
       React.createElement("div", {className: "container page"}, 
         React.createElement("div", {className: "row"}, 
@@ -361,10 +359,11 @@ var Form = React.createClass({displayName: "Form",
         ), 
         React.createElement("form", {className: "form-horizontal"}, 
           React.createElement("fieldset", null, 
+             
           
-            invitation.people.map(function(d){
+            invitation.people.map(function(d,i){
               return (
-                React.createElement(Guest, {name: d.name})
+                React.createElement(Guest, {name: d.name, question: shuffled[(i+1) % shuffled.length]})
               )
             })
           
@@ -374,6 +373,25 @@ var Form = React.createClass({displayName: "Form",
     )
   }
 });
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 module.exports = Form; 
 

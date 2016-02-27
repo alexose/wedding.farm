@@ -22,15 +22,15 @@ var invitation = {
   id : 123,
   people : [
     {
-      name : 'Bob Smith',
+      name : 'Mr. Bob J. Smith, Esq.',
       child : false
     },
     {
-      name : 'Sue Smith',
+      name : 'Mrs. Sue S. Smith',
       child : false
     },
     {
-      name : 'Bob Smith, jr.',
+      name : 'Bob Smith, Jr.',
       child : true
     }
   ]
@@ -40,13 +40,6 @@ var Guest = React.createClass({
   render : function(){
     return (
       <div className="guest">
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-6">
-            <h1 className="name">{this.props.name}</h1>
-          </div>
-        </div>
-        <hr />
         <div className="form-group">
           <label className="control-label col-md-3" for="name">Your Name</label>
           <div className="col-md-6">
@@ -54,7 +47,7 @@ var Guest = React.createClass({
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label col-md-3" for="needs">What do you need to have fun?</label>  
+          <label className="control-label col-md-3" for="needs">{this.props.question}</label>  
           <div className="col-md-6">
             <input id="needs" name="needs" type="text" placeholder="puppies" className="form-control input-md" />
           </div>
@@ -67,6 +60,11 @@ var Guest = React.createClass({
 
 var Form = React.createClass({
   render : function(){
+
+    var shuffled = shuffle(questions);
+
+    console.log(shuffled);
+
     return (
       <div className="container page">
         <div className="row">
@@ -77,10 +75,11 @@ var Form = React.createClass({
         </div>
         <form className="form-horizontal">
           <fieldset>
+             
           {
-            invitation.people.map(function(d){
+            invitation.people.map(function(d,i){
               return (
-                <Guest name={d.name} />
+                <Guest name={d.name} question={shuffled[(i+1) % shuffled.length]} />
               )
             })
           }
@@ -90,5 +89,24 @@ var Form = React.createClass({
     )
   }
 });
+
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
 
 module.exports = Form; 

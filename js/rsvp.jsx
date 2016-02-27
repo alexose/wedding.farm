@@ -41,14 +41,14 @@ var Guest = React.createClass({
     return (
       <div>
         <div className="form-group">
-          <label className="col-md-4 control-label" for="name">Name</label>  
-          <div className="col-md-4">
+          <label className="control-label" for="name">Name</label>
+          <div className="">
             <input id="name" name="name" type="text" placeholder={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
         <div className="form-group">
-          <label className="col-md-4 control-label" for="needs">What do you need to have fun?</label>  
-          <div className="col-md-4">
+          <label className="control-label" for="needs">What do you need to have fun?</label>  
+          <div className="">
             <input id="needs" name="needs" type="text" placeholder="puppies" className="form-control input-md" />
           </div>
         </div>
@@ -60,15 +60,25 @@ var Guest = React.createClass({
 var Form = React.createClass({
   render : function(){
     return (
-      <div>
-        <h1>Répondez, s'il vous plaît.</h1>
-        {
-          invitation.people.map(function(d){
-            return (
-              <Guest name={d.name} />
-            )
-          })
-        }
+      <div className="container page">
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+            <h1>Répondez, s'il vous plaît.</h1>
+            <form className="form-horizontal">
+              <fieldset>
+              {
+                invitation.people.map(function(d){
+                  return (
+                    <Guest name={d.name} />
+                  )
+                })
+              }
+              </fieldset>
+            </form>
+          </div>
+          <div className="col-md-3"></div>
+        </div>
       </div>
     )
   }

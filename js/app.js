@@ -8,7 +8,9 @@ var Rsvp = require('./rsvp.jsx');
 var Home = React.createClass({
   render : function(){
     return (
-      <h1>Are you ready to PARTY?</h1>
+      <div className="page centered">
+        <h1>Are you ready to PARTY?</h1>
+      </div>
     )
   }
 });

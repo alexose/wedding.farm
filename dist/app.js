@@ -102,7 +102,9 @@ var Rsvp = require('./rsvp.jsx');
 var Home = React.createClass({displayName: "Home",
   render : function(){
     return (
-      React.createElement("h1", null, "Are you ready to PARTY?")
+      React.createElement("div", {className: "page centered"}, 
+        React.createElement("h1", null, "Are you ready to PARTY?")
+      )
     )
   }
 });
@@ -216,7 +218,7 @@ var Clothes = React.createClass({displayName: "Clothes",
       context.setState({ current : event.target.value });
     };
     return (
-      React.createElement("div", {className: "clothing"}, 
+      React.createElement("div", {className: "page full"}, 
         React.createElement("div", {className: "paperdolls"}, 
           React.createElement("select", {onChange: changePaperdoll}, 
             
@@ -323,14 +325,14 @@ var Guest = React.createClass({displayName: "Guest",
     return (
       React.createElement("div", null, 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "col-md-4 control-label", for: "name"}, "Name"), 
-          React.createElement("div", {className: "col-md-4"}, 
+          React.createElement("label", {className: "control-label", for: "name"}, "Name"), 
+          React.createElement("div", {className: ""}, 
             React.createElement("input", {id: "name", name: "name", type: "text", placeholder: this.props.name, className: "form-control input-md", required: ""})
           )
         ), 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "col-md-4 control-label", for: "needs"}, "What do you need to have fun?"), 
-          React.createElement("div", {className: "col-md-4"}, 
+          React.createElement("label", {className: "control-label", for: "needs"}, "What do you need to have fun?"), 
+          React.createElement("div", {className: ""}, 
             React.createElement("input", {id: "needs", name: "needs", type: "text", placeholder: "puppies", className: "form-control input-md"})
           )
         )
@@ -342,15 +344,25 @@ var Guest = React.createClass({displayName: "Guest",
 var Form = React.createClass({displayName: "Form",
   render : function(){
     return (
-      React.createElement("div", null, 
-        React.createElement("h1", null, "Répondez, s'il vous plaît."), 
-        
-          invitation.people.map(function(d){
-            return (
-              React.createElement(Guest, {name: d.name})
+      React.createElement("div", {className: "container page"}, 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-md-3"}), 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement("h1", null, "Répondez, s'il vous plaît."), 
+            React.createElement("form", {className: "form-horizontal"}, 
+              React.createElement("fieldset", null, 
+              
+                invitation.people.map(function(d){
+                  return (
+                    React.createElement(Guest, {name: d.name})
+                  )
+                })
+              
+              )
             )
-          })
-        
+          ), 
+          React.createElement("div", {className: "col-md-3"})
+        )
       )
     )
   }

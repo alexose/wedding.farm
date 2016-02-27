@@ -65,7 +65,7 @@ var Clothes = React.createClass({
       context.setState({ current : event.target.value });
     };
     return (
-      <div className="clothing">
+      <div className="page full">
         <div className="paperdolls">
           <select onChange={changePaperdoll} >
             {

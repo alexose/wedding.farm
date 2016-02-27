@@ -323,9 +323,11 @@ var invitation = {
 var Guest = React.createClass({displayName: "Guest",
   render : function(){
     return (
-      React.createElement("div", null, 
+      React.createElement("div", {className: "guest"}, 
+        React.createElement("h1", {className: "name"}, this.props.name), 
+        React.createElement("hr", null), 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "control-label", for: "name"}, "Name"), 
+          React.createElement("label", {className: "control-label", for: "name"}, "Your Name"), 
           React.createElement("div", {className: ""}, 
             React.createElement("input", {id: "name", name: "name", type: "text", placeholder: this.props.name, className: "form-control input-md", required: ""})
           )
@@ -335,7 +337,8 @@ var Guest = React.createClass({displayName: "Guest",
           React.createElement("div", {className: ""}, 
             React.createElement("input", {id: "needs", name: "needs", type: "text", placeholder: "puppies", className: "form-control input-md"})
           )
-        )
+        ), 
+        React.createElement("hr", null)
       )
     )
   }

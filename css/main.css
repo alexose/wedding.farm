@@ -77,3 +77,14 @@ h1 {
 .form-horizontal {
   padding-bottom: 60px;
 }
+
+.guest {
+  position: relative;
+}
+
+.guest .name{
+  position: absolute;
+  left: -400px;
+  font-size: 80px;
+  color: #f2f2f2;
+}

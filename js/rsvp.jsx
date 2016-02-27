@@ -39,9 +39,11 @@ var invitation = {
 var Guest = React.createClass({
   render : function(){
     return (
-      <div>
+      <div className="guest">
+        <h1 className="name">{this.props.name}</h1>
+        <hr />
         <div className="form-group">
-          <label className="control-label" for="name">Name</label>
+          <label className="control-label" for="name">Your Name</label>
           <div className="">
             <input id="name" name="name" type="text" placeholder={this.props.name} className="form-control input-md" required="" />
           </div>
@@ -52,6 +54,7 @@ var Guest = React.createClass({
             <input id="needs" name="needs" type="text" placeholder="puppies" className="form-control input-md" />
           </div>
         </div>
+        <hr />
       </div>
     )
   }

@@ -40,17 +40,22 @@ var Guest = React.createClass({
   render : function(){
     return (
       <div className="guest">
-        <h1 className="name">{this.props.name}</h1>
+        <div className="row">
+          <div className="col-md-3"></div>
+          <div className="col-md-6">
+            <h1 className="name">{this.props.name}</h1>
+          </div>
+        </div>
         <hr />
         <div className="form-group">
-          <label className="control-label" for="name">Your Name</label>
-          <div className="">
+          <label className="control-label col-md-3" for="name">Your Name</label>
+          <div className="col-md-6">
             <input id="name" name="name" type="text" placeholder={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
         <div className="form-group">
-          <label className="control-label" for="needs">What do you need to have fun?</label>  
-          <div className="">
+          <label className="control-label col-md-3" for="needs">What do you need to have fun?</label>  
+          <div className="col-md-6">
             <input id="needs" name="needs" type="text" placeholder="puppies" className="form-control input-md" />
           </div>
         </div>
@@ -68,20 +73,19 @@ var Form = React.createClass({
           <div className="col-md-3"></div>
           <div className="col-md-6">
             <h1>Répondez, s'il vous plaît.</h1>
-            <form className="form-horizontal">
-              <fieldset>
-              {
-                invitation.people.map(function(d){
-                  return (
-                    <Guest name={d.name} />
-                  )
-                })
-              }
-              </fieldset>
-            </form>
           </div>
-          <div className="col-md-3"></div>
         </div>
+        <form className="form-horizontal">
+          <fieldset>
+          {
+            invitation.people.map(function(d){
+              return (
+                <Guest name={d.name} />
+              )
+            })
+          }
+          </fieldset>
+        </form>
       </div>
     )
   }

@@ -324,17 +324,22 @@ var Guest = React.createClass({displayName: "Guest",
   render : function(){
     return (
       React.createElement("div", {className: "guest"}, 
-        React.createElement("h1", {className: "name"}, this.props.name), 
+        React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "col-md-3"}), 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement("h1", {className: "name"}, this.props.name)
+          )
+        ), 
         React.createElement("hr", null), 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "control-label", for: "name"}, "Your Name"), 
-          React.createElement("div", {className: ""}, 
+          React.createElement("label", {className: "control-label col-md-3", for: "name"}, "Your Name"), 
+          React.createElement("div", {className: "col-md-6"}, 
             React.createElement("input", {id: "name", name: "name", type: "text", placeholder: this.props.name, className: "form-control input-md", required: ""})
           )
         ), 
         React.createElement("div", {className: "form-group"}, 
-          React.createElement("label", {className: "control-label", for: "needs"}, "What do you need to have fun?"), 
-          React.createElement("div", {className: ""}, 
+          React.createElement("label", {className: "control-label col-md-3", for: "needs"}, "What do you need to have fun?"), 
+          React.createElement("div", {className: "col-md-6"}, 
             React.createElement("input", {id: "needs", name: "needs", type: "text", placeholder: "puppies", className: "form-control input-md"})
           )
         ), 
@@ -351,20 +356,19 @@ var Form = React.createClass({displayName: "Form",
         React.createElement("div", {className: "row"}, 
           React.createElement("div", {className: "col-md-3"}), 
           React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("h1", null, "Répondez, s'il vous plaît."), 
-            React.createElement("form", {className: "form-horizontal"}, 
-              React.createElement("fieldset", null, 
-              
-                invitation.people.map(function(d){
-                  return (
-                    React.createElement(Guest, {name: d.name})
-                  )
-                })
-              
+            React.createElement("h1", null, "Répondez, s'il vous plaît.")
+          )
+        ), 
+        React.createElement("form", {className: "form-horizontal"}, 
+          React.createElement("fieldset", null, 
+          
+            invitation.people.map(function(d){
+              return (
+                React.createElement(Guest, {name: d.name})
               )
-            )
-          ), 
-          React.createElement("div", {className: "col-md-3"})
+            })
+          
+          )
         )
       )
     )

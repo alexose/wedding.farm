@@ -3,4 +3,5 @@ Wedding.farm
 
 Build:
     cd wedding.farm
-    watchify js/* -o dist
+    npm install
+    watchify -t reactify -t brfs js/* -o ./dist/app.js -d -v

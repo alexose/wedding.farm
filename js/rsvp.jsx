@@ -67,12 +67,10 @@ var invitation = {
   id : 123,
   people : [
     {
-      name : 'Mr. Bob J. Smith, Esq.',
-      child : false
+      name : 'Mr. Bob J. Smith, Esq.'
     },
     {
-      name : 'Mrs. Sue S. Smith',
-      child : false
+      name : 'Mrs. Sue S. Smith'
     },
     {
       name : 'Bob Smith, Jr.',
@@ -225,8 +223,18 @@ var Form = React.createClass({
 });
 
 var Rsvp = React.createClass({
+  getInitialState : function(){
+    return { invitation : invitation };
+  },
   addNew : function(){
-    console.log('news');
+
+    var invitation = this.state.invitation;
+
+    invitation.people.push({
+      name : 'Surprise guest'
+    });
+
+    this.setState({ invitation : invitation });
   },
   render : function(){
 

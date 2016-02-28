@@ -7,6 +7,9 @@ var path = './access.json';
 var config = require('./config.js');
 var oauth2Client = new google.auth.OAuth2(config.client_id, config.client_secret, config.redirect_url);
 
+var data;
+var index = {};
+
 // Try to read tokens from disk
 var tokens;
 try {
@@ -48,6 +51,8 @@ function saveAccessTokens(tokens){
 }
 
 function proceed(err, tokens){
+    
+  console.log('Fetching spreadsheet...');
 
   saveAccessTokens(tokens);
 
@@ -60,7 +65,15 @@ function proceed(err, tokens){
 
   function parse(err, spreadsheet){
     spreadsheet.worksheets[0].rows({}, function(err, rows){
-      console.log(rows);
+      console.log('Got spreadsheet! Indexing by code.');
+      rows.forEach(function(d){
+        index[d.code] = d;
+      });
+      data = rows; 
     });
   }
 }
+
+module.exports = {
+  get: function(id){ return index[id]; } 
+};

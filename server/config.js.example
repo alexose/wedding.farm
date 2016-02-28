@@ -1,0 +1,7 @@
+// via https://console.developers.google.com/apis/credentials
+module.exports = {
+  key: "", // spreadsheet key
+  client_id: ""
+  client_secret: "",
+  redirect_url: "http://localhost:3000/api/token"
+};

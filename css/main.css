@@ -105,3 +105,41 @@ h1 {
 .add-person{
   padding: 14px;
 }
+
+.title-row{
+  margin: 20px 0;
+  cursor: pointer;
+}
+
+.title-row h2{
+  margin: 0;
+}
+
+.fake-checkbox{
+  border: 2px solid #bbb;
+  height: 30px; 
+  width: 30px;
+  border-radius: 10px;
+}
+
+.guest-form.hidden{
+  -webkit-opacity: 0.25;
+  -moz-opacity: 0.25;
+  opacity: 0.25;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+
+.guest-form.visible{
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}

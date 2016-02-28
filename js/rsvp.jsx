@@ -28,9 +28,11 @@ var questions = [
     ]
   },
   { 
-    q : 'I need the following in order to have a good time:',
+    q : 'I won\'t have fun unless:',
     a : [
-      'Nothing! This is great!'
+      'There is a bouncy castle',
+      'Everyone promises not to take pictures',
+      'The ceremony is 4 minutes or less'
     ]
   },
   { 
@@ -80,6 +82,43 @@ var invitation = {
 };
 
 var Guest = React.createClass({
+  getInitialState : function(){
+    return { hidden : true };
+  },
+  toggleForm: function(e){
+    if (e && e.preventDefault){
+      e.preventDefault();
+    }
+    this.setState({ hidden: !this.state.hidden });
+  },
+  render : function(){
+    return(
+      <div>
+        <div className="title-row row" onClick={this.toggleForm}>
+          <div className="col-md-3">
+            <div className="fake-checkbox pull-right">&nbsp;</div>
+          </div>
+          <div className="col-md-6">
+            <h2>{this.props.name}</h2>
+          </div>
+        </div>
+        
+        <div className="row">&nbsp;</div>
+       
+        <div className={'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }>
+          <Form 
+            name={this.props.name} 
+            question={this.props.question} 
+            answer={this.props.answer} 
+            toggleForm={this.toggleForm} 
+          />
+        </div>
+      </div>
+    )
+  }
+});
+
+var Form = React.createClass({
   changeValue : function(d){
     console.log(d);
   },
@@ -155,14 +194,20 @@ var Guest = React.createClass({
               min={1} />
           </div>
         </div>
-        
+       
+        <div className="form-group">
+          <div className="col-md-9">
+            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.toggleForm}>All done!</button>
+          </div>
+        </div>
+ 
         <hr />
       </div>
     )
   }
 });
 
-var Form = React.createClass({
+var Rsvp = React.createClass({
   addNew : function(){
     console.log('news');
   },
@@ -226,4 +271,4 @@ function shuffle(array) {
   return array;
 }
 
-module.exports = Form; 
+module.exports = Rsvp; 

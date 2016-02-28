@@ -312,9 +312,11 @@ var questions = [
     ]
   },
   { 
-    q : 'I need the following in order to have a good time:',
+    q : 'I won\'t have fun unless:',
     a : [
-      'Nothing! This is great!'
+      'There is a bouncy castle',
+      'Everyone promises not to take pictures',
+      'The ceremony is 4 minutes or less'
     ]
   },
   { 
@@ -364,6 +366,43 @@ var invitation = {
 };
 
 var Guest = React.createClass({displayName: "Guest",
+  getInitialState : function(){
+    return { hidden : true };
+  },
+  toggleForm: function(e){
+    if (e && e.preventDefault){
+      e.preventDefault();
+    }
+    this.setState({ hidden: !this.state.hidden });
+  },
+  render : function(){
+    return(
+      React.createElement("div", null, 
+        React.createElement("div", {className: "title-row row", onClick: this.toggleForm}, 
+          React.createElement("div", {className: "col-md-3"}, 
+            React.createElement("div", {className: "fake-checkbox pull-right"}, " ")
+          ), 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement("h2", null, this.props.name)
+          )
+        ), 
+        
+        React.createElement("div", {className: "row"}, " "), 
+       
+        React.createElement("div", {className: 'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }, 
+          React.createElement(Form, {
+            name: this.props.name, 
+            question: this.props.question, 
+            answer: this.props.answer, 
+            toggleForm: this.toggleForm}
+          )
+        )
+      )
+    )
+  }
+});
+
+var Form = React.createClass({displayName: "Form",
   changeValue : function(d){
     console.log(d);
   },
@@ -439,14 +478,20 @@ var Guest = React.createClass({displayName: "Guest",
               min: 1})
           )
         ), 
-        
+       
+        React.createElement("div", {className: "form-group"}, 
+          React.createElement("div", {className: "col-md-9"}, 
+            React.createElement("button", {name: "singlebutton", className: "btn btn-primary pull-right", onClick: this.props.toggleForm}, "All done!")
+          )
+        ), 
+ 
         React.createElement("hr", null)
       )
     )
   }
 });
 
-var Form = React.createClass({displayName: "Form",
+var Rsvp = React.createClass({displayName: "Rsvp",
   addNew : function(){
     console.log('news');
   },
@@ -510,7 +555,7 @@ function shuffle(array) {
   return array;
 }
 
-module.exports = Form; 
+module.exports = Rsvp; 
 
 },{"rc-slider":11,"react":218}],6:[function(require,module,exports){
 'use strict';

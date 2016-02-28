@@ -1,5 +1,5 @@
 var React = require('react');
-var Slider = require('react-slider');
+var Slider = require('rc-slider');
 
 var text = [
   'Not very fancy.  Remember that you should wear shoes',
@@ -23,7 +23,7 @@ var questions = [
     q : 'Any special partying restrictions?',
     a : [
       'No, I am prepared to meet this party head-on.',
-      'Yes, I might need to be done before 4am.',
+      'No, although I might need to be done before 4am.',
       'I need to make it home early so I can catch up on House of Cards'
     ]
   },
@@ -53,8 +53,9 @@ var questions = [
   { 
     q : 'Favorite Julia Roberts role:',
     a : [
-      'Runaway bride, obviously',
-      'Oceans 11',
+      'Pretty woman, obviously.  Although, there are just so many good ones...',
+      'Runaway Bride.  Ha, just kidding!',
+      'Oceans 11 is the only one I\'ve seen',
       'Twister.  Wait, that was Helen Hunt'
     ]
   },
@@ -79,6 +80,9 @@ var invitation = {
 };
 
 var Guest = React.createClass({
+  changeValue : function(d){
+    console.log(d);
+  },
   render : function(){
     return (
       <div className="guest">
@@ -91,19 +95,67 @@ var Guest = React.createClass({
         </div>
 
         <div className="form-group">
+          <label className="col-md-3 control-label" for="radios">Party in Kea'au?</label>
+          <div className="col-md-6">
+            <div className="radio">
+              <label for="radios-0">
+                <input type="radio" name="radios" id="radios-0" value="true" checked="checked" />
+                Happily Accept
+              </label>
+            </div>
+            <div className="radio">
+              <label for="radios-1">
+                <input type="radio" name="radios" id="radios-1" value="false" />
+                Regretfully Decline
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <label className="col-md-3 control-label" for="radios">Ceremony in Applegate?</label>
+          <div className="col-md-6">
+            <div className="radio">
+              <label for="radios-0">
+                <input type="radio" name="radios" id="radios-0" value="true" checked="checked" />
+                Happily Accept
+              </label>
+            </div>
+            <div className="radio">
+              <label for="radios-1">
+                <input type="radio" name="radios" id="radios-1" value="false" />
+                Regretfully Decline
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <label className="col-md-3 control-label" for="diet">Any dietary restrictions?</label>
+          <div className="col-md-6">                     
+            <textarea rows="4" className="form-control" id="textarea" name="textarea" />
+          </div>
+        </div>
+
+        <div className="form-group">
           <label className="col-md-3 control-label" for="question">{this.props.question}</label>
           <div className="col-md-6">                     
-            <textarea rows="4" className="form-control" id="textarea" name="textarea">{this.props.answer}</textarea>
+            <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
           </div>
         </div>
 
         <div className="form-group">
           <label className="control-label col-md-3" for="needs">How fancy are you?</label>  
-          <div className="col-md-6">
-            <input id="fancy" name="fancy" type="text" className="form-control input-md" />
+          <div className="col-md-6 slider-wrap">
+            <Slider
+              defaultValue={7}
+              onChange={this.changeValue}
+              step={1}
+              max={10}
+              min={1} />
           </div>
         </div>
-
+        
         <hr />
       </div>
     )
@@ -111,6 +163,9 @@ var Guest = React.createClass({
 });
 
 var Form = React.createClass({
+  addNew : function(){
+    console.log('news');
+  },
   render : function(){
 
     var shuffled = shuffle(questions);
@@ -125,7 +180,7 @@ var Form = React.createClass({
         </div>
         <form className="form-horizontal">
           <fieldset>
-             
+          <hr />
           {
             invitation.people.map(function(d,i){
 
@@ -139,6 +194,14 @@ var Form = React.createClass({
           }
           </fieldset>
         </form>
+        <div className="row">
+          <div className="col-md-9">
+            <div className="pull-right">
+              <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>
+              <div className="add-person pull-right">Add another person</div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }

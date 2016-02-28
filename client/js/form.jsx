@@ -20,21 +20,21 @@ var Form = React.createClass({
       <div className="guest">
 
         <div className="form-group">
-          <label className="control-label col-md-3" htmlFor="name">Your Name</label>
+          <label className="control-label col-md-4" htmlFor="name">Your Name</label>
           <div className="col-md-6">
             <input onChange={this.props.changeName} id="name" name="name" type="text" value={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
         
         <div className="form-group">
-          <label className="control-label col-md-3" htmlFor="email">Your electronic mail address</label>
+          <label className="control-label col-md-4" htmlFor="email">Your electronic mail address</label>
           <div className="col-md-6">
             <input id="email" name="email" type="text" defaultValue={this.props.email} className="form-control input-md" required="" />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-3 control-label" htmlFor="radios">Party in Kea'au?</label>
+          <label className="col-md-4 control-label" htmlFor="radios">Party in Kea'au?</label>
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor="radios-0">
@@ -52,7 +52,7 @@ var Form = React.createClass({
         </div>
         
         <div className="form-group">
-          <label className="col-md-3 control-label" htmlFor="radios">Ceremony in Applegate?</label>
+          <label className="col-md-4 control-label" htmlFor="radios">Ceremony in Applegate?</label>
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor="radios-2">
@@ -70,21 +70,21 @@ var Form = React.createClass({
         </div>
         
         <div className="form-group">
-          <label className="col-md-3 control-label" htmlFor="diet">Any dietary restrictions?</label>
+          <label className="col-md-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
           <div className="col-md-6">                     
             <textarea rows="4" className="form-control" id="textarea" name="textarea" />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-3 control-label" htmlFor="question">{this.props.question}</label>
+          <label className="col-md-4 control-label" htmlFor="question">{this.props.question}</label>
           <div className="col-md-6">                     
             <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="control-label col-md-3" htmlFor="needs">How fancy are you?</label>  
+          <label className="control-label col-md-4" htmlFor="needs">How fancy are you?</label>  
           <div className="col-md-6 slider-wrap">
             <Slider
               defaultValue={7}
@@ -96,8 +96,10 @@ var Form = React.createClass({
         </div>
        
         <div className="form-group">
-          <div className="col-md-9">
-            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.changeFocus}>Done!</button>
+          <div className="col-md-4"></div>
+          <div className="col-md-6">
+            <button name="singlebutton" className="btn btn-secondary btn-lg pull-left" onClick={this.props.changeFocus}>Cancel</button>
+            <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Done!</button>
           </div>
         </div>
  

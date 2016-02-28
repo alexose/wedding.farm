@@ -130,15 +130,15 @@ var Rsvp = React.createClass({
   },
   render : function(){
     return (
-      <div className="page centered">
+      <div className={'page centered' + (this.state.focus ? ' aligntop' : '')}>
         <div className="container">
-          <div className={"row" + (this.state.focus ? ' hidden' : '')}>
-            <div className="col-md-3"></div>
+          <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
+            <div className="col-md-4"></div>
             <div className="col-md-6">
               <h1>Répondez, s'il vous plaît.</h1>
             </div>
           </div>
-          <form className="form-horizontal">
+          <form className="form-horizontal rsvp">
             <fieldset>
             <hr />
             {
@@ -177,7 +177,7 @@ var Rsvp = React.createClass({
             }
             </fieldset>
           </form>
-          <div className={"row" + (this.state.focus ? ' hidden' : '')}>
+          <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-9">
               <div className="pull-right">
                 <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>

@@ -14,9 +14,9 @@ var Guest = React.createClass({
     console.log(this.props.focus);
     return(
       <div className={"guest"}>
-        <div className={"guest-row" + (this.props.hide ? ' hidden' : '')}>
+        <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>
           <div className="title-row row" onClick={this.props.changeFocus}>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
             </div>
             <div className="col-md-6">
@@ -25,7 +25,7 @@ var Guest = React.createClass({
           </div>
           <div className="row">&nbsp;</div>
         </div>
-        <div className={'guest-form' + (this.props.focused ? '' : ' hidden')}> 
+        <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}> 
           <Form 
             name={this.props.name} 
             email={this.props.email} 

@@ -30,6 +30,7 @@ video#background {
 
 #app {
   font-family: 'Josefin Slab', serif;
+  position: relative;
 }
 
 h1 {
@@ -74,7 +75,15 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-flow: column;
+  overflow: scroll;
 }
+
+.page.centered.aligntop{
+  margin-top: 5%;
+  justify-content: flex-start;
+}
+
 
 .paperdolls {
   float: left;
@@ -122,9 +131,9 @@ h1 {
 }
 
 .fake-checkbox:after{
-  font-size: 29px;
-  margin-left: -2px;
-  margin-top: -23px;
+  font-size: 39px;
+  margin-left: -6px;
+  margin-top: -33px; 
   display: inline-block;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -143,15 +152,6 @@ h1 {
   content:"☹";
 }
 
-.guest-form{
-  transition: visibility 0s, opacity 1s ease;
-}
-
-.guest-form.visible{
-  opacity: 1;
-}
-
-.guest-form.invisible{
-  opacity: 0;
-  display: hidden;
+.rsvp{
+  font-size: 20px;
 }

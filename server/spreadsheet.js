@@ -65,6 +65,18 @@ function proceed(err, tokens){
 
   function parse(err, spreadsheet){
     spreadsheet.worksheets[0].rows({}, function(err, rows){
+
+      // via https://github.com/samcday/node-google-spreadsheets/issues/29
+      rows.forEach(function(row) {
+        delete row.id;
+        delete row.content;
+        for(var k in row) {
+          if( typeof row[k] === 'object') {
+            row[k] = '';
+          }
+        }
+      });
+
       console.log('Got spreadsheet! Indexing by code.');
       rows.forEach(function(d){
         index[d.code] = d;

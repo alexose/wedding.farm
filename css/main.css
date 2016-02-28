@@ -143,24 +143,15 @@ h1 {
   content:"☹";
 }
 
-.guest-form.hidden{
-  -webkit-opacity: 0.25;
-  -moz-opacity: 0.25;
-  opacity: 0.25;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
+.guest-form{
+  transition: visibility 0s, opacity 1s ease;
 }
 
 .guest-form.visible{
-  -webkit-opacity: 1;
-  -moz-opacity: 1;
   opacity: 1;
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  transition: all 1s ease;
+}
+
+.guest-form.invisible{
+  opacity: 0;
+  display: hidden;
 }

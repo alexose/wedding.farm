@@ -109,12 +109,13 @@ var Rsvp = React.createClass({
 
     this.setState({ invitation : invitation });
   },
+
   render : function(){
 
     return (
       <div className="page centered">
         <div className="container">
-          <div className="row">
+          <div className={"row" + (this.state.focus ? ' hidden' : '')}>
             <div className="col-md-3"></div>
             <div className="col-md-6">
               <h1>Répondez, s'il vous plaît.</h1>
@@ -132,7 +133,15 @@ var Rsvp = React.createClass({
                       var invitation = this.state.invitation;
                       invitation.people[i].name = e.target.value;
                       this.setState({ invitation : invitation });
-                    }.bind(this);
+                    }.bind(this),
+                    changeFocus = function(i, e){
+                      e.preventDefault();
+                      if (this.state.focus == i+1 ){
+                        this.setState({ focus : 0 })
+                      } else {
+                        this.setState({ focus : i+1 })
+                      }
+                    };
                 
                 return (
                   <Guest 
@@ -140,14 +149,18 @@ var Rsvp = React.createClass({
                     email={d.email}
                     changeName={changeName} 
                     question={question.q} 
-                    answer={answer} 
+                    answer={answer}
+                    index={i}
+                    focused={this.state.focus && this.state.focus == i+1}
+                    hide={this.state.focus}
+                    changeFocus={changeFocus.bind(this, i)}
                   />
                 )
               }.bind(this))
             }
             </fieldset>
           </form>
-          <div className="row">
+          <div className={"row" + (this.state.focus ? ' hidden' : '')}>
             <div className="col-md-9">
               <div className="pull-right">
                 <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>

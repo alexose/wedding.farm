@@ -348,7 +348,7 @@ var Form = React.createClass({displayName: "Form",
        
         React.createElement("div", {className: "form-group"}, 
           React.createElement("div", {className: "col-md-9"}, 
-            React.createElement("button", {name: "singlebutton", className: "btn btn-primary pull-right", onClick: this.props.toggleForm}, "Done!")
+            React.createElement("button", {name: "singlebutton", className: "btn btn-primary pull-right", onClick: this.props.changeFocus}, "Done!")
           )
         ), 
  
@@ -362,49 +362,41 @@ module.exports = Form;
 
 },{"rc-slider":13,"react":220}],5:[function(require,module,exports){
 var React = require('react');
-
 var Form = require('./form.jsx');
 
 var Guest = React.createClass({displayName: "Guest",
   getInitialState : function(){
-    return { hidden : true };
-  },
-  toggleForm: function(e){
-    if (e && e.preventDefault){
-      e.preventDefault();
-    }
-    this.setState({ hidden: !this.state.hidden });
+    return {};
   },
   update: function(state){
     this.setState({ 
-      decision : state.hi + state.or,
+      decision : state.hi + state.or
     }); 
   },
   render : function(){
-    console.log(this.props.name + 'fart');
+    console.log(this.props.focus);
     return(
-      React.createElement("div", null, 
-
-        React.createElement("div", {className: "title-row row", onClick: this.toggleForm}, 
-          React.createElement("div", {className: "col-md-3"}, 
-            React.createElement("div", {className: "fake-checkbox pull-right " + this.state.decision}, " ")
+      React.createElement("div", {className: "guest"}, 
+        React.createElement("div", {className: "guest-row" + (this.props.hide ? ' hidden' : '')}, 
+          React.createElement("div", {className: "title-row row", onClick: this.props.changeFocus}, 
+            React.createElement("div", {className: "col-md-3"}, 
+              React.createElement("div", {className: "fake-checkbox pull-right " + this.state.decision}, " ")
+            ), 
+            React.createElement("div", {className: "col-md-6"}, 
+              React.createElement("h2", null, this.props.name)
+            )
           ), 
-          React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("h2", null, this.props.name)
-          )
+          React.createElement("div", {className: "row"}, " ")
         ), 
-        
-        React.createElement("div", {className: "row"}, " "), 
-       
-        React.createElement("div", {className: 'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }, 
+        React.createElement("div", {className: 'guest-form' + (this.props.focused ? '' : ' hidden')}, 
           React.createElement(Form, {
             name: this.props.name, 
             email: this.props.email, 
             question: this.props.question, 
             answer: this.props.answer, 
-            toggleForm: this.toggleForm, 
             update: this.update, 
-            changeName: this.props.changeName}
+            changeName: this.props.changeName, 
+            changeFocus: this.props.changeFocus}
           )
         )
       )
@@ -559,12 +551,13 @@ var Rsvp = React.createClass({displayName: "Rsvp",
 
     this.setState({ invitation : invitation });
   },
+
   render : function(){
 
     return (
       React.createElement("div", {className: "page centered"}, 
         React.createElement("div", {className: "container"}, 
-          React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "row" + (this.state.focus ? ' hidden' : '')}, 
             React.createElement("div", {className: "col-md-3"}), 
             React.createElement("div", {className: "col-md-6"}, 
               React.createElement("h1", null, "Répondez, s'il vous plaît.")
@@ -582,7 +575,15 @@ var Rsvp = React.createClass({displayName: "Rsvp",
                       var invitation = this.state.invitation;
                       invitation.people[i].name = e.target.value;
                       this.setState({ invitation : invitation });
-                    }.bind(this);
+                    }.bind(this),
+                    changeFocus = function(i, e){
+                      e.preventDefault();
+                      if (this.state.focus == i+1 ){
+                        this.setState({ focus : 0 })
+                      } else {
+                        this.setState({ focus : i+1 })
+                      }
+                    };
                 
                 return (
                   React.createElement(Guest, {
@@ -590,14 +591,18 @@ var Rsvp = React.createClass({displayName: "Rsvp",
                     email: d.email, 
                     changeName: changeName, 
                     question: question.q, 
-                    answer: answer}
+                    answer: answer, 
+                    index: i, 
+                    focused: this.state.focus && this.state.focus == i+1, 
+                    hide: this.state.focus, 
+                    changeFocus: changeFocus.bind(this, i)}
                   )
                 )
               }.bind(this))
             
             )
           ), 
-          React.createElement("div", {className: "row"}, 
+          React.createElement("div", {className: "row" + (this.state.focus ? ' hidden' : '')}, 
             React.createElement("div", {className: "col-md-9"}, 
               React.createElement("div", {className: "pull-right"}, 
                 React.createElement("div", {onClick: this.addNew, className: "btn-round blue pull-right"}, React.createElement("span", null, "+")), 

@@ -97,7 +97,7 @@ var Form = React.createClass({
        
         <div className="form-group">
           <div className="col-md-9">
-            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.toggleForm}>Done!</button>
+            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.changeFocus}>Done!</button>
           </div>
         </div>
  

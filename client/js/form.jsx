@@ -20,30 +20,30 @@ var Form = React.createClass({
       <div className="guest">
 
         <div className="form-group">
-          <label className="control-label col-md-3" for="name">Your Name</label>
+          <label className="control-label col-md-3" htmlFor="name">Your Name</label>
           <div className="col-md-6">
             <input onChange={this.props.changeName} id="name" name="name" type="text" value={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
         
         <div className="form-group">
-          <label className="control-label col-md-3" for="email">Your electronic mail address</label>
+          <label className="control-label col-md-3" htmlFor="email">Your electronic mail address</label>
           <div className="col-md-6">
             <input id="email" name="email" type="text" defaultValue={this.props.email} className="form-control input-md" required="" />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-3 control-label" for="radios">Party in Kea'au?</label>
+          <label className="col-md-3 control-label" htmlFor="radios">Party in Kea'au?</label>
           <div className="col-md-6">
             <div className="radio">
-              <label for="radios-0">
+              <label htmlFor="radios-0">
                 <input onClick={this.handleRadio} type="radio" name="hi" id="radios-0" value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
-              <label for="radios-1">
+              <label htmlFor="radios-1">
                 <input onClick={this.handleRadio} type="radio" name="hi" id="radios-1" value="no" />
                 Regretfully Decline
               </label>
@@ -52,16 +52,16 @@ var Form = React.createClass({
         </div>
         
         <div className="form-group">
-          <label className="col-md-3 control-label" for="radios">Ceremony in Applegate?</label>
+          <label className="col-md-3 control-label" htmlFor="radios">Ceremony in Applegate?</label>
           <div className="col-md-6">
             <div className="radio">
-              <label for="radios-2">
+              <label htmlFor="radios-2">
                 <input onClick={this.handleRadio} type="radio" name="or" id="radios-2" value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
-              <label for="radios-3">
+              <label htmlFor="radios-3">
                 <input onClick={this.handleRadio} type="radio" name="or" id="radios-3" value="no" />
                 Regretfully Decline
               </label>
@@ -70,21 +70,21 @@ var Form = React.createClass({
         </div>
         
         <div className="form-group">
-          <label className="col-md-3 control-label" for="diet">Any dietary restrictions?</label>
+          <label className="col-md-3 control-label" htmlFor="diet">Any dietary restrictions?</label>
           <div className="col-md-6">                     
             <textarea rows="4" className="form-control" id="textarea" name="textarea" />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-3 control-label" for="question">{this.props.question}</label>
+          <label className="col-md-3 control-label" htmlFor="question">{this.props.question}</label>
           <div className="col-md-6">                     
             <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="control-label col-md-3" for="needs">How fancy are you?</label>  
+          <label className="control-label col-md-3" htmlFor="needs">How fancy are you?</label>  
           <div className="col-md-6 slider-wrap">
             <Slider
               defaultValue={7}

@@ -1,12 +1,8 @@
 var React = require('react')
+var Link = require('react-router').Link;
 
 var Nav = React.createClass({
-  handleClick : function(page, e){
-    e.preventDefault();
-    this.props.onNavigate(page);
-  },
   render: function(){
-    var handleClick = this.handleClick;
     var context = this;
     return (
       <nav className="main-nav">
@@ -15,9 +11,7 @@ var Nav = React.createClass({
             this.props.tabs.map(function(page){
               return (
                 <li>
-                  <a href={'#' + page.name} onClick={handleClick.bind(context, page)}>
-                    {page.display}
-                  </a>
+                  <Link to={page.name}>{page.display}</Link>
                 </li>
               )
             })

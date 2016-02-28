@@ -5,6 +5,11 @@ var Nav = require('./nav.jsx');
 var Clothes = require('./clothes.jsx');
 var Rsvp = require('./rsvp.jsx');
 
+var Router = require('react-router').Router;
+var Route = require('react-router').Route;
+var IndexRoute = require('react-router').IndexRoute;
+var History = require('react-router').browserHistory;
+
 var Home = React.createClass({
   render : function(){
     return (
@@ -18,17 +23,17 @@ var Home = React.createClass({
 // List of navigable elements
 var tabList = [
   {
-    name : 'home',
+    name : '/',
     display : 'Home',
     component : <Home />
   },
   {
-    name : 'clothes',
+    name : '/clothes',
     display : 'Clothes',
     component : <Clothes />
   },
   {
-    name : 'rsvp',
+    name : '/rsvp',
     display : 'RSVP',
     component : <Rsvp />
   }
@@ -38,20 +43,25 @@ var App = React.createClass({
   getInitialState: function(){
     return { tab : tabList[0] }
   },
-  navigate : function(tab){
-    this.setState({ tab : tab });
-  },
   render : function(){
     return (
       <div>
-        {this.state.tab.component}
-        <Nav onNavigate={this.navigate} tabs={tabList} />
+        {this.props.children}
+        <Nav tabs={tabList} />
       </div>
     )
   }
 });
 
 ReactDOM.render(
-  <App />,
+  <Router history={History}>
+    <Route path="/" component={App}>
+      <IndexRoute component={Home}/>
+      <Route path="/rsvp" component={Rsvp}>
+        <Route path="/rsvp/:id" component={Rsvp} />
+      </Route>
+      <Route path="/clothes" component={Clothes} />
+    </Route>
+  </Router>,
   document.getElementById('app')
 );

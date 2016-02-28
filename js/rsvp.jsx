@@ -109,7 +109,7 @@ var Guest = React.createClass({
         
         <div className="row">&nbsp;</div>
        
-        <div className={'guest-form ' + (this.state.hidden ? 'invisible' : 'visible') }>
+        <div className={'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }>
           <Form 
             name={this.props.name} 
             question={this.props.question} 

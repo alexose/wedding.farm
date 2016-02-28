@@ -5,13 +5,8 @@ var Guest = React.createClass({
   getInitialState : function(){
     return {};
   },
-  update: function(state){
-    this.setState({ 
-      decision : state.hi + state.or
-    }); 
-  },
   render : function(){
-    console.log(this.props.focus);
+    console.log(this.props);
     return(
       <div className={"guest"}>
         <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>
@@ -20,18 +15,16 @@ var Guest = React.createClass({
               <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
             </div>
             <div className="col-md-6">
-              <h2>{this.props.name}</h2>
+              <h2>{this.props.person.name}</h2>
             </div>
           </div>
         </div>
         <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}> 
           <Form 
-            name={this.props.name} 
-            email={this.props.email} 
+            person={this.props.person}
             question={this.props.question} 
             answer={this.props.answer} 
-            update={this.update}
-            changeName={this.props.changeName}
+            update={this.props.update}
             changeFocus={this.props.changeFocus}
           />
         </div>

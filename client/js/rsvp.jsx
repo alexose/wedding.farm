@@ -116,6 +116,7 @@ var Rsvp = React.createClass({
           var invitation = this.state.invitation;
           invitation.people = people;
           this.setState({ invitation : invitation });
+          this.backup = JSON.stringify(invitation); 
 
         }.bind(this));
     }
@@ -146,10 +147,23 @@ var Rsvp = React.createClass({
 
                 var question = shuffled[(i+1) % shuffled.length],
                     answer = question.a[0],
-                    changeName = function(e){
+                    update = function(person, restore, save){
+                      
+                      // Restore backup
+                      if (restore){
+                        this.setState({ invitation : JSON.parse(this.backup) });
+                        return;
+                      }
+
+                      // Update person
                       var invitation = this.state.invitation;
-                      invitation.people[i].name = e.target.value;
+                      invitation.people[i] = person;
                       this.setState({ invitation : invitation });
+                      
+                      if (save){
+                        this.backup = JSON.stringify(invitation);
+                      }
+
                     }.bind(this),
                     changeFocus = function(i, e){
                       e.preventDefault();
@@ -162,9 +176,9 @@ var Rsvp = React.createClass({
                 
                 return (
                   <Guest 
-                    name={d.name}
-                    email={d.email}
-                    changeName={changeName} 
+                    person={d}
+                    backup={d}
+                    update={update} 
                     question={question.q} 
                     answer={answer}
                     index={i}

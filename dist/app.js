@@ -375,12 +375,36 @@ var Guest = React.createClass({displayName: "Guest",
     }
     this.setState({ hidden: !this.state.hidden });
   },
+  update: function(state){
+
+    var decision = 'nope';
+
+    for (var prop in state){
+      var value = state[prop];
+
+      // If any are null, then we haven't decided
+      if (value === null){
+        decision = ''; 
+        break;
+      } else {
+        if (value){
+          console.log(value);
+          decision = 'going'; 
+          break;
+        }
+      }
+    }
+
+    console.log(decision);
+
+    this.setState({ decision : decision }); 
+  },
   render : function(){
     return(
       React.createElement("div", null, 
         React.createElement("div", {className: "title-row row", onClick: this.toggleForm}, 
           React.createElement("div", {className: "col-md-3"}, 
-            React.createElement("div", {className: "fake-checkbox pull-right"}, " ")
+            React.createElement("div", {className: "fake-checkbox pull-right " + this.state.decision}, " ")
           ), 
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("h2", null, this.props.name)
@@ -394,7 +418,8 @@ var Guest = React.createClass({displayName: "Guest",
             name: this.props.name, 
             question: this.props.question, 
             answer: this.props.answer, 
-            toggleForm: this.toggleForm}
+            toggleForm: this.toggleForm, 
+            update: this.update}
           )
         )
       )
@@ -403,8 +428,21 @@ var Guest = React.createClass({displayName: "Guest",
 });
 
 var Form = React.createClass({displayName: "Form",
+  getInitialState : function(){
+    return {
+      hi : null,
+      or : null
+    };
+  },
   changeValue : function(d){
     console.log(d);
+  },
+  handleRadio : function(e){
+    var obj = {};
+    obj[e.target.name] = e.target.value === "true" ? true : false;
+    this.setState(obj, function(){
+      this.props.update(this.state); 
+    });
   },
   render : function(){
     return (
@@ -413,7 +451,7 @@ var Form = React.createClass({displayName: "Form",
         React.createElement("div", {className: "form-group"}, 
           React.createElement("label", {className: "control-label col-md-3", for: "name"}, "Your Name"), 
           React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("input", {id: "name", name: "name", type: "text", placeholder: this.props.name, className: "form-control input-md", required: ""})
+            React.createElement("input", {id: "name", name: "name", type: "text", value: this.props.name, className: "form-control input-md", required: ""})
           )
         ), 
 
@@ -422,13 +460,13 @@ var Form = React.createClass({displayName: "Form",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-0"}, 
-                React.createElement("input", {type: "radio", name: "radios", id: "radios-0", value: "true", checked: "checked"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-0", value: "true"}), 
                 "Happily Accept"
               )
             ), 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-1"}, 
-                React.createElement("input", {type: "radio", name: "radios", id: "radios-1", value: "false"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-1", value: "false"}), 
                 "Regretfully Decline"
               )
             )
@@ -439,14 +477,14 @@ var Form = React.createClass({displayName: "Form",
           React.createElement("label", {className: "col-md-3 control-label", for: "radios"}, "Ceremony in Applegate?"), 
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("div", {className: "radio"}, 
-              React.createElement("label", {for: "radios-0"}, 
-                React.createElement("input", {type: "radio", name: "radios", id: "radios-0", value: "true", checked: "checked"}), 
+              React.createElement("label", {for: "radios-2"}, 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-2", value: "true"}), 
                 "Happily Accept"
               )
             ), 
             React.createElement("div", {className: "radio"}, 
-              React.createElement("label", {for: "radios-1"}, 
-                React.createElement("input", {type: "radio", name: "radios", id: "radios-1", value: "false"}), 
+              React.createElement("label", {for: "radios-3"}, 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-3", value: "false"}), 
                 "Regretfully Decline"
               )
             )

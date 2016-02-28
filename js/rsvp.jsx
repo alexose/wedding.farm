@@ -91,12 +91,36 @@ var Guest = React.createClass({
     }
     this.setState({ hidden: !this.state.hidden });
   },
+  update: function(state){
+
+    var decision = 'nope';
+
+    for (var prop in state){
+      var value = state[prop];
+
+      // If any are null, then we haven't decided
+      if (value === null){
+        decision = ''; 
+        break;
+      } else {
+        if (value){
+          console.log(value);
+          decision = 'going'; 
+          break;
+        }
+      }
+    }
+
+    console.log(decision);
+
+    this.setState({ decision : decision }); 
+  },
   render : function(){
     return(
       <div>
         <div className="title-row row" onClick={this.toggleForm}>
           <div className="col-md-3">
-            <div className="fake-checkbox pull-right">&nbsp;</div>
+            <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
           </div>
           <div className="col-md-6">
             <h2>{this.props.name}</h2>
@@ -110,7 +134,8 @@ var Guest = React.createClass({
             name={this.props.name} 
             question={this.props.question} 
             answer={this.props.answer} 
-            toggleForm={this.toggleForm} 
+            toggleForm={this.toggleForm}
+            update={this.update}
           />
         </div>
       </div>
@@ -119,8 +144,21 @@ var Guest = React.createClass({
 });
 
 var Form = React.createClass({
+  getInitialState : function(){
+    return {
+      hi : null,
+      or : null
+    };
+  },
   changeValue : function(d){
     console.log(d);
+  },
+  handleRadio : function(e){
+    var obj = {};
+    obj[e.target.name] = e.target.value === "true" ? true : false;
+    this.setState(obj, function(){
+      this.props.update(this.state); 
+    });
   },
   render : function(){
     return (
@@ -129,7 +167,7 @@ var Form = React.createClass({
         <div className="form-group">
           <label className="control-label col-md-3" for="name">Your Name</label>
           <div className="col-md-6">
-            <input id="name" name="name" type="text" placeholder={this.props.name} className="form-control input-md" required="" />
+            <input id="name" name="name" type="text" value={this.props.name} className="form-control input-md" required="" />
           </div>
         </div>
 
@@ -138,13 +176,13 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label for="radios-0">
-                <input type="radio" name="radios" id="radios-0" value="true" checked="checked" />
+                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-0" value="true"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
               <label for="radios-1">
-                <input type="radio" name="radios" id="radios-1" value="false" />
+                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-1" value="false" />
                 Regretfully Decline
               </label>
             </div>
@@ -155,14 +193,14 @@ var Form = React.createClass({
           <label className="col-md-3 control-label" for="radios">Ceremony in Applegate?</label>
           <div className="col-md-6">
             <div className="radio">
-              <label for="radios-0">
-                <input type="radio" name="radios" id="radios-0" value="true" checked="checked" />
+              <label for="radios-2">
+                <input onClick={this.handleRadio} type="radio" name="or" id="radios-2" value="true"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
-              <label for="radios-1">
-                <input type="radio" name="radios" id="radios-1" value="false" />
+              <label for="radios-3">
+                <input onClick={this.handleRadio} type="radio" name="or" id="radios-3" value="false" />
                 Regretfully Decline
               </label>
             </div>

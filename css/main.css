@@ -122,6 +122,13 @@ h1 {
   border-radius: 10px;
 }
 
+.fake-checkbox.yes{
+  content:"✓";
+}
+.fake-checkbox.no{
+  content:"✘";
+}
+
 .guest-form.hidden{
   -webkit-opacity: 0.25;
   -moz-opacity: 0.25;

@@ -1,6 +1,8 @@
 var React = require('react');
 var Slider = require('rc-slider');
 
+var Guest = require('./guest.jsx');
+
 var text = [
   'Not very fancy.  Remember that you should wear shoes',
   'Neither fancy nor unfancy.',
@@ -145,150 +147,6 @@ var Rsvp = React.createClass({
             </div>
           </div>
         </div>
-      </div>
-    )
-  }
-});
-
-var Guest = React.createClass({
-  getInitialState : function(){
-    return { hidden : true };
-  },
-  toggleForm: function(e){
-    if (e && e.preventDefault){
-      e.preventDefault();
-    }
-    this.setState({ hidden: !this.state.hidden });
-  },
-  update: function(state){
-    this.setState({ 
-      decision : state.hi + state.or,
-    }); 
-  },
-  render : function(){
-    console.log(this.props.name + 'fart');
-    return(
-      <div>
-        <div className="title-row row" onClick={this.toggleForm}>
-          <div className="col-md-3">
-            <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
-          </div>
-          <div className="col-md-6">
-            <h2>{this.props.name}</h2>
-          </div>
-        </div>
-        
-        <div className="row">&nbsp;</div>
-       
-        <div className={'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }>
-          <Form 
-            name={this.props.name} 
-            question={this.props.question} 
-            answer={this.props.answer} 
-            toggleForm={this.toggleForm}
-            update={this.update}
-            changeName={this.props.changeName}
-          />
-        </div>
-      </div>
-    )
-  }
-});
-
-var Form = React.createClass({
-  getInitialState : function(){
-    return {
-      hi : 'blank',
-      or : 'blank'
-    };
-  },
-  handleRadio : function(e){
-    var obj = {};
-    obj[e.target.name] = e.target.value;
-    this.setState(obj, function(){
-      this.props.update(this.state); 
-    });
-  },
-  render : function(){
-    return (
-      <div className="guest">
-
-        <div className="form-group">
-          <label className="control-label col-md-3" for="name">Your Name</label>
-          <div className="col-md-6">
-            <input onChange={this.props.changeName} id="name" name="name" type="text" value={this.props.name} className="form-control input-md" required="" />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="col-md-3 control-label" for="radios">Party in Kea'au?</label>
-          <div className="col-md-6">
-            <div className="radio">
-              <label for="radios-0">
-                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-0" value="yes"/>
-                Happily Accept
-              </label>
-            </div>
-            <div className="radio">
-              <label for="radios-1">
-                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-1" value="no" />
-                Regretfully Decline
-              </label>
-            </div>
-          </div>
-        </div>
-        
-        <div className="form-group">
-          <label className="col-md-3 control-label" for="radios">Ceremony in Applegate?</label>
-          <div className="col-md-6">
-            <div className="radio">
-              <label for="radios-2">
-                <input onClick={this.handleRadio} type="radio" name="or" id="radios-2" value="yes"/>
-                Happily Accept
-              </label>
-            </div>
-            <div className="radio">
-              <label for="radios-3">
-                <input onClick={this.handleRadio} type="radio" name="or" id="radios-3" value="no" />
-                Regretfully Decline
-              </label>
-            </div>
-          </div>
-        </div>
-        
-        <div className="form-group">
-          <label className="col-md-3 control-label" for="diet">Any dietary restrictions?</label>
-          <div className="col-md-6">                     
-            <textarea rows="4" className="form-control" id="textarea" name="textarea" />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="col-md-3 control-label" for="question">{this.props.question}</label>
-          <div className="col-md-6">                     
-            <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="control-label col-md-3" for="needs">How fancy are you?</label>  
-          <div className="col-md-6 slider-wrap">
-            <Slider
-              defaultValue={7}
-              onChange={this.changeValue}
-              step={1}
-              max={10}
-              min={1} />
-          </div>
-        </div>
-       
-        <div className="form-group">
-          <div className="col-md-9">
-            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.toggleForm}>All done!</button>
-          </div>
-        </div>
- 
-        <hr />
       </div>
     )
   }

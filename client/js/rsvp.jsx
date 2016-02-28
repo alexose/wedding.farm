@@ -1,7 +1,8 @@
 var React = require('react');
 var Slider = require('rc-slider');
-
 var Guest = require('./guest.jsx');
+
+var request = require('superagent');
 
 var text = [
   'Not very fancy.  Remember that you should wear shoes',
@@ -76,21 +77,7 @@ var shuffled = shuffle(questions);
 
 var invitation = {
   id : 123,
-  people : [
-    {
-      name : 'Mr. Bob J. Smith, Esq.',
-      email: "bobsmith@yahoo.com"
-    },
-    {
-      name : 'Mrs. Sue S. Smith',
-      email: "suesmith@aol.com"
-    },
-    {
-      name : 'Bob Smith, Jr.',
-      email : "bobsmithjr@gmail.com",
-      child : true
-    }
-  ]
+  people : []
 };
 
 var Rsvp = React.createClass({
@@ -99,19 +86,49 @@ var Rsvp = React.createClass({
       invitation : invitation
     };
   },
+  componentDidMount : function(stuff){
+    var id = this.props.params.id;
+    if (id){
+      request
+        .get('/api/fetch/' + id)
+        .end(function(err, res){
+          var d = res.body;
+          
+          var people = [];
+          
+          people.push({
+            name : d.mailname1,
+            email : d.email1
+          });
+
+          if (exists(d.invitee2)){
+            people.push({
+              name : d.mailname2,
+              email : d.email2
+            });
+          }
+
+          function exists(entry){
+             return (typeof entry === 'string' ? entry : false);
+          }
+
+          // Update onscreen invitation
+          var invitation = this.state.invitation;
+          invitation.people = people;
+          this.setState({ invitation : invitation });
+
+        }.bind(this));
+    }
+  },
   addNew : function(){
-
     var invitation = this.state.invitation;
-
     invitation.people.push({
       name : 'Surprise guest!'
     });
 
     this.setState({ invitation : invitation });
   },
-
   render : function(){
-
     return (
       <div className="page centered">
         <div className="container">

@@ -347,6 +347,15 @@ var questions = [
   },
 ];
 
+// Shuffle answers
+for (var i in questions){
+  questions[i].a = shuffle(questions[i].a);
+}
+
+// Shuffle questions
+var shuffled = shuffle(questions);
+
+
 var invitation = {
   id : 123,
   people : [
@@ -509,7 +518,9 @@ var Form = React.createClass({displayName: "Form",
 
 var Rsvp = React.createClass({displayName: "Rsvp",
   getInitialState : function(){
-    return { invitation : invitation };
+    return { 
+      invitation : invitation
+    };
   },
   addNew : function(){
 
@@ -522,8 +533,6 @@ var Rsvp = React.createClass({displayName: "Rsvp",
     this.setState({ invitation : invitation });
   },
   render : function(){
-
-    var shuffled = shuffle(questions);
 
     return (
       React.createElement("div", {className: "container page"}, 
@@ -540,7 +549,7 @@ var Rsvp = React.createClass({displayName: "Rsvp",
             invitation.people.map(function(d,i){
 
               var question = shuffled[(i+1) % shuffled.length],
-                  answer = shuffle(question.a)[0];
+                  answer = question.a[0],
                   changeName = function(e){
                     var invitation = this.state.invitation;
                     invitation.people[i].name = e.target.value;

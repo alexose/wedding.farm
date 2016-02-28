@@ -81,7 +81,7 @@ var Form = React.createClass({
           </div>
         </div>
 
-        <div className={this.state.advanced ? ' slidein' : ' slideout'}>
+        <div className={"animated" + (this.state.advanced ? '' : ' fadeout')}>
           <div className="form-group">
             <label className="col-md-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
             <div className="col-md-6">                     

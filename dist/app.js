@@ -374,9 +374,12 @@ var Guest = React.createClass({displayName: "Guest",
     this.setState({ hidden: !this.state.hidden });
   },
   update: function(state){
-    this.setState({ decision : state.hi + state.or }); 
+    this.setState({ 
+      decision : state.hi + state.or,
+    }); 
   },
   render : function(){
+    console.log(this.props.name + 'fart');
     return(
       React.createElement("div", null, 
         React.createElement("div", {className: "title-row row", onClick: this.toggleForm}, 
@@ -396,7 +399,8 @@ var Guest = React.createClass({displayName: "Guest",
             question: this.props.question, 
             answer: this.props.answer, 
             toggleForm: this.toggleForm, 
-            update: this.update}
+            update: this.update, 
+            changeName: this.props.changeName}
           )
         )
       )
@@ -410,9 +414,6 @@ var Form = React.createClass({displayName: "Form",
       hi : 'blank',
       or : 'blank'
     };
-  },
-  changeValue : function(d){
-    console.log(d);
   },
   handleRadio : function(e){
     var obj = {};
@@ -428,7 +429,7 @@ var Form = React.createClass({displayName: "Form",
         React.createElement("div", {className: "form-group"}, 
           React.createElement("label", {className: "control-label col-md-3", for: "name"}, "Your Name"), 
           React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("input", {id: "name", name: "name", type: "text", value: this.props.name, className: "form-control input-md", required: ""})
+            React.createElement("input", {onChange: this.props.changeName, id: "name", name: "name", type: "text", value: this.props.name, className: "form-control input-md", required: ""})
           )
         ), 
 
@@ -515,7 +516,7 @@ var Rsvp = React.createClass({displayName: "Rsvp",
     var invitation = this.state.invitation;
 
     invitation.people.push({
-      name : 'Surprise guest'
+      name : 'Surprise guest!'
     });
 
     this.setState({ invitation : invitation });
@@ -540,11 +541,16 @@ var Rsvp = React.createClass({displayName: "Rsvp",
 
               var question = shuffled[(i+1) % shuffled.length],
                   answer = shuffle(question.a)[0];
-
+                  changeName = function(e){
+                    var invitation = this.state.invitation;
+                    invitation.people[i].name = e.target.value;
+                    this.setState({ invitation : invitation });
+                  }.bind(this);
+              
               return (
-                React.createElement(Guest, {name: d.name, question: question.q, answer: answer})
+                React.createElement(Guest, {name: d.name, changeName: changeName, question: question.q, answer: answer})
               )
-            })
+            }.bind(this))
           
           )
         ), 

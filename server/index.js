@@ -4,6 +4,8 @@ var config = require('./config.js');
 var spreadsheet = require('./spreadsheet.js');
 
 app.use(express.static('../client'));
+app.use('/clothes', express.static('../client'));
+app.use('/rsvp', express.static('../client'));
 
 app.get('/api/fetch/:id', function (req, res){
   var id = request.params.id;

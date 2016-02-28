@@ -78,13 +78,16 @@ var invitation = {
   id : 123,
   people : [
     {
-      name : 'Mr. Bob J. Smith, Esq.'
+      name : 'Mr. Bob J. Smith, Esq.',
+      email: "bobsmith@yahoo.com"
     },
     {
-      name : 'Mrs. Sue S. Smith'
+      name : 'Mrs. Sue S. Smith',
+      email: "suesmith@aol.com"
     },
     {
       name : 'Bob Smith, Jr.',
+      email : "bobsmithjr@gmail.com",
       child : true
     }
   ]
@@ -132,7 +135,13 @@ var Rsvp = React.createClass({
                     }.bind(this);
                 
                 return (
-                  <Guest name={d.name} changeName={changeName} question={question.q} answer={answer} />
+                  <Guest 
+                    name={d.name}
+                    email={d.email}
+                    changeName={changeName} 
+                    question={question.q} 
+                    answer={answer} 
+                  />
                 )
               }.bind(this))
             }

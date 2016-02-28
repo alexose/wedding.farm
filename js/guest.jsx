@@ -20,6 +20,7 @@ var Guest = React.createClass({
     console.log(this.props.name + 'fart');
     return(
       <div>
+
         <div className="title-row row" onClick={this.toggleForm}>
           <div className="col-md-3">
             <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
@@ -34,6 +35,7 @@ var Guest = React.createClass({
         <div className={'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }>
           <Form 
             name={this.props.name} 
+            email={this.props.email} 
             question={this.props.question} 
             answer={this.props.answer} 
             toggleForm={this.toggleForm}
@@ -68,6 +70,13 @@ var Form = React.createClass({
           <label className="control-label col-md-3" for="name">Your Name</label>
           <div className="col-md-6">
             <input onChange={this.props.changeName} id="name" name="name" type="text" value={this.props.name} className="form-control input-md" required="" />
+          </div>
+        </div>
+        
+        <div className="form-group">
+          <label className="control-label col-md-3" for="email">Your electronic mail address</label>
+          <div className="col-md-6">
+            <input id="email" name="email" type="text" defaultValue={this.props.email} className="form-control input-md" required="" />
           </div>
         </div>
 
@@ -135,7 +144,7 @@ var Form = React.createClass({
        
         <div className="form-group">
           <div className="col-md-9">
-            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.toggleForm}>All done!</button>
+            <button name="singlebutton" className="btn btn-primary pull-right" onClick={this.props.toggleForm}>Done!</button>
           </div>
         </div>
  

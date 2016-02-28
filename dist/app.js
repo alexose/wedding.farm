@@ -271,6 +271,7 @@ var Guest = React.createClass({displayName: "Guest",
     console.log(this.props.name + 'fart');
     return(
       React.createElement("div", null, 
+
         React.createElement("div", {className: "title-row row", onClick: this.toggleForm}, 
           React.createElement("div", {className: "col-md-3"}, 
             React.createElement("div", {className: "fake-checkbox pull-right " + this.state.decision}, " ")
@@ -285,6 +286,7 @@ var Guest = React.createClass({displayName: "Guest",
         React.createElement("div", {className: 'guest-form ' + (this.state.hidden ? 'hidden' : 'visible') }, 
           React.createElement(Form, {
             name: this.props.name, 
+            email: this.props.email, 
             question: this.props.question, 
             answer: this.props.answer, 
             toggleForm: this.toggleForm, 
@@ -319,6 +321,13 @@ var Form = React.createClass({displayName: "Form",
           React.createElement("label", {className: "control-label col-md-3", for: "name"}, "Your Name"), 
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("input", {onChange: this.props.changeName, id: "name", name: "name", type: "text", value: this.props.name, className: "form-control input-md", required: ""})
+          )
+        ), 
+        
+        React.createElement("div", {className: "form-group"}, 
+          React.createElement("label", {className: "control-label col-md-3", for: "email"}, "Your electronic mail address"), 
+          React.createElement("div", {className: "col-md-6"}, 
+            React.createElement("input", {id: "email", name: "email", type: "text", defaultValue: this.props.email, className: "form-control input-md", required: ""})
           )
         ), 
 
@@ -386,7 +395,7 @@ var Form = React.createClass({displayName: "Form",
        
         React.createElement("div", {className: "form-group"}, 
           React.createElement("div", {className: "col-md-9"}, 
-            React.createElement("button", {name: "singlebutton", className: "btn btn-primary pull-right", onClick: this.props.toggleForm}, "All done!")
+            React.createElement("button", {name: "singlebutton", className: "btn btn-primary pull-right", onClick: this.props.toggleForm}, "Done!")
           )
         ), 
  
@@ -512,13 +521,16 @@ var invitation = {
   id : 123,
   people : [
     {
-      name : 'Mr. Bob J. Smith, Esq.'
+      name : 'Mr. Bob J. Smith, Esq.',
+      email: "bobsmith@yahoo.com"
     },
     {
-      name : 'Mrs. Sue S. Smith'
+      name : 'Mrs. Sue S. Smith',
+      email: "suesmith@aol.com"
     },
     {
       name : 'Bob Smith, Jr.',
+      email : "bobsmithjr@gmail.com",
       child : true
     }
   ]
@@ -566,7 +578,13 @@ var Rsvp = React.createClass({displayName: "Rsvp",
                     }.bind(this);
                 
                 return (
-                  React.createElement(Guest, {name: d.name, changeName: changeName, question: question.q, answer: answer})
+                  React.createElement(Guest, {
+                    name: d.name, 
+                    email: d.email, 
+                    changeName: changeName, 
+                    question: question.q, 
+                    answer: answer}
+                  )
                 )
               }.bind(this))
             

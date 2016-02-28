@@ -92,28 +92,7 @@ var Guest = React.createClass({
     this.setState({ hidden: !this.state.hidden });
   },
   update: function(state){
-
-    var decision = 'nope';
-
-    for (var prop in state){
-      var value = state[prop];
-
-      // If any are null, then we haven't decided
-      if (value === null){
-        decision = ''; 
-        break;
-      } else {
-        if (value){
-          console.log(value);
-          decision = 'going'; 
-          break;
-        }
-      }
-    }
-
-    console.log(decision);
-
-    this.setState({ decision : decision }); 
+    this.setState({ decision : state.hi + state.or }); 
   },
   render : function(){
     return(
@@ -146,8 +125,8 @@ var Guest = React.createClass({
 var Form = React.createClass({
   getInitialState : function(){
     return {
-      hi : null,
-      or : null
+      hi : 'blank',
+      or : 'blank'
     };
   },
   changeValue : function(d){
@@ -155,7 +134,7 @@ var Form = React.createClass({
   },
   handleRadio : function(e){
     var obj = {};
-    obj[e.target.name] = e.target.value === "true" ? true : false;
+    obj[e.target.name] = e.target.value;
     this.setState(obj, function(){
       this.props.update(this.state); 
     });
@@ -176,13 +155,13 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label for="radios-0">
-                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-0" value="true"/>
+                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-0" value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
               <label for="radios-1">
-                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-1" value="false" />
+                <input onClick={this.handleRadio} type="radio" name="hi" id="radios-1" value="no" />
                 Regretfully Decline
               </label>
             </div>
@@ -194,13 +173,13 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label for="radios-2">
-                <input onClick={this.handleRadio} type="radio" name="or" id="radios-2" value="true"/>
+                <input onClick={this.handleRadio} type="radio" name="or" id="radios-2" value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
               <label for="radios-3">
-                <input onClick={this.handleRadio} type="radio" name="or" id="radios-3" value="false" />
+                <input onClick={this.handleRadio} type="radio" name="or" id="radios-3" value="no" />
                 Regretfully Decline
               </label>
             </div>

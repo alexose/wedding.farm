@@ -376,28 +376,7 @@ var Guest = React.createClass({displayName: "Guest",
     this.setState({ hidden: !this.state.hidden });
   },
   update: function(state){
-
-    var decision = 'nope';
-
-    for (var prop in state){
-      var value = state[prop];
-
-      // If any are null, then we haven't decided
-      if (value === null){
-        decision = ''; 
-        break;
-      } else {
-        if (value){
-          console.log(value);
-          decision = 'going'; 
-          break;
-        }
-      }
-    }
-
-    console.log(decision);
-
-    this.setState({ decision : decision }); 
+    this.setState({ decision : state.hi + state.or }); 
   },
   render : function(){
     return(
@@ -430,8 +409,8 @@ var Guest = React.createClass({displayName: "Guest",
 var Form = React.createClass({displayName: "Form",
   getInitialState : function(){
     return {
-      hi : null,
-      or : null
+      hi : 'blank',
+      or : 'blank'
     };
   },
   changeValue : function(d){
@@ -439,7 +418,7 @@ var Form = React.createClass({displayName: "Form",
   },
   handleRadio : function(e){
     var obj = {};
-    obj[e.target.name] = e.target.value === "true" ? true : false;
+    obj[e.target.name] = e.target.value;
     this.setState(obj, function(){
       this.props.update(this.state); 
     });
@@ -460,13 +439,13 @@ var Form = React.createClass({displayName: "Form",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-0"}, 
-                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-0", value: "true"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-0", value: "yes"}), 
                 "Happily Accept"
               )
             ), 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-1"}, 
-                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-1", value: "false"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "hi", id: "radios-1", value: "no"}), 
                 "Regretfully Decline"
               )
             )
@@ -478,13 +457,13 @@ var Form = React.createClass({displayName: "Form",
           React.createElement("div", {className: "col-md-6"}, 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-2"}, 
-                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-2", value: "true"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-2", value: "yes"}), 
                 "Happily Accept"
               )
             ), 
             React.createElement("div", {className: "radio"}, 
               React.createElement("label", {for: "radios-3"}, 
-                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-3", value: "false"}), 
+                React.createElement("input", {onClick: this.handleRadio, type: "radio", name: "or", id: "radios-3", value: "no"}), 
                 "Regretfully Decline"
               )
             )

@@ -130,17 +130,17 @@ var Rsvp = React.createClass({
   },
   render : function(){
     return (
-      <div className={'page centered' + (this.state.focus ? ' aligntop' : '')}>
+      <div className={'page centered'}>
         <div className="container">
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
             <div className="col-md-6">
               <h1>Répondez, s'il vous plaît.</h1>
+              <hr />
             </div>
           </div>
           <form className="form-horizontal rsvp">
             <fieldset>
-            <hr />
             {
               invitation.people.map(function(d,i){
 
@@ -177,12 +177,12 @@ var Rsvp = React.createClass({
             }
             </fieldset>
           </form>
+          <hr />
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
-            <div className="col-md-9">
-              <div className="pull-right">
-                <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>
-                <div className="add-person pull-right">Add another person</div>
-              </div>
+            <div className="col-md-4"></div>
+            <div className="col-md-4">
+              <div className="add-person pull-left" onClick={this.addNew}>Did we forget someone?</div>
+              <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Finish</button>
             </div>
           </div>
         </div>

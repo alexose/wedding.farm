@@ -23,7 +23,6 @@ var Guest = React.createClass({
               <h2>{this.props.name}</h2>
             </div>
           </div>
-          <div className="row">&nbsp;</div>
         </div>
         <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}> 
           <Form 

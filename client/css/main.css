@@ -111,6 +111,7 @@ h1 {
 }
 
 .add-person{
+  cursor: pointer;
   padding: 14px;
 }
 
@@ -133,7 +134,7 @@ h1 {
 .fake-checkbox:after{
   font-size: 39px;
   margin-left: -6px;
-  margin-top: -33px; 
+  margin-top: -36px; 
   display: inline-block;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -150,6 +151,20 @@ h1 {
   }
 .fake-checkbox.nono:after{ 
   content:"☹";
+}
+
+.toggle-advanced{
+  margin: 35px 0;
+  cursor: pointer;
+}
+
+.toggle-advanced:after{
+  font-size: 10px;
+  content:" ▼";
+}
+
+.toggle-advanced.closed:after{
+  content:" ▶";
 }
 
 .rsvp{

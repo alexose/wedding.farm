@@ -15,6 +15,10 @@ var Form = React.createClass({
       this.props.update(this.state); 
     });
   },
+  showAdvanced : function(){
+    var switched = !this.state.advanced;
+    this.setState({ advanced: switched });
+  },
   render : function(){
     return (
       <div className="guest">
@@ -68,30 +72,40 @@ var Form = React.createClass({
             </div>
           </div>
         </div>
-        
-        <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
-          <div className="col-md-6">                     
-            <textarea rows="4" className="form-control" id="textarea" name="textarea" />
+      
+       
+        <div className="row">
+          <div className="col-md-4"></div>
+          <div className="col-md-6">
+            <h4 onClick={this.showAdvanced} className={"toggle-advanced " + (this.state.advanced ? 'open' : 'closed')}>Advanced wedding options</h4>
           </div>
         </div>
 
-        <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor="question">{this.props.question}</label>
-          <div className="col-md-6">                     
-            <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
+        <div className={this.state.advanced ? ' slidein' : ' slideout'}>
+          <div className="form-group">
+            <label className="col-md-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
+            <div className="col-md-6">                     
+              <textarea rows="4" className="form-control" id="textarea" name="textarea" />
+            </div>
           </div>
-        </div>
 
-        <div className="form-group">
-          <label className="control-label col-md-4" htmlFor="needs">How fancy are you?</label>  
-          <div className="col-md-6 slider-wrap">
-            <Slider
-              defaultValue={7}
-              onChange={this.changeValue}
-              step={1}
-              max={10}
-              min={1} />
+          <div className="form-group">
+            <label className="col-md-4 control-label" htmlFor="question">{this.props.question}</label>
+            <div className="col-md-6">                     
+              <textarea rows="4" className="form-control" id="textarea" name="textarea" defaultValue={this.props.answer} />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label className="control-label col-md-4" htmlFor="needs">How fancy are you?</label>  
+            <div className="col-md-6 slider-wrap">
+              <Slider
+                defaultValue={7}
+                onChange={this.changeValue}
+                step={1}
+                max={10}
+                min={1} />
+            </div>
           </div>
         </div>
        
@@ -99,11 +113,9 @@ var Form = React.createClass({
           <div className="col-md-4"></div>
           <div className="col-md-6">
             <button name="singlebutton" className="btn btn-secondary btn-lg pull-left" onClick={this.props.changeFocus}>Cancel</button>
-            <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Done!</button>
+            <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Continue</button>
           </div>
         </div>
- 
-        <hr />
       </div>
     )
   }

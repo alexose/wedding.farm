@@ -372,6 +372,68 @@ var invitation = {
   ]
 };
 
+var Rsvp = React.createClass({displayName: "Rsvp",
+  getInitialState : function(){
+    return { 
+      invitation : invitation
+    };
+  },
+  addNew : function(){
+
+    var invitation = this.state.invitation;
+
+    invitation.people.push({
+      name : 'Surprise guest!'
+    });
+
+    this.setState({ invitation : invitation });
+  },
+  render : function(){
+
+    return (
+      React.createElement("div", {className: "page centered"}, 
+        React.createElement("div", {className: "container"}, 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-md-3"}), 
+            React.createElement("div", {className: "col-md-6"}, 
+              React.createElement("h1", null, "Répondez, s'il vous plaît.")
+            )
+          ), 
+          React.createElement("form", {className: "form-horizontal"}, 
+            React.createElement("fieldset", null, 
+            React.createElement("hr", null), 
+            
+              invitation.people.map(function(d,i){
+
+                var question = shuffled[(i+1) % shuffled.length],
+                    answer = question.a[0],
+                    changeName = function(e){
+                      var invitation = this.state.invitation;
+                      invitation.people[i].name = e.target.value;
+                      this.setState({ invitation : invitation });
+                    }.bind(this);
+                
+                return (
+                  React.createElement(Guest, {name: d.name, changeName: changeName, question: question.q, answer: answer})
+                )
+              }.bind(this))
+            
+            )
+          ), 
+          React.createElement("div", {className: "row"}, 
+            React.createElement("div", {className: "col-md-9"}, 
+              React.createElement("div", {className: "pull-right"}, 
+                React.createElement("div", {onClick: this.addNew, className: "btn-round blue pull-right"}, React.createElement("span", null, "+")), 
+                React.createElement("div", {className: "add-person pull-right"}, "Add another person")
+              )
+            )
+          )
+        )
+      )
+    )
+  }
+});
+
 var Guest = React.createClass({displayName: "Guest",
   getInitialState : function(){
     return { hidden : true };
@@ -511,66 +573,6 @@ var Form = React.createClass({displayName: "Form",
         ), 
  
         React.createElement("hr", null)
-      )
-    )
-  }
-});
-
-var Rsvp = React.createClass({displayName: "Rsvp",
-  getInitialState : function(){
-    return { 
-      invitation : invitation
-    };
-  },
-  addNew : function(){
-
-    var invitation = this.state.invitation;
-
-    invitation.people.push({
-      name : 'Surprise guest!'
-    });
-
-    this.setState({ invitation : invitation });
-  },
-  render : function(){
-
-    return (
-      React.createElement("div", {className: "container page"}, 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-md-3"}), 
-          React.createElement("div", {className: "col-md-6"}, 
-            React.createElement("h1", null, "Répondez, s'il vous plaît.")
-          )
-        ), 
-        React.createElement("form", {className: "form-horizontal"}, 
-          React.createElement("fieldset", null, 
-          React.createElement("hr", null), 
-          
-            invitation.people.map(function(d,i){
-
-              var question = shuffled[(i+1) % shuffled.length],
-                  answer = question.a[0],
-                  changeName = function(e){
-                    var invitation = this.state.invitation;
-                    invitation.people[i].name = e.target.value;
-                    this.setState({ invitation : invitation });
-                  }.bind(this);
-              
-              return (
-                React.createElement(Guest, {name: d.name, changeName: changeName, question: question.q, answer: answer})
-              )
-            }.bind(this))
-          
-          )
-        ), 
-        React.createElement("div", {className: "row"}, 
-          React.createElement("div", {className: "col-md-9"}, 
-            React.createElement("div", {className: "pull-right"}, 
-              React.createElement("div", {onClick: this.addNew, className: "btn-round blue pull-right"}, React.createElement("span", null, "+")), 
-              React.createElement("div", {className: "add-person pull-right"}, "Add another person")
-            )
-          )
-        )
       )
     )
   }

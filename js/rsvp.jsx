@@ -88,6 +88,68 @@ var invitation = {
   ]
 };
 
+var Rsvp = React.createClass({
+  getInitialState : function(){
+    return { 
+      invitation : invitation
+    };
+  },
+  addNew : function(){
+
+    var invitation = this.state.invitation;
+
+    invitation.people.push({
+      name : 'Surprise guest!'
+    });
+
+    this.setState({ invitation : invitation });
+  },
+  render : function(){
+
+    return (
+      <div className="page centered">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3"></div>
+            <div className="col-md-6">
+              <h1>Répondez, s'il vous plaît.</h1>
+            </div>
+          </div>
+          <form className="form-horizontal">
+            <fieldset>
+            <hr />
+            {
+              invitation.people.map(function(d,i){
+
+                var question = shuffled[(i+1) % shuffled.length],
+                    answer = question.a[0],
+                    changeName = function(e){
+                      var invitation = this.state.invitation;
+                      invitation.people[i].name = e.target.value;
+                      this.setState({ invitation : invitation });
+                    }.bind(this);
+                
+                return (
+                  <Guest name={d.name} changeName={changeName} question={question.q} answer={answer} />
+                )
+              }.bind(this))
+            }
+            </fieldset>
+          </form>
+          <div className="row">
+            <div className="col-md-9">
+              <div className="pull-right">
+                <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>
+                <div className="add-person pull-right">Add another person</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+});
+
 var Guest = React.createClass({
   getInitialState : function(){
     return { hidden : true };
@@ -227,66 +289,6 @@ var Form = React.createClass({
         </div>
  
         <hr />
-      </div>
-    )
-  }
-});
-
-var Rsvp = React.createClass({
-  getInitialState : function(){
-    return { 
-      invitation : invitation
-    };
-  },
-  addNew : function(){
-
-    var invitation = this.state.invitation;
-
-    invitation.people.push({
-      name : 'Surprise guest!'
-    });
-
-    this.setState({ invitation : invitation });
-  },
-  render : function(){
-
-    return (
-      <div className="container page">
-        <div className="row">
-          <div className="col-md-3"></div>
-          <div className="col-md-6">
-            <h1>Répondez, s'il vous plaît.</h1>
-          </div>
-        </div>
-        <form className="form-horizontal">
-          <fieldset>
-          <hr />
-          {
-            invitation.people.map(function(d,i){
-
-              var question = shuffled[(i+1) % shuffled.length],
-                  answer = question.a[0],
-                  changeName = function(e){
-                    var invitation = this.state.invitation;
-                    invitation.people[i].name = e.target.value;
-                    this.setState({ invitation : invitation });
-                  }.bind(this);
-              
-              return (
-                <Guest name={d.name} changeName={changeName} question={question.q} answer={answer} />
-              )
-            }.bind(this))
-          }
-          </fieldset>
-        </form>
-        <div className="row">
-          <div className="col-md-9">
-            <div className="pull-right">
-              <div onClick={this.addNew} className="btn-round blue pull-right"><span>+</span></div>
-              <div className="add-person pull-right">Add another person</div>
-            </div>
-          </div>
-        </div>
       </div>
     )
   }

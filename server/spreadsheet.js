@@ -1,4 +1,4 @@
-var GoogleSpreadsheets = require('google-spreadsheets');
+var Spreadsheet = require('edit-google-spreadsheet');
 var google = require('googleapis');
 var fs = require('fs');
 
@@ -9,6 +9,7 @@ var oauth2Client = new google.auth.OAuth2(config.client_id, config.client_secret
 
 var data;
 var index = {};
+var resultsSheet;
 
 // Try to read tokens from disk
 var tokens;
@@ -54,42 +55,133 @@ function proceed(err, tokens){
     
   console.log('Fetching spreadsheet...');
 
-  saveAccessTokens(tokens);
-
-  // set tokens to the client
-  oauth2Client.setCredentials(tokens);
-
-  // read some sheets
-  // TODO: if this fails, re-authenticate?
-  GoogleSpreadsheets({ key: config.key, auth: oauth2Client }, parse);
-
-  function parse(err, spreadsheet){
-    spreadsheet.worksheets[0].rows({}, function(err, rows){
-
-      // via https://github.com/samcday/node-google-spreadsheets/issues/29
-      rows.forEach(function(row) {
-        delete row.id;
-        delete row.content;
-        for(var k in row) {
-          if( typeof row[k] === 'object') {
-            row[k] = '';
-          }
-        }
-      });
-
-      console.log('Got spreadsheet! Indexing by code.');
-      rows.forEach(function(d){
-        index[d.code] = d;
-      });
-      data = rows; 
-    });
-  }
+  loadSource(tokens);
+  loadSink(tokens);
 }
+
+function loadSource(tokens){
+
+  Spreadsheet.load({
+    debug:         true,
+    spreadsheetId: config.key,
+    worksheetName: 'Invite List',
+    oauth2: {
+      client_id:     config.client_id,
+      client_secret: config.client_secret,
+      refresh_token: tokens.refresh_token
+    }
+  }, function sheetReady(err, spreadsheet){
+
+    spreadsheet.receive({ getValues : true }, function(err, rows, info) {
+      if(err){
+        throw err;
+      }
+
+      var columns = rows['1'];
+ 
+      // Index by ID 
+      for (var row in rows){
+
+        var data = rows[row],
+            obj = {};
+
+        // Map names
+        for (var i in columns){
+          var name = columns[i];
+          obj[name] = data[i];
+        }
+
+        var key = obj.Code;
+
+        if (key){
+          index[key] = obj;
+          console.log(obj);
+        }
+      } 
+    }); 
+  });
+}
+
+function loadSink(tokens){
+
+  Spreadsheet.load({
+    debug:         true,
+    spreadsheetId: config.key,
+    worksheetName: 'Results',
+    oauth2: {
+      client_id:     config.client_id,
+      client_secret: config.client_secret,
+      refresh_token: tokens.refresh_token
+    }
+  }, function sheetReady(err, spreadsheet){
+    resultsSheet = spreadsheet;
+  });
+}
+
+// via http://stackoverflow.com/questions/5416920/timestamp-to-human-readable-format
+function getFormattedDate() {
+    var date = new Date();
+
+    var month = date.getMonth() + 1;
+    var day = date.getDate();
+    var hour = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+
+    month = (month < 10 ? "0" : "") + month;
+    day = (day < 10 ? "0" : "") + day;
+    hour = (hour < 10 ? "0" : "") + hour;
+    min = (min < 10 ? "0" : "") + min;
+    sec = (sec < 10 ? "0" : "") + sec;
+
+    var str = date.getFullYear() + "-" + month + "-" + day + " " +  hour + ":" + min + ":" + sec;
+
+    return str;
+}
+
+var map = {
+  name:     '1',
+  email:    '2',
+  or:       '3',
+  hi:       '4',
+  diet:     '5',
+  question: '6',
+  answer:   '7',
+  fancy:    '8',
+  code:     '9'
+};
 
 module.exports = {
   get: function(id){ return index[id]; },
   save: function(id, json, cb){
-    console.log(json);
-    cb();
+
+    // First, read the number of rows
+    resultsSheet.receive(function(err, rows, info){
+
+      // Save em
+      json.people.forEach(function(d,i){
+
+        var obj = {};
+
+        for (var prop in d){
+          var num = map[prop];
+          obj[num] = d[prop]; 
+        }
+
+        obj['9'] = id;
+        obj['10'] = getFormattedDate(); 
+
+        var wrap = {};
+        wrap[info.nextRow + i] = obj;
+        resultsSheet.add(wrap);
+      });
+
+
+      resultsSheet.send(function(err){
+        console.log(err); 
+      });
+
+      cb();
+    });
   }
 };

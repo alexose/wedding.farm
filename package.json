@@ -19,8 +19,8 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "brfs": "^1.4.3",
+    "edit-google-spreadsheet": "^0.2.21",
     "express": "^4.13.4",
-    "google-spreadsheets": "^0.5.1",
     "googleapis": "^2.1.7",
     "jquery": "^2.2.0",
     "rc-slider": "^3.3.2",

@@ -96,14 +96,14 @@ var Rsvp = React.createClass({
           var people = [];
           
           people.push({
-            name : d.invitee1,
-            email : d.email1
+            name : d['Invitee 1'],
+            email : d['Email 1']
           });
 
-          if (exists(d.invitee2)){
+          if (exists(d['Invitee 2'])){
             people.push({
-              name : d.invitee2,
-              email : d.email2
+              name : d['Invitee 2'],
+              email : d['Email 2']
             });
           }
 

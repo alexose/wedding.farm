@@ -1,7 +1,6 @@
 var React = require('react');
 var Slider = require('rc-slider');
 var Guest = require('./guest.jsx');
-
 var request = require('superagent');
 
 var text = [
@@ -90,7 +89,7 @@ var Rsvp = React.createClass({
     var id = this.props.params.id;
     if (id){
       request
-        .get('/api/fetch/' + id)
+        .get('/api/invitation/' + id)
         .end(function(err, res){
           var d = res.body;
           
@@ -121,6 +120,19 @@ var Rsvp = React.createClass({
         }.bind(this));
     }
   },
+  finish : function(){
+    
+    var id = this.props.params.id;
+    if (id){
+      request
+        .post('/api/invitation/' + id)
+        .send(this.state.invitation)
+        .set('Accept', 'application/json')
+        .end(function(){
+          this.setState({ finished : true });
+        }.bind(this));
+    }
+  },
   addNew : function(){
     var invitation = this.state.invitation;
     invitation.people.push({
@@ -130,9 +142,10 @@ var Rsvp = React.createClass({
     this.setState({ invitation : invitation });
   },
   render : function(){
+
     return (
       <div className={'page centered'}>
-        <div className="container">
+        <div className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
             <div className="col-md-6">
@@ -196,9 +209,12 @@ var Rsvp = React.createClass({
             <div className="col-md-4"></div>
             <div className="col-md-4">
               <div className="add-person pull-left" onClick={this.addNew}>Did we forget someone?</div>
-              <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Finish</button>
+              <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.finish}>Finish</button>
             </div>
           </div>
+        </div>
+        <div className={"animated " + (this.state.finished ? '' : ' fadeout')}>
+          <h2>All done</h2>
         </div>
       </div>
     )

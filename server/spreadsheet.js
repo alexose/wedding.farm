@@ -87,5 +87,9 @@ function proceed(err, tokens){
 }
 
 module.exports = {
-  get: function(id){ return index[id]; } 
+  get: function(id){ return index[id]; },
+  save: function(id, json, cb){
+    console.log(json);
+    cb();
+  }
 };

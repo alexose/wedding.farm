@@ -40,13 +40,13 @@ h1 {
 .main-nav {
   position: fixed;
   bottom: 0; left: 0; right: 0;
-  padding: 0;
   z-index: 9999;
   background: #eee; 
 }
 
 .main-nav ul {
   margin: 20px 0;
+  padding: 0;
   text-align: center;
 }
 
@@ -123,6 +123,10 @@ h1 {
 
 .title-row h2{
   margin: 0;
+}
+
+.title-row:hover h2{
+  color: #337ab7;
 }
 
 .fake-checkbox{

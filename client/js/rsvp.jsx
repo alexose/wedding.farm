@@ -116,6 +116,7 @@ var Rsvp = React.createClass({
           invitation.people = people;
           this.setState({ invitation : invitation });
           this.backup = JSON.stringify(invitation); 
+          this.render();
 
         }.bind(this));
     }
@@ -140,6 +141,7 @@ var Rsvp = React.createClass({
     });
 
     this.setState({ invitation : invitation });
+    this.render();
   },
   render : function(){
 

@@ -95,7 +95,6 @@ function loadSource(tokens){
 
         if (key){
           index[key] = obj;
-          console.log(obj);
         }
       } 
     }); 

@@ -116,6 +116,10 @@ h1 {
   padding: 14px;
 }
 
+.add-person:hover{
+  color: #337ab7;
+}
+
 .title-row{
   margin: 20px 0;
   cursor: pointer;
@@ -161,6 +165,10 @@ h1 {
 .toggle-advanced{
   margin: 35px 0;
   cursor: pointer;
+}
+
+.toggle-advanced:hover{
+  color: #337ab7;
 }
 
 .toggle-advanced:after{

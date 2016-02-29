@@ -6,13 +6,12 @@ var Guest = React.createClass({
     return {};
   },
   render : function(){
-    console.log(this.props);
     return(
       <div className={"guest"}>
         <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>
           <div className="title-row row" onClick={this.props.changeFocus}>
             <div className="col-md-4">
-              <div className={"fake-checkbox pull-right " + this.state.decision}>&nbsp;</div>
+              <div className={"fake-checkbox pull-right " + this.props.person.hi + this.props.person.or}>&nbsp;</div>
             </div>
             <div className="col-md-6">
               <h2>{this.props.person.name}</h2>

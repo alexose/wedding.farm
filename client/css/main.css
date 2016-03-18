@@ -222,3 +222,7 @@ div.tree{
 .alldone {
   text-align: center;
 }
+
+.radio label{
+  min-width: 162px;
+}

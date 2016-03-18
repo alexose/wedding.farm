@@ -74,8 +74,6 @@ var Form = React.createClass({
                 <input onClick={this.update} type="radio" name="or" id={"radios-" + i} defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
-            </div>
-            <div className="radio">
               <label htmlFor={"radios-" + (i+1)}>
                 <input onClick={this.update} type="radio" name="or" id={"radios-" + (i+1)} defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
                 Regretfully Decline
@@ -92,8 +90,6 @@ var Form = React.createClass({
                 <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+2)} defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
-            </div>
-            <div className="radio">
               <label htmlFor={"radios-" + (i+3)}>
                 <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+3)} defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
                 Regretfully Decline

@@ -2,6 +2,7 @@ html, body {
   width: 100%; height: 100%;
   margin: 0;
   overflow: hidden;
+  font-size: 24px;
 }
 
 body > div {
@@ -52,6 +53,10 @@ h1 {
   font-size: 100px;
 }
 
+h2 {
+  font-size: 40px;
+}
+
 div.tree{
   background: url('/img/tree.png') center no-repeat;
   background-size: contain;
@@ -66,7 +71,7 @@ div.tree{
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 9999;
-  background: #eee; 
+  background: #eee;
 }
 
 .main-nav ul {

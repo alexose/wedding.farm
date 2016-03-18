@@ -151,7 +151,7 @@ var Rsvp = React.createClass({
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
             <div className="col-md-6">
-              <h1>Répondez, s'il vous plaît.</h1>
+              <h2>Répondez, s'il vous plaît.</h2>
               <hr />
             </div>
           </div>

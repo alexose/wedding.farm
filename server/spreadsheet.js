@@ -9,10 +9,13 @@ var oauth2Client = new google.auth.OAuth2(config.client_id, config.client_secret
 
 var data;
 var index = {};
+
+var mainSheet;
 var resultsSheet;
 
 // Try to read tokens from disk
 var tokens;
+var cached;
 try {
   tokens = fs.readFileSync(path);
   json = JSON.parse(tokens);
@@ -59,9 +62,9 @@ function proceed(err, tokens){
   loadSink(tokens);
 }
 
-function loadSource(_tokens){
+function loadSource(tokens){
 
-  tokens = _tokens;
+  cached = cached || tokens; 
 
   Spreadsheet.load({
     debug:         true,
@@ -70,57 +73,63 @@ function loadSource(_tokens){
     oauth2: {
       client_id:     config.client_id,
       client_secret: config.client_secret,
-      refresh_token: tokens.refresh_token
+      refresh_token: cached.refresh_token
     }
   }, function sheetReady(err, spreadsheet){
+    mainSheet = spreadsheet;
+    updateIndex()
+  });
+}
 
-    // Load main sheet
-    spreadsheet.receive({ getValues : true }, function(err, rows, info) {
+function updateIndex(){
 
-      if(err){
-        throw err;
+  // Load main sheet
+  mainSheet.receive({ getValues : true }, function(err, rows, info) {
+
+    if(err){
+      throw err;
+    }
+
+    // Load results sheet
+    resultsSheet.receive({ getValues : true }, function(err, results) {
+   
+      // Index results
+      var resultsIndex = {};
+      for (var c in results){
+        var result = results[c],
+            removed = result['11'];
+
+        // If we started over, it doesn't count
+        if (!removed){
+          resultsIndex[result['9']] = result;
+        }
       }
 
-      // Load results sheet
-      resultsSheet.receive({ getValues : true }, function(err, results) {
-     
-        // Index results
-        var resultsIndex = {};
-        for (var c in results){
-          var result = results[c];
+      var columns = rows['1'];
+ 
+      // Index by ID 
+      for (var row in rows){
 
-          // If we started over, it doesn't count
-          if (result && result.response && !result.response['Started Over?']){
-            resultsIndex[result[9]] = result;
-          }
+        var data = rows[row],
+            obj = {};
+
+        // Map names
+        for (var i in columns){
+          var name = columns[i];
+          obj[name] = data[i];
         }
 
-        var columns = rows['1'];
-   
-        // Index by ID 
-        for (var row in rows){
+        var key = obj.Code;
+        
+        // Do we already have a response?
+        obj.response = resultsIndex[key];
 
-          var data = rows[row],
-              obj = {};
-
-          // Map names
-          for (var i in columns){
-            var name = columns[i];
-            obj[name] = data[i];
-          }
-
-          var key = obj.Code;
-          
-          // Do we already have a response?
-          obj.response = resultsIndex[key];
-
-          if (key){
-            index[key] = obj;
-          }
+        if (key){
+          index[key] = obj;
         }
-      }); 
+      }
     }); 
-  });
+  }); 
 }
 
 function loadSink(tokens){
@@ -207,6 +216,9 @@ module.exports = {
           delete index[id];
         }
         cb('removed'); 
+        
+        // Rebuild index from scratch.  Yes, this is kind of wasteful.
+        updateIndex(); 
       });
     });
   },
@@ -240,10 +252,10 @@ module.exports = {
         if (err){
           console.log(err); 
         }
-      });
 
-      // Rebuild index
-      resultsIndex
+        // Rebuild index from scratch.  Yes, this is kind of wasteful.
+        updateIndex(); 
+      });
 
       cb();
     });

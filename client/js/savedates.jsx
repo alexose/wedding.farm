@@ -41,24 +41,12 @@ var Back = React.createClass({
         <div className="right">
           <div className="stamp">&nbsp;</div>
           <div className="address">
-            <p>
-              {card['Mail Name 1']}
-            </p>
-            <p>
-              {card['Mail Name 2']}
-            </p>
-            <p>
-              {card['Address 1']}
-            </p>
-            <p>
-              {card['Address 2']}
-            </p>
-            <p>
-              {card['City']} {card['State']} {card['Zip Code']}
-            </p>
-            <p>
-              {card['Country']}
-            </p>
+            <p> {card['Mail Name 1']} </p>
+            <p> {card['Mail Name 2']} </p>
+            <p> {card['Address 1']} </p>
+            <p> {card['Address 2']} </p>
+            <p> {card['City']} {card['State']} {card['Zip Code']} </p>
+            <p> {card['Country']} </p>
           </div>
         </div>
       </div>

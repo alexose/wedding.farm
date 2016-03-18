@@ -205,17 +205,23 @@ h1 {
 
 @font-face {
   font-family: 'Asterism Clean';
-  src: url('/fonts/AsterismClean-Regular.otf') format('otf');
+  src: url('../fonts/AsterismClean-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'Asterism Clean Monoline';
-  src: url('/fonts/Asterism-CleanMonoline.otf') format('otf');
+  src: url('/fonts/Asterism-CleanMonoline.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'Fanwood';
-  src: url('/fonts/Fanwood.otf') format('otf');
+  src: url('/fonts/Fanwood.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 .savedate{
@@ -228,6 +234,19 @@ h1 {
   font-size: 10px;
   font-family: 'Fanwood';
   font-variant: small-caps;
+}
+
+.savedate.back h1, h2{
+  font-family: 'Asterism Clean';
+  font-variant: normal;
+}
+
+.savedate.back h1{
+  font-size: 55px;
+}
+
+.savedate.back h2{
+  font-size: 44px;
 }
 
 .savedate.back date{
@@ -251,7 +270,7 @@ h1 {
   border: 1px dotted #eee;
 }
 
-.savethedate.back .address p{
+.savedate.back .address p{
   margin: 10px;
   border-bottom: 1px solid #ddd;
 }

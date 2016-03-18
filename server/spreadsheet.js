@@ -72,31 +72,47 @@ function loadSource(tokens){
     }
   }, function sheetReady(err, spreadsheet){
 
+    // Load main sheet
     spreadsheet.receive({ getValues : true }, function(err, rows, info) {
+
       if(err){
         throw err;
       }
 
-      var columns = rows['1'];
- 
-      // Index by ID 
-      for (var row in rows){
-
-        var data = rows[row],
-            obj = {};
-
-        // Map names
-        for (var i in columns){
-          var name = columns[i];
-          obj[name] = data[i];
+      // Load results sheet
+      resultsSheet.receive({ getValues : true }, function(err, results) {
+     
+        // Index results
+        var resultsIndex = {};
+        for (var c in results){
+          var result = results[c];
+          resultsIndex[result[9]] = result;
         }
 
-        var key = obj.Code;
+        var columns = rows['1'];
+   
+        // Index by ID 
+        for (var row in rows){
 
-        if (key){
-          index[key] = obj;
+          var data = rows[row],
+              obj = {};
+
+          // Map names
+          for (var i in columns){
+            var name = columns[i];
+            obj[name] = data[i];
+          }
+
+          var key = obj.Code;
+          
+          // Do we already have a response?
+          obj.response = resultsIndex[key];
+
+          if (key){
+            index[key] = obj;
+          }
         }
-      } 
+      }); 
     }); 
   });
 }
@@ -150,12 +166,23 @@ var map = {
   code:     '9'
 };
 
+function getResults(cb){
+  resultsSheet.receive(function(err, rows, info){
+    
+    // Build index
+    cb(rows, info);
+  });
+}
+
 module.exports = {
   get: function(id){ return index[id]; },
   save: function(id, json, cb){
 
     // First, read the number of rows
-    resultsSheet.receive(function(err, rows, info){
+    getResults(function(rows, info){
+
+      // Save reference to rows
+      resultsIndex = rows;
 
       // Save em
       json.people.forEach(function(d,i){
@@ -174,7 +201,6 @@ module.exports = {
         wrap[info.nextRow + i] = obj;
         resultsSheet.add(wrap);
       });
-
 
       resultsSheet.send(function(err){
         console.log(err); 

@@ -73,7 +73,6 @@ for (var i in questions){
 // Shuffle questions
 var shuffled = shuffle(questions);
 
-
 var invitation = {
   id : 123,
   people : []
@@ -88,6 +87,7 @@ var Rsvp = React.createClass({
   componentDidMount : function(stuff){
     var id = this.props.params.id;
     if (id){
+      id = id.toUpperCase();
       request
         .get('/api/invitation/' + id)
         .end(function(err, res){
@@ -106,9 +106,28 @@ var Rsvp = React.createClass({
               email : d['Email 2']
             });
           }
+          
+          if (exists(d['Invitee 3'])){
+            people.push({
+              name : d['Invitee 3'],
+              email : d['Email 3']
+            });
+          }
+          
+          if (exists(d['Invitee 4'])){
+            people.push({
+              name : d['Invitee 4'],
+              email : d['Email 4']
+            });
+          }
 
           function exists(entry){
              return (typeof entry === 'string' ? entry : false);
+          }
+
+          // If we already have a response, show it 
+          if (d.response){
+            this.setState({ finished : true });
           }
 
           // Update onscreen invitation

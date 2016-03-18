@@ -11,7 +11,7 @@ body > div {
   -webkit-overflow-scrolling: touch;
 }
 
-video#background { 
+video#background {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -30,13 +30,13 @@ video#background {
 }
 
 #app {
-  font-family: 'Fanwood', 'serif'; 
+  font-family: 'Fanwood', 'serif';
   position: relative;
 }
 
 @font-face{
   font-family: 'Fanwood';
-  src: url(/fonts/fanwood.otf) format('opentype');
+  src: url(/fonts/Fanwood.otf) format('opentype');
   font-weight: normal;
   font-style: normal;
 }
@@ -165,7 +165,7 @@ div.tree{
 
 .fake-checkbox{
   border: 2px solid #bbb;
-  height: 30px; 
+  height: 30px;
   width: 30px;
   border-radius: 10px;
 }
@@ -173,22 +173,22 @@ div.tree{
 .fake-checkbox:after{
   font-size: 39px;
   margin-left: -6px;
-  margin-top: -36px; 
+  margin-top: -36px;
   display: inline-block;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 }
 
-.fake-checkbox.yesyes:after{ 
+.fake-checkbox.yesyes:after{
   content:"🎉";
 }
-.fake-checkbox.yesno:after{ 
+.fake-checkbox.yesno:after{
   content:"🌴";
 }
-.fake-checkbox.noyes:after{ 
+.fake-checkbox.noyes:after{
   content:"🌲";
   }
-.fake-checkbox.nono:after{ 
+.fake-checkbox.nono:after{
   content:"☹";
 }
 

@@ -29,8 +29,15 @@ video#background {
 }
 
 #app {
-  font-family: 'Josefin Slab', serif;
+  font-family: 'Fanwood', 'serif'; 
   position: relative;
+}
+
+@font-face{
+  font-family: 'Fanwood';
+  src: url(/fonts/fanwood.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 h1 {

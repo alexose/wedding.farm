@@ -59,7 +59,9 @@ function proceed(err, tokens){
   loadSink(tokens);
 }
 
-function loadSource(tokens){
+function loadSource(_tokens){
+
+  tokens = _tokens;
 
   Spreadsheet.load({
     debug:         true,
@@ -179,7 +181,9 @@ function getResults(cb){
 }
 
 module.exports = {
-  get: function(id){ return index[id]; },
+  get: function(id){ 
+    return index[id]; 
+  },
   remove : function(id, cb) {
 
     if (id){
@@ -199,6 +203,9 @@ module.exports = {
 
       resultsSheet.add(obj);
       resultsSheet.send(function(err){
+        if (index[id]){
+          delete index[id];
+        }
         cb('removed'); 
       });
     });
@@ -230,8 +237,13 @@ module.exports = {
       });
 
       resultsSheet.send(function(err){
-        console.log(err); 
+        if (err){
+          console.log(err); 
+        }
       });
+
+      // Rebuild index
+      resultsIndex
 
       cb();
     });

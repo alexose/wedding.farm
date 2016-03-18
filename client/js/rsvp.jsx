@@ -144,7 +144,6 @@ var Rsvp = React.createClass({
     this.render();
   },
   render : function(){
-
     return (
       <div className={'page centered'}>
         <div className={"container animated " + (this.state.finished ? ' fadeout' : '')}>

@@ -6,6 +6,7 @@ var Guest = React.createClass({
     return {};
   },
   render : function(){
+    console.log(this.props.person);
     return(
       <div className={"guest"}>
         <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>

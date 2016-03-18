@@ -40,14 +40,14 @@ var Form = React.createClass({
       <div className="guest">
 
         <div className="form-group">
-          <label className="control-label col-md-4" htmlFor="name">Your Name</label>
+          <label className="control-label col-md-4" htmlFor="name">Name</label>
           <div className="col-md-6">
             <input onChange={this.update} id="name" name="name" type="text" value={this.props.person.name} className="form-control input-md" required="" />
           </div>
         </div>
         
         <div className="form-group">
-          <label className="control-label col-md-4" htmlFor="email">Your electronic mail address</label>
+          <label className="control-label col-md-4" htmlFor="email">Electronic mail address</label>
           <div className="col-md-6">
             <input onChange={this.update} id="email" name="email" type="text" defaultValue={this.props.person.email} className="form-control input-md" required="" />
           </div>
@@ -63,24 +63,8 @@ var Form = React.createClass({
               </label>
             </div>
           </div>
-
-          <label className="col-md-4 control-label" htmlFor="radios">Party in Kea'au?</label>
-          <div className="col-md-6">
-            <div className="radio">
-              <label htmlFor="radios-0">
-                <input onClick={this.update} type="radio" name="hi" id="radios-0" defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
-                Happily Accept
-              </label>
-            </div>
-            <div className="radio">
-              <label htmlFor="radios-1">
-                <input onClick={this.update} type="radio" name="hi" id="radios-1" defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
-                Regretfully Decline
-              </label>
-            </div>
-          </div>
         </div>
-        
+
         <div className="form-group">
           <label className="col-md-4 control-label" htmlFor="radios">Ceremony in Applegate?</label>
           <div className="col-md-6">
@@ -99,6 +83,24 @@ var Form = React.createClass({
           </div>
         </div>
       
+        <div className="form-group">
+          <label className="col-md-4 control-label" htmlFor="radios">Party in Kea'au?</label>
+          <div className="col-md-6">
+            <div className="radio">
+              <label htmlFor="radios-0">
+                <input onClick={this.update} type="radio" name="hi" id="radios-0" defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
+                Happily Accept
+              </label>
+            </div>
+            <div className="radio">
+              <label htmlFor="radios-1">
+                <input onClick={this.update} type="radio" name="hi" id="radios-1" defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
+                Regretfully Decline
+              </label>
+            </div>
+          </div>
+        </div>
+        
        
         <div className="row">
           <div className="col-md-4"></div>

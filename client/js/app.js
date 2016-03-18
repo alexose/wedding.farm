@@ -28,8 +28,8 @@ var tabList = [
     component : <Home />
   },
   {
-    name : '/clothes',
-    display : 'Clothes',
+    name : '/attire',
+    display : 'Attire',
     component : <Clothes />
   },
   {
@@ -60,7 +60,7 @@ ReactDOM.render(
       <Route path="/rsvp" component={Rsvp}>
         <Route path="/rsvp/:id" component={Rsvp} />
       </Route>
-      <Route path="/clothes" component={Clothes} />
+      <Route path="/attire" component={Clothes} />
     </Route>
   </Router>,
   document.getElementById('app')

@@ -4,7 +4,7 @@ var config = require('./config.js');
 var spreadsheet = require('./spreadsheet.js');
 
 app.use(express.static('../client'));
-app.use('/clothes', express.static('../client'));
+app.use('/attire', express.static('../client'));
 app.use('/rsvp', express.static('../client'));
 app.use('/rsvp/:id', express.static('../client'));
 

@@ -7,9 +7,14 @@ var paperdollFiles = require('fs').readdirSync('./img/bodies');
 
 var Garment = React.createClass({
   render : function(){
+    console.log(this.props.size);
     return(
       <Draggable>
-        <img src={'img/clothes/' + this.props.src} className="garment" draggable="false" />
+        <img 
+          src={'img/clothes/' + this.props.src} 
+          className="garment" 
+          draggable="false" 
+          style={{'max-width': this.props.size}} />
       </Draggable>
     )
   }
@@ -47,9 +52,11 @@ var Analysis = React.createClass({
   },
   render : function(){
     return(
-      <div>
-        <button onClick={this.handleClick} className="analysis">Analyze outfit</button>
-        <p>{this.state.text}</p>
+      <div className="analysis">
+        <div className="analysis-contents">
+          <button onClick={this.handleClick} className="analysis">Analyze outfit</button>
+          <p>{this.state.text}</p>
+        </div>
       </div>
     )
   }
@@ -83,8 +90,10 @@ var Clothes = React.createClass({
         </div>
         {
           clothingFiles.map(function(path){
+            var size = path ? path.split('-')[1] : false;
+            size = size ? size.split('.')[0] : 100;
             return (
-              <Garment src={path} />
+              <Garment src={path} size={size} />
             )
           })
         }

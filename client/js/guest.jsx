@@ -21,6 +21,7 @@ var Guest = React.createClass({
         <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}> 
           <Form 
             person={this.props.person}
+            index={this.props.index}
             question={this.props.question} 
             answer={this.props.answer} 
             update={this.props.update}

@@ -36,6 +36,8 @@ var Form = React.createClass({
     this.props.update(person);
   },
   render : function(){
+    var i = this.props.index * 4;
+    console.log(this.props);
     return (
       <div className="guest">
 
@@ -54,29 +56,29 @@ var Form = React.createClass({
         </div>
 
         <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor="radios">Under 21?</label>
+          <label className="col-md-4 control-label" htmlFor={"checkbox-" + i}>Under 21?</label>
           
           <div className="col-md-6">
             <div className="checkbox">
-              <label htmlFor="checkbox-0">
-                <input onChange={this.update} type="checkbox" name="minor" id="checkbox-0" value="yes"/>&nbsp;
+              <label htmlFor={"checkbox-" + i}>
+                <input onChange={this.update} type="checkbox" name="minor" id={"checkbox-" + i} value="yes"/>&nbsp;
               </label>
             </div>
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor="radios">Ceremony in Applegate?</label>
+          <label className="col-md-4 control-label">Ceremony in Applegate?</label>
           <div className="col-md-6">
             <div className="radio">
-              <label htmlFor="radios-2">
-                <input onClick={this.update} type="radio" name="or" id="radios-2" defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
+              <label htmlFor={"radios-" + i}>
+                <input onClick={this.update} type="radio" name="or" id={"radios-" + i} defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
-              <label htmlFor="radios-3">
-                <input onClick={this.update} type="radio" name="or" id="radios-3" defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
+              <label htmlFor={"radios-" + (i+1)}>
+                <input onClick={this.update} type="radio" name="or" id={"radios-" + (i+1)} defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
                 Regretfully Decline
               </label>
             </div>
@@ -84,17 +86,17 @@ var Form = React.createClass({
         </div>
       
         <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor="radios">Party in Kea'au?</label>
+          <label className="col-md-4 control-label">Party in Kea'au?</label>
           <div className="col-md-6">
             <div className="radio">
-              <label htmlFor="radios-0">
-                <input onClick={this.update} type="radio" name="hi" id="radios-0" defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
+              <label htmlFor={"radios-" + (i+2)}>
+                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+2)} defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
-              <label htmlFor="radios-1">
-                <input onClick={this.update} type="radio" name="hi" id="radios-1" defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
+              <label htmlFor={"radios-" + (i+3)}>
+                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+3)} defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
                 Regretfully Decline
               </label>
             </div>

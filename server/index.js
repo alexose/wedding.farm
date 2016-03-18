@@ -14,6 +14,13 @@ app.get('/api/invitation/:id', function (req, res){
   res.send(row);
 });
 
+app.delete('/api/invitation/:id', function (req, res){
+  var id = req.params.id;
+  var row = spreadsheet.remove(id, function(result){
+    res.send(result);
+  });
+});
+
 app.post('/api/invitation/:id', function (req, res){
   var id = req.params.id;
   var str = '';

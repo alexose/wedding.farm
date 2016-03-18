@@ -86,7 +86,11 @@ function loadSource(tokens){
         var resultsIndex = {};
         for (var c in results){
           var result = results[c];
-          resultsIndex[result[9]] = result;
+
+          // If we started over, it doesn't count
+          if (result && result.response && !result.response['Started Over?']){
+            resultsIndex[result[9]] = result;
+          }
         }
 
         var columns = rows['1'];
@@ -176,6 +180,29 @@ function getResults(cb){
 
 module.exports = {
   get: function(id){ return index[id]; },
+  remove : function(id, cb) {
+
+    if (id){
+      id = id.toUpperCase();
+    }
+
+    // Mark a particular response as removed
+    getResults(function(rows, info){
+      var obj = {};
+      for (var i in rows){
+        var row = rows[i];
+        if (row['9'] == id){
+          obj[i] = {};
+          obj[i]['11'] = getFormattedDate();
+        }
+      }
+
+      resultsSheet.add(obj);
+      resultsSheet.send(function(err){
+        cb('removed'); 
+      });
+    });
+  },
   save: function(id, json, cb){
 
     // First, read the number of rows

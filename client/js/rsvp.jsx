@@ -162,6 +162,16 @@ var Rsvp = React.createClass({
     this.setState({ invitation : invitation });
     this.render();
   },
+  startOver : function(e){
+    e.preventDefault();
+    var id = this.props.params.id;
+    request
+      .del('/api/invitation/' + id)
+      .set('Accept', 'application/json')
+      .end(function(){
+        this.setState({ finished : false });
+      }.bind(this));
+  },
   render : function(){
 
     return (
@@ -234,8 +244,11 @@ var Rsvp = React.createClass({
             </div>
           </div>
         </div>
-        <div className={"animated " + (this.state.finished ? '' : ' fadeout')}>
+        <div className={"alldone animated " + (this.state.finished ? '' : ' fadeout')}>
           <h2>All done</h2>
+          <p>Thank you for submitting your R.S.V.P.</p>
+          <p>If your plans change, you can <a onClick={this.startOver} href="#">start over</a> or<br />
+          let us know at rsvp@wedding.farm.</p>
         </div>
       </div>
     )

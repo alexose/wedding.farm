@@ -143,14 +143,34 @@ var Rsvp = React.createClass({
   finish : function(){
     
     var id = this.props.params.id;
-    if (id){
-      request
-        .post('/api/invitation/' + id)
-        .send(this.state.invitation)
-        .set('Accept', 'application/json')
-        .end(function(){
-          this.setState({ finished : true });
-        }.bind(this));
+
+    // Validate
+    var pass = true;
+    var people = this.state.invitation.people;
+    for (var i in people){
+      var person = people[i];
+      console.log(person.or, person.hi);
+      if (!person.or || !person.hi){
+        pass = false;
+      }
+    }
+
+    if (pass){
+      if (id){
+        request
+          .post('/api/invitation/' + id)
+          .send(this.state.invitation)
+          .set('Accept', 'application/json')
+          .end(function(){
+            this.setState({ finished : true });
+          }.bind(this));
+      }
+    } else {
+      setTimeout(function(){
+        this.setState({ error : false });
+      }.bind(this), 5000);
+
+      this.setState({ error : true });
     }
   },
   addNew : function(){
@@ -236,6 +256,15 @@ var Rsvp = React.createClass({
             </fieldset>
           </form>
           <hr />
+          <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
+            <div className={"animated error " + (this.state.error ? '' : ' fadeout')}>
+              <div className="col-md-4"></div>
+              <div className="col-md-8">
+                Please make sure to accept or decline each event.
+                <hr />
+              </div>
+            </div>
+          </div>
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
             <div className="col-md-4">

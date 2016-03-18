@@ -37,7 +37,6 @@ var Form = React.createClass({
   },
   render : function(){
     var i = this.props.index * 4;
-    console.log(this.props);
     return (
       <div className="guest">
 

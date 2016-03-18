@@ -9,24 +9,11 @@ app.use('/savedates', express.static('../client'));
 app.use('/rsvp', express.static('../client'));
 app.use('/rsvp/:id', express.static('../client'));
 
-// TODO: remove this
-app.get('/api/refresh', function (req, res){
-  spreadsheet.refresh();
-});
-
-app.get('/api/invitation', function (req, res){
-  var id = req.params.id;
-  var data = spreadsheet.get();
-  res.send(data);
-});
-
 app.get('/api/invitation/:id', function (req, res){
   var id = req.params.id;
   var row = spreadsheet.get(id);
   res.send(row);
 });
-
-
 
 app.post('/api/invitation/:id', function (req, res){
   var id = req.params.id;

@@ -13,22 +13,17 @@ var resultsSheet;
 
 // Try to read tokens from disk
 var tokens;
+try {
+  tokens = fs.readFileSync(path);
+  json = JSON.parse(tokens);
+  proceed(null, json);
+} catch(e){
 
-function start(){
-  try {
-    tokens = fs.readFileSync(path);
-    json = JSON.parse(tokens);
-    proceed(null, json);
-  } catch(e){
-
-    // No tokens yet! Time to auth.
-    getAccessToken(oauth2Client, function(){
-      proceed(oauth2Client); 
-    });
-  }
+  // No tokens yet! Time to auth.
+  getAccessToken(oauth2Client, function(){
+    proceed(oauth2Client); 
+  });
 }
-
-start();
 
 function getAccessToken(oauth2Client, callback){
 
@@ -156,16 +151,7 @@ var map = {
 };
 
 module.exports = {
-  refresh: function(){
-    start();
-  },
-  get: function(id){
-    if (id){
-      return index[id];
-    } else {
-      return index;
-    }
-  },
+  get: function(id){ return index[id]; },
   save: function(id, json, cb){
 
     // First, read the number of rows

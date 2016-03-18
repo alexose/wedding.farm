@@ -14,7 +14,7 @@ var Home = React.createClass({
   render : function(){
     return (
       <div className="page centered">
-        <h1>Are you ready to PARTY?</h1>
+        <h1>Maluhia and Alex</h1> 
       </div>
     )
   }

@@ -40,8 +40,26 @@ video#background {
   font-style: normal;
 }
 
+@font-face{
+  font-family: 'Asterism Clean';
+  src: url(/fonts/Asterism Clean.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 h1 {
-  font-weight: 300;
+  font-family: 'Asterism Clean';
+  font-size: 100px;
+}
+
+div.tree{
+  background: url('/img/tree.png') center no-repeat;
+  background-size: contain;
+  width: 700px;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-nav {

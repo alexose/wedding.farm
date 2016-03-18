@@ -68,13 +68,13 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor="radios-0">
-                <input onChange={this.update} type="radio" name="hi" id="radios-0" checked="true" value="yes"/>
+                <input onClick={this.update} type="radio" name="hi" id="radios-0" defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
               <label htmlFor="radios-1">
-                <input onChange={this.update} type="radio" name="hi" id="radios-1" checked={this.props.person.hi == 'yes' ? "checked" : "checked"} value=""/>
+                <input onClick={this.update} type="radio" name="hi" id="radios-1" defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
                 Regretfully Decline
               </label>
             </div>
@@ -86,13 +86,13 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor="radios-2">
-                <input onChange={this.update} type="radio" name="or" id="radios-2" defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
+                <input onClick={this.update} type="radio" name="or" id="radios-2" defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
                 Happily Accept
               </label>
             </div>
             <div className="radio">
               <label htmlFor="radios-3">
-                <input onChange={this.update} type="radio" name="or" id="radios-3" defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
+                <input onClick={this.update} type="radio" name="or" id="radios-3" defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
                 Regretfully Decline
               </label>
             </div>

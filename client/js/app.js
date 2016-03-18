@@ -3,7 +3,6 @@ var ReactDOM = require('react-dom');
 
 var Nav = require('./nav.jsx');
 var Clothes = require('./clothes.jsx');
-var SaveDates = require('./savedates.jsx');
 var Rsvp = require('./rsvp.jsx');
 
 var Router = require('react-router').Router;
@@ -62,7 +61,6 @@ ReactDOM.render(
         <Route path="/rsvp/:id" component={Rsvp} />
       </Route>
       <Route path="/clothes" component={Clothes} />
-      <Route path="/savedates" component={SaveDates} />
     </Route>
   </Router>,
   document.getElementById('app')

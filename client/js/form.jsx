@@ -54,6 +54,16 @@ var Form = React.createClass({
         </div>
 
         <div className="form-group">
+          <label className="col-md-4 control-label" htmlFor="radios">Under 21?</label>
+          
+          <div className="col-md-6">
+            <div className="checkbox">
+              <label htmlFor="checkbox-0">
+                <input onChange={this.update} type="checkbox" name="minor" id="checkbox-0" value="yes"/>&nbsp;
+              </label>
+            </div>
+          </div>
+
           <label className="col-md-4 control-label" htmlFor="radios">Party in Kea'au?</label>
           <div className="col-md-6">
             <div className="radio">

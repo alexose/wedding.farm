@@ -85,6 +85,11 @@ div.tree{
   margin: 10px 20px;
 }
 
+.main-nav ul li.disabled a{
+  color: #ccc;
+  cursor: default;
+}
+
 .main-nav ul li a {
   display: inline-block;
   color: #000;

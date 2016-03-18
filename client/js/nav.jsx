@@ -9,8 +9,9 @@ var Nav = React.createClass({
         <ul className="main-nav-inner">
           {
             this.props.tabs.map(function(page){
+              console.log(page);
               return (
-                <li>
+                <li className={ page.component ? "" : "disabled" }>
                   <Link to={page.name}>{page.display}</Link>
                 </li>
               )

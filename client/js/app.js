@@ -33,6 +33,14 @@ var tabList = [
     component : <Clothes />
   },
   {
+    name : '/',
+    display : 'Activities'
+  },
+  {
+    name : '/',
+    display : 'Accomodations'
+  },
+  {
     name : '/rsvp',
     display : 'RSVP',
     component : <Rsvp />

@@ -10,10 +10,10 @@ var Guest = React.createClass({
       <div className={"guest"}>
         <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>
           <div className="title-row row" onClick={this.props.changeFocus}>
-            <div className="col-md-4">
+            <div className="col-xs-4">
               <div className={"fake-checkbox pull-right " + this.props.person.hi + this.props.person.or}>&nbsp;</div>
             </div>
-            <div className="col-md-6">
+            <div className="col-xs-6">
               <h2>{this.props.person.name}</h2>
             </div>
           </div>

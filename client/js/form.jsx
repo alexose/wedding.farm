@@ -46,23 +46,23 @@ var Form = React.createClass({
       <div className="guest">
 
         <div className="form-group">
-          <label className="control-label col-md-4" htmlFor="name">Name</label>
-          <div className="col-md-6">
-            <input onChange={this.update} id="name" name="name" type="text" value={this.props.person.name} className="form-control input-md" required="" />
+          <label className="control-label col-xs-4" htmlFor="name">Name</label>
+          <div className="col-xs-6">
+            <input onChange={this.update} id="name" name="name" type="text" value={this.props.person.name} className="form-control input-xs" required="" />
           </div>
         </div>
         
         <div className="form-group">
-          <label className="control-label col-md-4" htmlFor="email">Electronic mail address</label>
-          <div className="col-md-6">
-            <input onChange={this.update} id="email" name="email" type="text" defaultValue={this.props.person.email} className="form-control input-md" required="" />
+          <label className="control-label col-xs-4" htmlFor="email">Electronic mail address</label>
+          <div className="col-xs-6">
+            <input onChange={this.update} id="email" name="email" type="text" defaultValue={this.props.person.email} className="form-control input-xs" required="" />
           </div>
         </div>
 
         <div className="form-group">
-          <label className="col-md-4 control-label" htmlFor={"checkbox-" + i}>Under 21?</label>
+          <label className="col-xs-4 control-label" htmlFor={"checkbox-" + i}>Under 21?</label>
           
-          <div className="col-md-6">
+          <div className="col-xs-6">
             <div className="checkbox">
               <label htmlFor={"checkbox-" + i}>
                 <input onChange={this.update} type="checkbox" name="minor" id={"checkbox-" + i} value="yes"/>&nbsp;
@@ -72,8 +72,8 @@ var Form = React.createClass({
         </div>
 
         <div className="form-group">
-          <label className="col-md-4 control-label">Ceremony in Applegate?</label>
-          <div className="col-md-6">
+          <label className="col-xs-4 control-label">Ceremony in Applegate?</label>
+          <div className="col-xs-6">
             <div className="radio">
               <label htmlFor={"radios-" + i}>
                 <input onClick={this.update} type="radio" name="or" id={"radios-" + i} value="yes"/>
@@ -88,8 +88,8 @@ var Form = React.createClass({
         </div>
       
         <div className="form-group">
-          <label className="col-md-4 control-label">Party in Kea'au?</label>
-          <div className="col-md-6">
+          <label className="col-xs-4 control-label">Party in Kea'au?</label>
+          <div className="col-xs-6">
             <div className="radio">
               <label htmlFor={"radios-" + (i+2)}>
                 <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+2)} value="yes"/>
@@ -105,30 +105,30 @@ var Form = React.createClass({
         
        
         <div className="row">
-          <div className="col-md-4"></div>
-          <div className="col-md-6">
+          <div className="col-xs-4"></div>
+          <div className="col-xs-6">
             <h4 onClick={this.showAdvanced} className={"toggle-advanced " + (this.state.advanced ? 'open' : 'closed')}>Advanced wedding options</h4>
           </div>
         </div>
 
         <div className={"animated" + (this.state.advanced ? '' : ' fadeout')}>
           <div className="form-group">
-            <label className="col-md-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
-            <div className="col-md-6">                     
+            <label className="col-xs-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
+            <div className="col-xs-6">                     
               <textarea onChange={this.update} rows="4" className="form-control" id="textarea" name="diet" />
             </div>
           </div>
 
           <div className="form-group">
-            <label className="col-md-4 control-label" htmlFor="answer">{this.props.question}</label>
-            <div className="col-md-6">                     
+            <label className="col-xs-4 control-label" htmlFor="answer">{this.props.question}</label>
+            <div className="col-xs-6">                     
               <textarea onChange={this.update} rows="4" className="form-control" id="textarea" name="answer" defaultValue={this.props.answer} />
             </div>
           </div>
 
           <div className="form-group">
-            <label className="control-label col-md-4" htmlFor="needs">How fancy are you?</label>  
-            <div className="col-md-6 slider-wrap">
+            <label className="control-label col-xs-4" htmlFor="needs">How fancy are you?</label>  
+            <div className="col-xs-6 slider-wrap">
               <Slider
                 defaultValue={7}
                 onChange={this.update}
@@ -140,8 +140,8 @@ var Form = React.createClass({
         </div>
        
         <div className="form-group">
-          <div className="col-md-4"></div>
-          <div className="col-md-6">
+          <div className="col-xs-4"></div>
+          <div className="col-xs-6">
             <button name="singlebutton" className="btn btn-secondary btn-lg pull-left" onClick={this.cancel}>Cancel</button>
             <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Continue</button>
           </div>

@@ -35,6 +35,7 @@ app.post('/api/invitation/:id', function (req, res){
 
     var json;
     try {
+      console.log(str);
       json = JSON.parse(str);
       spreadsheet.save(id, json, function(){
         res.send('All done');
@@ -64,7 +65,7 @@ function notify(json){
   var settings = {
     from:    'Wedding.farm',
     to:      'wedding@alexose.com',
-    subject: 'RSVP from ' + names.join(','),
+    subject: 'RSVP from ' + names.join(', '),
     text:    JSON.stringify(json, null, 2)
   };
 

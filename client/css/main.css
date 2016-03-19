@@ -13,6 +13,7 @@ body > div {
 
 body {
   background: url(/img/background.jpg) center no-repeat;
+  background-color: #f3f3f3;
 }
 
 #app {

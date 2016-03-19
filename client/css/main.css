@@ -11,22 +11,8 @@ body > div {
   -webkit-overflow-scrolling: touch;
 }
 
-video#background {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -100;
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  transform: translateX(-50%) translateY(-50%);
-  background-size: cover;
-  -webkit-filter: grayscale(100%) opacity(.1);
-  filter: grayscale(100%) opacity(.1);
+body {
+  background: url(/img/background.jpg) center no-repeat;
 }
 
 #app {
@@ -37,13 +23,6 @@ video#background {
 @font-face{
   font-family: 'Fanwood';
   src: url(/fonts/Fanwood.otf) format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face{
-  font-family: 'Asterism Clean';
-  src: url(/fonts/Asterism Clean.otf) format('opentype');
   font-weight: normal;
   font-style: normal;
 }

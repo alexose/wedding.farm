@@ -14,7 +14,7 @@ var Home = React.createClass({
   render : function(){
     return (
       <div className="page centered">
-        <h1>Maluhia and Alex</h1> 
+        <img src="/img/text.png" width="700" /> 
       </div>
     )
   }

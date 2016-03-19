@@ -160,8 +160,6 @@ div.tree{
   margin-left: -6px;
   margin-top: -36px;
   display: inline-block;
-  -webkit-filter: grayscale(100%);
-  filter: grayscale(100%);
 }
 
 .fake-checkbox.yesyes:after{
@@ -174,6 +172,7 @@ div.tree{
   content:"🌲";
   }
 .fake-checkbox.nono:after{
+  padding-top: 5px;
   content:"☹";
 }
 

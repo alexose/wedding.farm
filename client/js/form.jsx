@@ -8,11 +8,16 @@ var Form = React.createClass({
       or : 'blank'
     };
   },
+  componentWillReceiveProps : function(props){
+    console.log(props);
+  },
   showAdvanced : function(){
     var switched = !this.state.advanced;
     this.setState({ advanced: switched });
   },
   cancel : function(e){
+
+    e.preventDefault();
 
     // Restore backup
     this.props.update(null, true);
@@ -71,11 +76,11 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor={"radios-" + i}>
-                <input onClick={this.update} type="radio" name="or" id={"radios-" + i} defaultChecked={this.props.person.or ? 'true' : 'false'} value="yes"/>
+                <input onClick={this.update} type="radio" name="or" id={"radios-" + i} value="yes"/>
                 Happily Accept
               </label>
               <label htmlFor={"radios-" + (i+1)}>
-                <input onClick={this.update} type="radio" name="or" id={"radios-" + (i+1)} defaultChecked={this.props.person.or ? 'false' : 'true'} value="no" />
+                <input onClick={this.update} type="radio" name="or" id={"radios-" + (i+1)} value="no" />
                 Regretfully Decline
               </label>
             </div>
@@ -87,11 +92,11 @@ var Form = React.createClass({
           <div className="col-md-6">
             <div className="radio">
               <label htmlFor={"radios-" + (i+2)}>
-                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+2)} defaultChecked={this.props.person.hi ? 'true' : 'false'} value="yes"/>
+                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+2)} value="yes"/>
                 Happily Accept
               </label>
               <label htmlFor={"radios-" + (i+3)}>
-                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+3)} defaultChecked={this.props.person.hi ? 'false' : 'true'} value="no"/>
+                <input onClick={this.update} type="radio" name="hi" id={"radios-" + (i+3)} value="no"/>
                 Regretfully Decline
               </label>
             </div>

@@ -175,12 +175,13 @@ var Rsvp = React.createClass({
   },
   addNew : function(){
     var invitation = this.state.invitation;
+
     invitation.people.push({
       name : 'Surprise guest!'
     });
 
     this.setState({ invitation : invitation });
-    this.render();
+    console.log(invitation);
   },
   startOver : function(e){
     e.preventDefault();
@@ -246,6 +247,7 @@ var Rsvp = React.createClass({
                     question={question.q} 
                     answer={answer}
                     index={i}
+                    key={'guest-' + i}
                     focused={this.state.focus && this.state.focus == i+1}
                     hide={this.state.focus}
                     changeFocus={changeFocus.bind(this, i)}

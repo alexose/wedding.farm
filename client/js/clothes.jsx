@@ -37,6 +37,7 @@ var text = [
   'Analyzing..',
   'Analyzing...',
   'Initial results recieved.  Please wait..',
+  'Initial results recieved.  Please wait..',
   'This outfit has been approved!'
 ];
 
@@ -57,7 +58,7 @@ var Analysis = React.createClass({
     return(
       <div className="analysis">
         <div className="analysis-contents">
-          <button onClick={this.handleClick} className="analysis">Analyze outfit</button>
+          <button onClick={this.handleClick} className="analysis">Submit for approval</button>
           <p>{this.state.text}</p>
         </div>
       </div>

@@ -1,4 +1,6 @@
 var React = require('react');
+var DropdownButton = require('react-bootstrap/lib/DropdownButton');
+var MenuItem = require('react-bootstrap/lib/MenuItem');
 var Draggable = require('react-draggable');
 
 // Read contents of directories
@@ -31,10 +33,11 @@ var Paperdoll = React.createClass({
 
 var text = [
   'Loading analysis protocol...',
-  'Spinning up EC2 instances...',
+  'Analyzing.',
+  'Analyzing..',
   'Analyzing...',
-  'Initial results recieved.  Please wait',
-  'Yes, you can wear this!'
+  'Initial results recieved.  Please wait..',
+  'This outfit has been approved!'
 ];
 
 var Analysis = React.createClass({
@@ -66,37 +69,46 @@ var Clothes = React.createClass({
   getInitialState: function(){
     return { current : paperdollFiles[0] };
   },
+  select : function(e, eventKey){
+    this.setState({ current: eventKey });  
+  },
   render: function(){
     var context = this;
-    var changePaperdoll = function(event){
-      context.setState({ current : event.target.value });
-    };
     return (
       <div className="page full">
-        <div className="paperdolls">
-          <select onChange={changePaperdoll} >
-            {
-              paperdollFiles.map(function(path){
-                return (
-                  <option value={path}>{path}</option>
-                )
-              })
-            }
-          </select>
-          <br />
-          <Paperdoll src={this.state.current} />
-          <br />
-          <Analysis />
+        <div className="row">
+          <div className="col-md-4">
+            <div className="paperdolls">
+              <Paperdoll src={this.state.current} />
+              <DropdownButton 
+                bsSize="large"
+                title={this.state.current.replace('.png','')}
+                onSelect={this.select}
+                id="dropdown-size-large">
+
+                {
+                  paperdollFiles.map(function(path){
+                    return (
+                      <MenuItem eventKey={path}>{path.replace('.png', '')}</MenuItem>
+                    )
+                  })
+                }
+              </DropdownButton><br />
+              <Analysis />
+            </div>
+          </div>
+          <div className="col-md-8">
+          {
+            clothingFiles.map(function(path){
+              var size = path ? path.split('-')[1] : false;
+              size = size ? size.split('.')[0] : 100;
+              return (
+                <Garment src={path} size={size} />
+              )
+            })
+          }
+          </div>
         </div>
-        {
-          clothingFiles.map(function(path){
-            var size = path ? path.split('-')[1] : false;
-            size = size ? size.split('.')[0] : 100;
-            return (
-              <Garment src={path} size={size} />
-            )
-          })
-        }
       </div>
     )
   }

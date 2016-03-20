@@ -166,10 +166,6 @@ var Rsvp = React.createClass({
           }.bind(this));
       }
     } else {
-      setTimeout(function(){
-        this.setState({ error : false });
-      }.bind(this), 5000);
-
       this.setState({ error : true });
     }
   },
@@ -193,7 +189,54 @@ var Rsvp = React.createClass({
         this.setState({ finished : false });
       }.bind(this));
   },
+  showGuests : function(d, i){
+
+    var question = shuffled[(i+1) % shuffled.length],
+        answer = question.a[0],
+        update = function(person, restore, save){
+          
+          // Restore backup
+          if (restore){
+            this.setState({ invitation : JSON.parse(this.backup) });
+            return;
+          }
+
+          // Update person
+          var invitation = this.state.invitation;
+          invitation.people[i] = person;
+          this.setState({ invitation : invitation });
+          
+          if (save){
+            this.backup = JSON.stringify(invitation);
+          }
+
+        }.bind(this),
+        changeFocus = function(i, e){
+          e.preventDefault();
+          if (this.state.focus == i+1 ){
+            this.setState({ focus : 0 })
+          } else {
+            this.setState({ focus : i+1 })
+          }
+        };
+    
+    return (
+      <Guest 
+        person={d}
+        backup={d}
+        update={update} 
+        question={question.q} 
+        answer={answer}
+        index={i}
+        key={'guest-' + i}
+        focused={this.state.focus && this.state.focus == i+1}
+        hide={this.state.focus}
+        changeFocus={changeFocus.bind(this, i)}
+      />
+    )
+  },
   render : function(){
+    var message = this.props.params.id ? "Did we forget someone?" : "⊕ Add a name to the list";
 
     return (
       <div className={'page centered'}>
@@ -207,54 +250,7 @@ var Rsvp = React.createClass({
           </div>
           <form className="form-horizontal rsvp">
             <fieldset>
-            {
-              invitation.people.map(function(d,i){
-
-                var question = shuffled[(i+1) % shuffled.length],
-                    answer = question.a[0],
-                    update = function(person, restore, save){
-                      
-                      // Restore backup
-                      if (restore){
-                        this.setState({ invitation : JSON.parse(this.backup) });
-                        return;
-                      }
-
-                      // Update person
-                      var invitation = this.state.invitation;
-                      invitation.people[i] = person;
-                      this.setState({ invitation : invitation });
-                      
-                      if (save){
-                        this.backup = JSON.stringify(invitation);
-                      }
-
-                    }.bind(this),
-                    changeFocus = function(i, e){
-                      e.preventDefault();
-                      if (this.state.focus == i+1 ){
-                        this.setState({ focus : 0 })
-                      } else {
-                        this.setState({ focus : i+1 })
-                      }
-                    };
-                
-                return (
-                  <Guest 
-                    person={d}
-                    backup={d}
-                    update={update} 
-                    question={question.q} 
-                    answer={answer}
-                    index={i}
-                    key={'guest-' + i}
-                    focused={this.state.focus && this.state.focus == i+1}
-                    hide={this.state.focus}
-                    changeFocus={changeFocus.bind(this, i)}
-                  />
-                )
-              }.bind(this))
-            }
+              { invitation.people.map(this.showGuests.bind(this)) }
             </fieldset>
           </form>
           <hr />
@@ -269,8 +265,10 @@ var Rsvp = React.createClass({
           </div>
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-xs-4"></div>
-            <div className="col-xs-4">
-              <div className="add-person pull-left" onClick={this.addNew}>Did we forget someone?</div>
+            <div className="col-xs-5">
+              <div className="add-person pull-left" onClick={this.addNew}>
+                { message }
+              </div>
               <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.finish}>Finish</button>
             </div>
           </div>

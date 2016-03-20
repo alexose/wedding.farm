@@ -29,8 +29,7 @@ var tabList = [
   },
   {
     name : '/attire',
-    display : 'Attire',
-    component : <Clothes />
+    display : 'Attire'
   },
   {
     name : '/',

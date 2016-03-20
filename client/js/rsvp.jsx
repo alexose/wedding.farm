@@ -156,14 +156,15 @@ var Rsvp = React.createClass({
     }
 
     if (pass){
-      id = id || 'Unknown';
-      request
-        .post('/api/invitation/' + id)
-        .send(this.state.invitation)
-        .set('Accept', 'application/json')
-        .end(function(){
-          this.setState({ finished : true });
-        }.bind(this));
+      if (id){
+        request
+          .post('/api/invitation/' + id)
+          .send(this.state.invitation)
+          .set('Accept', 'application/json')
+          .end(function(){
+            this.setState({ finished : true });
+          }.bind(this));
+      }
     } else {
       setTimeout(function(){
         this.setState({ error : false });

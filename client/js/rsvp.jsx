@@ -84,7 +84,7 @@ var Rsvp = React.createClass({
     this.backup = JSON.stringify(invitation);
     return { 
       invitation : invitation,
-      id : this.props.params && this.props.params.id ? this.props.params.id : false 
+      id : this.props.params && this.props.params.id ? this.props.params.id.toUpperCase() : false 
     };
   },
   componentDidMount : function(stuff){
@@ -104,8 +104,13 @@ var Rsvp = React.createClass({
               email : d['Email 1']
             });
           } else {
+            var error = <div>
+              <p>We can't find this code. Don't worry, you're still invited!
+              <br />You can still <a href="#" onClick={this.addNew}>add your name</a> without one.
+              </p>
+            </div>
             this.setState({
-              error : "We can't find this code. Don't worry, you're still invited!",
+              error : error, 
               id : 'Unknown'
             });
           }
@@ -292,7 +297,7 @@ var Rsvp = React.createClass({
     var message = this.state.id && this.state.id !== 'Unknown' ? "Did we forget someone?" : "⊕ Add a name to the list";
 
     var finish = function(){
-      if (this.state.id){
+      if (this.state.id && this.state.invitation.people.length){
         return (
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
@@ -321,7 +326,7 @@ var Rsvp = React.createClass({
     }.bind(this);
 
     var showTitle = function(){
-      if (this.state.id){
+      if (this.state.id && this.state.invitation.people.length){
         return (
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')} style={{ 'textAlign' : 'center' }}>
             <h2>Répondez, s'il vous plaît.</h2>

@@ -8,9 +8,6 @@ var Form = React.createClass({
       or : 'blank'
     };
   },
-  componentWillReceiveProps : function(props){
-    console.log(props);
-  },
   showAdvanced : function(){
     var switched = !this.state.advanced;
     this.setState({ advanced: switched });

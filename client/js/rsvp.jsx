@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Slider = require('rc-slider');
 var Guest = require('./guest.jsx');
 var request = require('superagent');
@@ -139,6 +140,7 @@ var Rsvp = React.createClass({
 
         }.bind(this));
     }
+    this.updateAlignment();
   },
   finish : function(){
     
@@ -149,7 +151,6 @@ var Rsvp = React.createClass({
     var people = this.state.invitation.people;
     for (var i in people){
       var person = people[i];
-      console.log(person.or, person.hi);
       if (!person.or || !person.hi){
         pass = false;
       }
@@ -177,7 +178,6 @@ var Rsvp = React.createClass({
     });
 
     this.setState({ invitation : invitation });
-    console.log(invitation);
   },
   startOver : function(e){
     e.preventDefault();
@@ -235,12 +235,28 @@ var Rsvp = React.createClass({
       />
     )
   },
+  componentDidUpdate : function(){
+    this.updateAlignment();
+  },
+  updateAlignment : function(){
+    if (!this.state.timeout){
+      var viewport = window.innerHeight - 100;
+      var element = document.getElementById('form').offsetHeight; 
+      this.setState({ 
+        centered: viewport > element,
+        timeout:  setTimeout(function(){
+          this.setState({ timeout : false }); 
+        }.bind(this), 1000)
+      });
+      console.log(viewport > element);
+    }
+  },
   render : function(){
     var message = this.props.params.id ? "Did we forget someone?" : "⊕ Add a name to the list";
 
     return (
-      <div className={'page centered'}>
-        <div className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
+      <div className={'page' + (this.state.centered ? ' centered' : '') }>
+        <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-xs-4"></div>
             <div className="col-xs-6">
@@ -250,7 +266,7 @@ var Rsvp = React.createClass({
           </div>
           <form className="form-horizontal rsvp">
             <fieldset>
-              { invitation.people.map(this.showGuests.bind(this)) }
+              { invitation.people.map(this.showGuests) }
             </fieldset>
           </form>
           <hr />

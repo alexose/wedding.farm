@@ -258,8 +258,8 @@ var Rsvp = React.createClass({
       <div className={'page' + (this.state.centered ? ' centered' : '') }>
         <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
-            <div className="col-xs-4"></div>
-            <div className="col-xs-6">
+            <div className="col-md-4"></div>
+            <div className="col-md-6">
               <h2>Répondez, s'il vous plaît.</h2>
               <hr />
             </div>
@@ -272,16 +272,16 @@ var Rsvp = React.createClass({
           <hr />
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className={"animated error " + (this.state.error ? '' : ' fadeout')}>
-              <div className="col-xs-4"></div>
-              <div className="col-xs-8">
+              <div className="col-md-4"></div>
+              <div className="col-md-8">
                 Please make sure to accept or decline each event.
                 <hr />
               </div>
             </div>
           </div>
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
-            <div className="col-xs-4"></div>
-            <div className="col-xs-5">
+            <div className="col-md-4"></div>
+            <div className="col-md-5">
               <div className="add-person pull-left" onClick={this.addNew}>
                 { message }
               </div>

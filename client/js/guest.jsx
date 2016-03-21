@@ -13,7 +13,7 @@ var Guest = React.createClass({
             <div className="col-xs-4">
               <div className={"fake-checkbox pull-right " + this.props.person.hi + this.props.person.or}>&nbsp;</div>
             </div>
-            <div className="col-xs-6">
+            <div className="col-xs-8">
               <h2>{this.props.person.name}</h2>
             </div>
           </div>

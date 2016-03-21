@@ -10,5 +10,4 @@ Build:
 
 For production:
 
-browserify -t reactify -t brfs -g [ uglifyify --mangle --compress [ --sequences --dead_code --booleans ] ] js/* -o ./dist/app.js -d -v
-
+    watchify -t reactify -t brfs -g [ uglifyify --no-sourcemap ] js/* -o dist/app.js -v

@@ -81,6 +81,7 @@ var invitation = {
 
 var Rsvp = React.createClass({
   getInitialState : function(){
+    this.backup = JSON.stringify(invitation);
     return { 
       invitation : invitation
     };
@@ -178,6 +179,7 @@ var Rsvp = React.createClass({
     });
 
     this.setState({ invitation : invitation });
+    this.forceUpdate();
   },
   startOver : function(e){
     e.preventDefault();
@@ -198,16 +200,16 @@ var Rsvp = React.createClass({
           // Restore backup
           if (restore){
             this.setState({ invitation : JSON.parse(this.backup) });
-            return;
-          }
+          } else {
 
-          // Update person
-          var invitation = this.state.invitation;
-          invitation.people[i] = person;
-          this.setState({ invitation : invitation });
+            // Update person
+            var invitation = this.state.invitation;
+            invitation.people[i] = person;
+            this.setState({ invitation : invitation });
           
-          if (save){
-            this.backup = JSON.stringify(invitation);
+            if (save){
+              this.backup = JSON.stringify(invitation);
+            }
           }
 
         }.bind(this),
@@ -265,7 +267,7 @@ var Rsvp = React.createClass({
           </div>
           <form className="form-horizontal rsvp">
             <fieldset>
-              { invitation.people.map(this.showGuests) }
+              { this.state.invitation.people.map(this.showGuests) }
             </fieldset>
           </form>
           <hr />

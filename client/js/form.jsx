@@ -20,6 +20,15 @@ var Form = React.createClass({
     this.props.update(null, true);
     this.props.changeFocus(e);
   },
+  save : function(e){
+    
+    e.preventDefault();
+
+    // Save backup
+    this.props.update(this.props.person, null, true);
+    this.props.changeFocus(e);
+    
+  },
   update : function(e){
 
     var person = this.props.person;
@@ -140,7 +149,7 @@ var Form = React.createClass({
           <div className="col-xs-4"></div>
           <div className="col-xs-6">
             <button name="singlebutton" className="btn btn-secondary btn-lg pull-left" onClick={this.cancel}>Cancel</button>
-            <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.props.changeFocus}>Continue</button>
+            <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.save}>Continue</button>
           </div>
         </div>
       </div>

@@ -185,8 +185,8 @@ div.tree{
 
 .fake-checkbox{
   border: 2px solid #bbb;
-  height: 30px;
-  width: 30px;
+  height: 34px;
+  width: 34px;
   border-radius: 10px;
 }
 
@@ -197,18 +197,21 @@ div.tree{
   display: inline-block;
 }
 
-.fake-checkbox.yesyes:after{
-  content:"🎉";
+.fake-checkbox.yesyes{
+  background: url(/img/yesyes.png);
+  background-size: cover;
 }
-.fake-checkbox.yesno:after{
-  content:"🌴";
+.fake-checkbox.yesno{
+  background: url(/img/yesno.png);
+  background-size: cover;
 }
-.fake-checkbox.noyes:after{
-  content:"🌲";
-  }
-.fake-checkbox.nono:after{
-  padding-top: 5px;
-  content:"☹";
+.fake-checkbox.noyes{
+  background: url(/img/noyes.png);
+  background-size: cover;
+}
+.fake-checkbox.nono{
+  background: url(/img/nono.png);
+  background-size: cover;
 }
 
 .toggle-advanced{

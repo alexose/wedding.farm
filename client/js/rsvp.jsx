@@ -177,16 +177,24 @@ var Rsvp = React.createClass({
       this.setState({ error : "Please make sure to accept or decline each event." });
     }
   },
-  addNew : function(){
+  addNew : function(e){
+
+    if (e && e.preventDefault){
+      e.preventDefault();
+    }
+
     var invitation = this.state.invitation;
 
     invitation.people.push({
       name : 'Surprise guest!'
     });
 
+    var id = this.state.id ? this.state.id : 'Unknown';
+
     this.setState({ 
       invitation : invitation,
-      error : false
+      error : false,
+      id : id      
     });
     this.forceUpdate();
   },
@@ -207,17 +215,10 @@ var Rsvp = React.createClass({
     if (!this.state.id){
       return (
         <div className="nonames">
-          <div className="form-group">
-            <label className="control-label" htmlFor="code">wedding.farm/rsvp/</label>
-            <input 
-              className="form-control input-xs" 
-              onChange={this.update} 
-              id="code" 
-              name="code" 
-              type="text" 
-              value={this.state.id} 
-              style={{ 'width' : '80px', 'display': 'inline-block' }} />
-          </div>
+          <p>Your R.S.V.P. code can be found on your Save the Date.</p>
+          <p>wedding.farm/rsvp/<span style={{ color : 'green' }}>CODE</span></p>
+          <p>If we goofed and you never got yours, don't worry.
+          <br />You can still <a href="#" onClick={this.addNew}>add your name</a> without one.</p>
         </div>
       )
     } else {
@@ -302,12 +303,6 @@ var Rsvp = React.createClass({
             </div>
           </div>
         )
-      } else {
-        return (
-          <div style={{ 'textAlign' : 'center' }}>
-            <p>eh?</p>
-          </div>
-        )
       }
     }.bind(this);
 
@@ -324,13 +319,22 @@ var Rsvp = React.createClass({
       }
     }.bind(this);
 
-    return (
-      <div className={'page' + (this.state.centered ? ' centered' : ' overflowing') }>
-        <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
+    var showTitle = function(){
+      if (this.state.id){
+        return (
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')} style={{ 'textAlign' : 'center' }}>
             <h2>Répondez, s'il vous plaît.</h2>
             <hr />
           </div>
+        );
+      }
+
+    }.bind(this);
+
+    return (
+      <div className={'page' + (this.state.centered ? ' centered' : ' overflowing') }>
+        <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
+          {showTitle()}
           <form className="form-horizontal rsvp">
             <fieldset>
               {this.showGuests()}

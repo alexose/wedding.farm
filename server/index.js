@@ -63,7 +63,7 @@ function notify(json){
     return d.name;
   });
 
-  var text = prettyjson.render(json, { nocolor : true });
+  var text = prettyjson.render(json, { noColor : true });
 
   var settings = {
     from:    'Wedding.farm',

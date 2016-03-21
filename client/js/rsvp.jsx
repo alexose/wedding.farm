@@ -83,24 +83,32 @@ var Rsvp = React.createClass({
   getInitialState : function(){
     this.backup = JSON.stringify(invitation);
     return { 
-      invitation : invitation
+      invitation : invitation,
+      id : this.props.params && this.props.params.id ? this.props.params.id : false 
     };
   },
   componentDidMount : function(stuff){
-    var id = this.props.params.id;
+    var id = this.state.id;
     if (id){
       id = id.toUpperCase();
       request
         .get('/api/invitation/' + id)
         .end(function(err, res){
-          var d = res.body;
+          var d = res.body || {};
           
           var people = [];
           
-          people.push({
-            name : d['Invitee 1'],
-            email : d['Email 1']
-          });
+          if (exists(d['Invitee 1'])){
+            people.push({
+              name : d['Invitee 1'],
+              email : d['Email 1']
+            });
+          } else {
+            this.setState({
+              error : "We can't find this code. Don't worry, you're still invited!",
+              id : 'Unknown'
+            });
+          }
 
           if (exists(d['Invitee 2'])){
             people.push({
@@ -145,7 +153,7 @@ var Rsvp = React.createClass({
   },
   finish : function(){
     
-    var id = this.props.params.id;
+    var id = this.state.id || 'Unknown';
 
     // Validate
     var pass = true;
@@ -158,17 +166,15 @@ var Rsvp = React.createClass({
     }
 
     if (pass){
-      if (id){
-        request
-          .post('/api/invitation/' + id)
-          .send(this.state.invitation)
-          .set('Accept', 'application/json')
-          .end(function(){
-            this.setState({ finished : true });
-          }.bind(this));
-      }
+      request
+        .post('/api/invitation/' + id)
+        .send(this.state.invitation)
+        .set('Accept', 'application/json')
+        .end(function(){
+          this.setState({ finished : true });
+        }.bind(this));
     } else {
-      this.setState({ error : true });
+      this.setState({ error : "Please make sure to accept or decline each event." });
     }
   },
   addNew : function(){
@@ -178,12 +184,15 @@ var Rsvp = React.createClass({
       name : 'Surprise guest!'
     });
 
-    this.setState({ invitation : invitation });
+    this.setState({ 
+      invitation : invitation,
+      error : false
+    });
     this.forceUpdate();
   },
   startOver : function(e){
     e.preventDefault();
-    var id = this.props.params.id;
+    var id = this.state.id;
     request
       .del('/api/invitation/' + id)
       .set('Accept', 'application/json')
@@ -191,51 +200,76 @@ var Rsvp = React.createClass({
         this.setState({ finished : false });
       }.bind(this));
   },
-  showGuests : function(d, i){
+  showGuests : function(){
+   
+    var people = this.state.invitation.people;
 
-    var question = shuffled[(i+1) % shuffled.length],
-        answer = question.a[0],
-        update = function(person, restore, save){
-          
-          // Restore backup
-          if (restore){
-            this.setState({ invitation : JSON.parse(this.backup) });
-          } else {
+    if (!this.state.id){
+      return (
+        <div className="nonames">
+          <div className="form-group">
+            <label className="control-label" htmlFor="code">wedding.farm/rsvp/</label>
+            <input 
+              className="form-control input-xs" 
+              onChange={this.update} 
+              id="code" 
+              name="code" 
+              type="text" 
+              value={this.state.id} 
+              style={{ 'width' : '80px', 'display': 'inline-block' }} />
+          </div>
+        </div>
+      )
+    } else {
 
-            // Update person
-            var invitation = this.state.invitation;
-            invitation.people[i] = person;
-            this.setState({ invitation : invitation });
-          
-            if (save){
-              this.backup = JSON.stringify(invitation);
-            }
-          }
+      var arr = people.map(function(d, i){
 
-        }.bind(this),
-        changeFocus = function(i, e){
-          e.preventDefault();
-          if (this.state.focus == i+1 ){
-            this.setState({ focus : 0 })
-          } else {
-            this.setState({ focus : i+1 })
-          }
-        };
-    
-    return (
-      <Guest 
-        person={d}
-        backup={d}
-        update={update} 
-        question={question.q} 
-        answer={answer}
-        index={i}
-        key={'guest-' + i}
-        focused={this.state.focus && this.state.focus == i+1}
-        hide={this.state.focus}
-        changeFocus={changeFocus.bind(this, i)}
-      />
-    )
+        var question = shuffled[(i+1) % shuffled.length],
+            answer = question.a[0],
+            update = function(person, restore, save){
+              
+              // Restore backup
+              if (restore){
+                this.setState({ invitation : JSON.parse(this.backup) });
+              } else {
+
+                // Update person
+                var invitation = this.state.invitation;
+                invitation.people[i] = person;
+                this.setState({ invitation : invitation });
+              
+                if (save){
+                  this.backup = JSON.stringify(invitation);
+                }
+              }
+
+            }.bind(this),
+            changeFocus = function(i, e){
+              e.preventDefault();
+              this.setState({ 
+                focus : this.state.focus == i+1 ? 0 : i+1,
+                error : false
+              });
+            };
+        
+        return (
+          <Guest 
+            person={d}
+            backup={d}
+            update={update} 
+            question={question.q} 
+            answer={answer}
+            index={i}
+            key={'guest-' + i}
+            focused={this.state.focus && this.state.focus == i+1}
+            hide={this.state.focus}
+            changeFocus={changeFocus.bind(this, i)}
+          />
+        )
+      }.bind(this));
+
+      return arr;
+    }
   },
   componentDidUpdate : function(){
     this.updateAlignment();
@@ -253,33 +287,11 @@ var Rsvp = React.createClass({
     }
   },
   render : function(){
-    var message = this.props.params.id ? "Did we forget someone?" : "⊕ Add a name to the list";
+    var message = this.state.id && this.state.id !== 'Unknown' ? "Did we forget someone?" : "⊕ Add a name to the list";
 
-    return (
-      <div className={'page' + (this.state.centered ? ' centered' : ' overflowing') }>
-        <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
-          <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
-            <div className="col-md-4"></div>
-            <div className="col-md-6">
-              <h2>Répondez, s'il vous plaît.</h2>
-              <hr />
-            </div>
-          </div>
-          <form className="form-horizontal rsvp">
-            <fieldset>
-              { this.state.invitation.people.map(this.showGuests) }
-            </fieldset>
-          </form>
-          <hr />
-          <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
-            <div className={"animated error " + (this.state.error ? '' : ' fadeout')}>
-              <div className="col-md-4"></div>
-              <div className="col-md-8">
-                Please make sure to accept or decline each event.
-                <hr />
-              </div>
-            </div>
-          </div>
+    var finish = function(){
+      if (this.state.id){
+        return (
           <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>
             <div className="col-md-5">
@@ -289,6 +301,44 @@ var Rsvp = React.createClass({
               <button name="singlebutton" className="btn btn-primary btn-lg pull-right" onClick={this.finish}>Finish</button>
             </div>
           </div>
+        )
+      } else {
+        return (
+          <div style={{ 'textAlign' : 'center' }}>
+            <p>eh?</p>
+          </div>
+        )
+      }
+    }.bind(this);
+
+    var showError = function(){
+      if (this.state.error){
+        return (
+          <div className={"row animated " + (this.state.focus ? ' fadeout' : '')}>
+            <div className={"animated error " + (this.state.error ? '' : ' fadeout')} style={{ 'textAlign' : 'center', 'margin' : '20px 0'}}>
+              {this.state.error}
+              <hr />
+            </div>
+          </div>
+         )
+      }
+    }.bind(this);
+
+    return (
+      <div className={'page' + (this.state.centered ? ' centered' : ' overflowing') }>
+        <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
+          <div className={"row animated" + (this.state.focus ? ' fadeout' : '')} style={{ 'textAlign' : 'center' }}>
+            <h2>Répondez, s'il vous plaît.</h2>
+            <hr />
+          </div>
+          <form className="form-horizontal rsvp">
+            <fieldset>
+              {this.showGuests()}
+            </fieldset>
+          </form>
+          <hr />
+          {showError()}
+          {finish()}
         </div>
         <div className={"alldone animated " + (this.state.finished ? '' : ' fadeout')}>
           <h2>All done</h2>

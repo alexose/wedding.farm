@@ -244,3 +244,8 @@ div.tree{
 .analysis{
   width: 300px;
 }
+
+.nonames{
+  text-align: center;
+  border: 1px solid #eee;
+}

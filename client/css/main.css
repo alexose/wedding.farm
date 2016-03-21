@@ -6,6 +6,7 @@
   #app h2 { font-size: 26px; }
   #app h4 { font-size: 16px; }
   #app .rsvp { font-size: 14px; }
+  #app .btn-lg { padding: 3px 8px; margin: 10px 0; font-size: 13px; }
 }
 
 @media all and (max-width:600px) and (min-width:400px) {

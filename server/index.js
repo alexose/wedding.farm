@@ -7,6 +7,8 @@ var nodemailer = require('nodemailer');
 var sgTransport = require('nodemailer-sendgrid-transport');
 var client = nodemailer.createTransport(sgTransport(config.transport));
 
+var prettyjson = require('prettyjson');
+
 app.use(express.static('../client'));
 app.use('/attire', express.static('../client'));
 app.use('/rsvp', express.static('../client'));
@@ -35,7 +37,6 @@ app.post('/api/invitation/:id', function (req, res){
 
     var json;
     try {
-      console.log(str);
       json = JSON.parse(str);
       spreadsheet.save(id, json, function(){
         res.send('All done');
@@ -62,11 +63,13 @@ function notify(json){
     return d.name;
   });
 
+  var text = prettyjson.render(json, { nocolor : true });
+
   var settings = {
     from:    'Wedding.farm',
     to:      'wedding@alexose.com',
     subject: 'RSVP from ' + names.join(', '),
-    text:    JSON.stringify(json, null, 2)
+    text:    text 
   };
 
   client.sendMail(settings, function(error, response){

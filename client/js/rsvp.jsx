@@ -192,9 +192,10 @@ var Rsvp = React.createClass({
     var id = this.state.id ? this.state.id : 'Unknown';
 
     this.setState({ 
-      invitation : invitation,
-      error : false,
-      id : id      
+      invitation: invitation,
+      error:      false,
+      id:         id,
+      focus:      invitation.people.length == 1 ? 1 : 0,
     });
     this.forceUpdate();
   },
@@ -255,16 +256,16 @@ var Rsvp = React.createClass({
         
         return (
           <Guest 
-            person={d}
-            backup={d}
-            update={update} 
-            question={question.q} 
-            answer={answer}
-            index={i}
-            key={'guest-' + i}
-            focused={this.state.focus && this.state.focus == i+1}
-            hide={this.state.focus}
-            changeFocus={changeFocus.bind(this, i)}
+            person      = {d}
+            backup      = {d}
+            update      = {update}
+            question    = {question.q}
+            answer      = {answer}
+            index       = {i}
+            key         = {'guest-' + i}
+            focused     = {this.state.focus && this.state.focus == i+1}
+            hide        = {this.state.focus}
+            changeFocus = {changeFocus.bind(this, i)}
           />
         )
       }.bind(this));

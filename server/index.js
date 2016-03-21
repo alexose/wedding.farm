@@ -8,7 +8,9 @@ var sgTransport = require('nodemailer-sendgrid-transport');
 var client = nodemailer.createTransport(sgTransport(config.transport));
 
 var prettyjson = require('prettyjson');
+var compression = require('compression');
 
+app.use(compression());
 app.use(express.static('../client'));
 app.use('/attire', express.static('../client'));
 app.use('/rsvp', express.static('../client'));

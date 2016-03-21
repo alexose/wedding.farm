@@ -19,6 +19,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "brfs": "^1.4.3",
+    "compression": "^1.6.1",
     "edit-google-spreadsheet": "^0.2.21",
     "express": "^4.13.4",
     "googleapis": "^2.1.7",

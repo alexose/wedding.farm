@@ -6,12 +6,20 @@ var Guest = React.createClass({
     return {};
   },
   render : function(){
+    var hi = this.props.person.hi,
+        or = this.props.person.or;
+
+    var chosen = hi && or;
+
     return(
       <div className={"guest"}>
         <div className={"guest-row animated" + (this.props.hide ? ' fadeout' : '')}>
           <div className="title-row row" onClick={this.props.changeFocus}>
             <div className="col-xs-4">
-              <div className={"fake-checkbox pull-right " + this.props.person.hi + this.props.person.or}>&nbsp;</div>
+              <div className={"fake-checkbox pull-right " + this.props.person.hi + this.props.person.or}>
+                {chosen ? <img src={"img/" + (hi + or) + ".png"} /> : '' }
+                <div className={"fake-checkbox-inner"}></div>
+              </div>
             </div>
             <div className="col-xs-8">
               <h2>{this.props.person.name}</h2>

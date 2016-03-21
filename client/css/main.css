@@ -5,6 +5,7 @@ html, body {
   font-size: 20px;
 }
 
+
 body > div {
   height: 100%;
   overflow: scroll;
@@ -14,6 +15,7 @@ body > div {
 body {
   background: url(/img/background.jpg) center no-repeat;
   background-color: #f3f3f3;
+  background-size: cover;
 }
 
 #app {

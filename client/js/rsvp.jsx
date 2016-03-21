@@ -239,23 +239,22 @@ var Rsvp = React.createClass({
     this.updateAlignment();
   },
   updateAlignment : function(){
-    if (!this.state.timeout){
+    if (!this.timeout){
       var viewport = window.innerHeight - 100;
       var element = document.getElementById('form').offsetHeight; 
+      this.timeout = setTimeout(function(){
+        this.timeout = false; 
+      }.bind(this), 1000);
       this.setState({ 
-        centered: viewport > element,
-        timeout:  setTimeout(function(){
-          this.setState({ timeout : false }); 
-        }.bind(this), 1000)
+        centered: viewport > element
       });
-      console.log(viewport > element);
     }
   },
   render : function(){
     var message = this.props.params.id ? "Did we forget someone?" : "⊕ Add a name to the list";
 
     return (
-      <div className={'page' + (this.state.centered ? ' centered' : '') }>
+      <div className={'page' + (this.state.centered ? ' centered' : ' overflowing') }>
         <div id="form" className={"container animated " + (this.state.finished ? ' fadeout' : '')}>
           <div className={"row animated" + (this.state.focus ? ' fadeout' : '')}>
             <div className="col-md-4"></div>

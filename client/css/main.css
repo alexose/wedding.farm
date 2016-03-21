@@ -131,6 +131,9 @@ div.tree{
   justify-content: flex-start;
 }
 
+.page.overflowing{
+  margin-top: 20px;
+}
 
 .paperdolls {
   float: left;

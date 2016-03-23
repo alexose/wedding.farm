@@ -4,8 +4,9 @@ var Slider = require('rc-slider');
 var Form = React.createClass({
   getInitialState : function(){
     return {
-      hi : 'blank',
-      or : 'blank'
+      hi:       'blank',
+      or:       'blank',
+      question: this.props.question
     };
   },
   showAdvanced : function(){

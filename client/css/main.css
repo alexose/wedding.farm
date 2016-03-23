@@ -100,6 +100,7 @@ div.tree{
 .main-nav ul li.disabled a{
   color: #ccc;
   cursor: default;
+  pointer-events: none;
 }
 
 .main-nav ul li a {

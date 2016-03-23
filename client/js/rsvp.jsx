@@ -91,6 +91,7 @@ var Rsvp = React.createClass({
     var id = this.state.id;
     if (id){
       id = id.toUpperCase();
+      invitation.id = id;
       request
         .get('/api/invitation/' + id)
         .end(function(err, res){

@@ -91,7 +91,6 @@ var Rsvp = React.createClass({
     var id = this.state.id;
     if (id){
       id = id.toUpperCase();
-      invitation.id = id;
       request
         .get('/api/invitation/' + id)
         .end(function(err, res){
@@ -172,6 +171,7 @@ var Rsvp = React.createClass({
     }
 
     if (pass){
+
       request
         .post('/api/invitation/' + id)
         .send(this.state.invitation)
@@ -179,6 +179,7 @@ var Rsvp = React.createClass({
         .end(function(){
           this.setState({ finished : true });
         }.bind(this));
+
     } else {
       this.setState({ error : "Please make sure to accept or decline each event." });
     }
@@ -196,6 +197,8 @@ var Rsvp = React.createClass({
     });
 
     var id = this.state.id ? this.state.id : 'Unknown';
+
+    invitation.id = id
 
     this.setState({ 
       invitation: invitation,
@@ -243,6 +246,10 @@ var Rsvp = React.createClass({
 
                 // Update person
                 var invitation = this.state.invitation;
+
+                if (person.answer){
+                  person.question = question.q;
+                }
                 invitation.people[i] = person;
                 this.setState({ invitation : invitation });
               

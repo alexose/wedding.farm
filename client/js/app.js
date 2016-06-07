@@ -4,6 +4,8 @@ var ReactDOM = require('react-dom');
 var Nav = require('./nav.jsx');
 var Clothes = require('./clothes.jsx');
 var Rsvp = require('./rsvp.jsx');
+var Activities = require('./activities.jsx');
+var Accomodations = require('./accomodations.jsx');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -29,15 +31,18 @@ var tabList = [
   },
   {
     name : '/attire',
-    display : 'Attire'
+    display : 'Attire',
+    component : <Clothes />
   },
   {
-    name : '/',
-    display : 'Activities'
+    name : '/activities',
+    display : 'Activities',
+    component : <Activities />
   },
   {
-    name : '/',
-    display : 'Accomodations'
+    name : '/accomodations',
+    display : 'Accomodations',
+    component : <Accomodations />
   },
   {
     name : '/rsvp',
@@ -68,6 +73,8 @@ ReactDOM.render(
         <Route path="/rsvp/:id" component={Rsvp} />
       </Route>
       <Route path="/attire" component={Clothes} />
+      <Route path="/activities" component={Activities} />
+      <Route path="/accomodations" component={Accomodations} />
     </Route>
   </Router>,
   document.getElementById('app')

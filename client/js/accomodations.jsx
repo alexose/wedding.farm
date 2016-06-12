@@ -6,6 +6,7 @@ var Accomodations = React.createClass({
       <div className="container">
         <hr className="spacer" />
         <h1 className="title">Accomodations</h1>
+        <h3 className="middle section-title">Oregon</h3>
         <p>
           <div className="aside left">
             <img src="img/applegate.jpg" />
@@ -36,7 +37,15 @@ var Accomodations = React.createClass({
           Our good friend in the valley runs <i>The Crashpad</i>, a hostel-style vacation rental.  Located halfway between the wedding ceremony and the after party in the town of Ruch, The Crash Pad is a great option for a group of up to 12.  Please contact us directly if you’re interested in booking it.
           <br /><br />
         </p>
-        <p className="middle">
+        <h3 className="middle section-title">Hawai'i</h3>
+        <p>
+          <div className="aside left">
+            <img src="img/hawaii.jpg" />
+            <h5>A especially paradise-y part of HPP</h5>
+          </div>
+          For wedding goers visiting the Big Island in November, the reception will be held at Maluhia’s childhood home in Hawaiian Paradise Park, a rural subdivision in lower Puna between the small towns of Kea’au and Pāhoa. With the nearest hotels being in Hilo, a 40 minute drive from the party, accommodations are best sought through <a href="http://airbnb.com">AirBnB</a> and <a href="http://vrbo.com">VRBO</a>.
+        </p>
+        <p className="middle section-title clear">
           Questions about the area?  Ask us!
           <br /><br />
           <img className="footer-tree" src="img/footer_tree.png" />

@@ -338,3 +338,7 @@ hr.spacer {
   max-width:45px;
   opacity: 0.5;
 }
+
+.section-title {
+  font-variant: small-caps;
+}

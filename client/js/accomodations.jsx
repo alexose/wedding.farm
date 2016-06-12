@@ -25,7 +25,7 @@ var Accomodations = React.createClass({
             <img src="img/winecountry.jpg" />
             <h5>Ah, casual elegance in wine country</h5>
           </div>
-          Guest rooms and suites at both locations can be booked under our group rate by calling 541.899.2050 or emailing and referring to the Maluhia and Alex Wedding or group code 1610GREENL.
+          Guest rooms and suites at both locations can be booked under our group rate by calling 541.899.2050 or emailing innkeeper@countryhouseinnsjacksonville.com and referring to the Maluhia and Alex Wedding or group code 1610GREENL.
           <br /><br />
           <div className="aside right">
             <img src="img/mccully.jpg" />

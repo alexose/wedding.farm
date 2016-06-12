@@ -16,7 +16,17 @@ var Home = React.createClass({
   render : function(){
     return (
       <div className="page centered">
-        <img id="logo" src="/img/text.png"/> 
+        <img id="logo" src="/img/text.png"/>
+        <ul className="dates">
+          <li className="date bigger">
+            <img id="oregon" src="/img/oregon.png"/>
+            Ceremony October 8th, 2016
+          </li>
+          <li className="date">
+            <img id="hawaii" src="/img/hawaii.png"/>
+            Reception November 26th, 2016
+          </li>
+        </ul>
       </div>
     )
   }

@@ -40,14 +40,12 @@ var tabList = [
     component : <Home />
   },
   {
-    name : '/attire',
-    display : 'Attire',
-    component : <Clothes />
+    name : '/',
+    display : 'Attire'
   },
   {
-    name : '/activities',
-    display : 'Activities',
-    component : <Activities />
+    name : '/',
+    display : 'Activities'
   },
   {
     name : '/accomodations',

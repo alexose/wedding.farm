@@ -40,7 +40,7 @@ body > div {
 
 body {
   background: url(/img/background.jpg) center no-repeat;
-  background-color: #f3f3f3;
+  background-color: #e7e8e3;
   background-size: cover;
 }
 
@@ -87,7 +87,7 @@ div.tree{
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 9999;
-  background: #eee;
+  background: #e7e8e3;
 }
 
 .main-nav ul {
@@ -293,7 +293,7 @@ div.tree{
 
 .nonames{
   text-align: center;
-  border: 1px solid #eee;
+  border: 1px solid #e7e8e3;
 }
 
 hr.spacer {

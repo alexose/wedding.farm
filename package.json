@@ -24,6 +24,7 @@
     "express": "^4.13.4",
     "googleapis": "^2.1.7",
     "jquery": "^2.2.0",
+    "mapbox-gl": "^0.21.0",
     "nodemailer": "^2.3.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "prettyjson": "^1.1.3",

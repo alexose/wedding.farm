@@ -5,7 +5,7 @@ var Activities = React.createClass({
     var centered = true;
     return(
       <div className={'page' + (centered ? ' centered' : ' overflowing') }>
-        <div>Activities!</div>
+        <div id='map' style='width: 400px; height: 300px;'></div>
       </div>
     )
   }

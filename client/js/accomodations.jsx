@@ -19,14 +19,14 @@ var Accomodations = React.createClass({
             <img src="img/jacksonville.jpg" />
             <h5>This is Jacksonville!</h5>
           </div>
-          Wedding guests are encouraged to use our room blocks in Jacksonville.  The Wine Country Inn offers nicely appointed rooms starting at $129 per night and includes a light continental breakfast. The Wine Cottages and McCully House Inn offers more deluxe accommodations right on downtown main street with rooms starting at $188 per night.
+          Wedding guests are encouraged to use our room blocks in Jacksonville.  The <a href="http://www.countryhouseinnsjacksonville.com/winecountryinn.jsp">Wine Country Inn</a> offers nicely appointed rooms starting at $129 per night and includes a light continental breakfast. <a href="http://www.countryhouseinnsjacksonville.com/winecottages.jsp">The Wine Cottages</a> and <a href="http://www.countryhouseinnsjacksonville.com/mccullyhouseinn.jsp">McCully House Inn</a> offers more deluxe accommodations right on downtown main street with rooms starting at $188 per night.
         </p>
         <p>
           <div className="aside left">
             <img src="img/winecountry.jpg" />
             <h5>Ah, casual elegance in wine country</h5>
           </div>
-          Guest rooms and suites at both locations can be booked under our group rate by calling 541.899.2050 or emailing innkeeper@countryhouseinnsjacksonville.com and referring to the Maluhia and Alex Wedding or group code 1610GREENL.
+          Guest rooms and suites at both locations can be booked under our group rate by calling 541.899.2050 or emailing <a href="mailto:innkeeper@countryhouseinnsjacksonville.com">innkeeper@countryhouseinnsjacksonville.com</a> and referring to the Maluhia and Alex Wedding or group code 1610GREENL.
           <br /><br />
           <div className="aside right">
             <img src="img/mccully.jpg" />
@@ -34,7 +34,7 @@ var Accomodations = React.createClass({
           </div>
           Guests who enjoy a rural aesthetic may be interested in checking vacation rentals around the Applegate Valley [<a href="http://airbnb.com">AirBnB</a>, <a href="http://vrbo.com">VRBO</a>].  There are plenty of ranch-style rentals that to cater to the Wine tourism crowd.  While there is a hotel in Applegate, it is best left to the adventurous.
           <br /><br />
-          Our good friend in the valley runs <i>The Crashpad</i>, a hostel-style vacation rental.  Located halfway between the wedding ceremony and the after party in the town of Ruch, The Crash Pad is a great option for a group of up to 12.  Please contact us directly if you’re interested in booking it.
+          Our good friend in the valley runs <a href="https://www.airbnb.com/rooms/2987960">The Crashpad</a>, a hostel-style vacation rental.  Located halfway between the wedding ceremony and the after party in the town of Ruch, The Crash Pad is a great option for a group of up to 12.  Please contact us directly if you’re interested in booking it.
           <br /><br />
         </p>
         <h3 className="middle section-title">Hawai'i</h3>

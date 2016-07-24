@@ -226,7 +226,7 @@ var Rsvp = React.createClass({
       return (
         <div className="nonames">
           <p>Your R.S.V.P. code can be found on your Save the Date.</p>
-          <p>wedding.farm/rsvp/<span style={{ color : 'green' }}>CODE</span></p>
+          <p>wedding.farm/rsvp/<span style={{ color : '#7d5a00' }}>CODE</span></p>
           <p>If we goofed and you never got yours, don't worry.
           <br />You can still <a href="#" onClick={this.addNew}>add your name</a> without one.</p>
         </div>

@@ -80,7 +80,7 @@ var Clothes = React.createClass({
         <div className="row">
           <div className="col-md-4">
             <div className="paperdolls">
-              <Paperdoll src={this.state.current} />
+              <Paperdoll src={this.state.current} /><br />
               <DropdownButton 
                 bsSize="large"
                 title={this.state.current.replace('.png','')}
@@ -94,7 +94,7 @@ var Clothes = React.createClass({
                     )
                   })
                 }
-              </DropdownButton><br />
+              </DropdownButton><br /><br /><br />
               <Analysis />
             </div>
           </div>

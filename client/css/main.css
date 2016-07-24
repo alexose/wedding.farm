@@ -175,7 +175,8 @@ div.tree{
 }
 
 .garment {
-  max-height: 100px;
+  max-height: 190px;
+  height: auto;
 }
 
 .paperdoll {
@@ -293,7 +294,6 @@ div.tree{
 
 .nonames{
   text-align: center;
-  border: 1px solid #e7e8e3;
 }
 
 hr.spacer {

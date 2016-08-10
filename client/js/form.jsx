@@ -41,7 +41,7 @@ var Form = React.createClass({
       person[name] = value;
 
       if (window.ga){
-        window.ga('send', 'event', 'RSVP', 'Update', e.target.name, e.target.value);
+        window.ga('send', 'event', 'RSVP', 'Update', e.target.name + e.target.value);
       }
     } else {
 

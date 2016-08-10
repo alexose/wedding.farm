@@ -236,7 +236,7 @@ var Rsvp = React.createClass({
   startOver : function(e){
     e.preventDefault();
     var id = this.state.id;
-    this.setState = { isDirty: false };
+    this.setState({ isDirty: false });
     request
       .del('/api/invitation/' + id)
       .set('Accept', 'application/json')

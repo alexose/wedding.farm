@@ -13,7 +13,7 @@ var text = [
 ];
 
 var questions = [
-  { 
+  {
     q : 'Please write a short 5000 word essay on why you\'d like to attend this event.',
     a : [
       '5000 words?  That\'s way too long.  Listen, asking me to go all the way to Southern Oregon is more than enough.',
@@ -22,7 +22,7 @@ var questions = [
       '\"I\'ve watched through his eyes, I\'ve listened through his ears, and I tell you he\'s the one. Or at least as close as we\'re going to get.\" \r\n\"That\'s what you said about the brother.\" \r\n\"The brother tested out impossible. For other reasons. Nothing to do with his ability.\" \r\n\"Same with the sister. And there are doubts about him. He\'s too malleable. Too willing to submerge himself in someone else\'s will.\" \r\n\"Not if the other person is his enemy.\"',
     ]
   },
-  { 
+  {
     q : 'Any special partying restrictions?',
     a : [
       'No, I am prepared to meet this party head-on.',
@@ -30,7 +30,7 @@ var questions = [
       'I need to make it home early so I can catch up on House of Cards'
     ]
   },
-  { 
+  {
     q : 'I won\'t have fun unless:',
     a : [
       'There is a bouncy castle',
@@ -38,7 +38,7 @@ var questions = [
       'The ceremony is 4 minutes or less'
     ]
   },
-  { 
+  {
     q : 'Favorite Real Housewives series:',
     a : [
       'Real Housewives of Atlanta',
@@ -47,7 +47,7 @@ var questions = [
       'Real Housewives of Space Station Mir'
     ]
   },
-  { 
+  {
     q : 'What\'s the deal with Lebron this year?',
     a : [
       'Sorry, I don\'t follow sports',
@@ -55,7 +55,7 @@ var questions = [
       "Listen kid, I've been hearing that crap ever since I was at UCLA. I'm out there busting my buns every night! Tell your old man to drag Walton and Lanier up and down the court for 48 minutes!"
     ]
   },
-  { 
+  {
     q : 'Favorite Julia Roberts role:',
     a : [
       'Pretty woman, obviously.  Although, there are just so many good ones...',
@@ -82,9 +82,9 @@ var invitation = {
 var Rsvp = React.createClass({
   getInitialState : function(){
     this.backup = JSON.stringify(invitation);
-    return { 
+    return {
       invitation : invitation,
-      id : this.props.params && this.props.params.id ? this.props.params.id.toUpperCase() : false 
+      id : this.props.params && this.props.params.id ? this.props.params.id.toUpperCase() : false
     };
   },
   componentDidMount : function(stuff){
@@ -95,9 +95,9 @@ var Rsvp = React.createClass({
         .get('/api/invitation/' + id)
         .end(function(err, res){
           var d = res.body || {};
-          
+
           var people = [];
-          
+
           if (exists(d['Invitee 1'])){
             people.push({
               name : d['Invitee 1'],
@@ -110,7 +110,7 @@ var Rsvp = React.createClass({
               </p>
             </div>
             this.setState({
-              error : error, 
+              error : error,
               id : 'Unknown'
             });
           }
@@ -121,14 +121,14 @@ var Rsvp = React.createClass({
               email : d['Email 2']
             });
           }
-          
+
           if (exists(d['Invitee 3'])){
             people.push({
               name : d['Invitee 3'],
               email : d['Email 3']
             });
           }
-          
+
           if (exists(d['Invitee 4'])){
             people.push({
               name : d['Invitee 4'],
@@ -140,7 +140,7 @@ var Rsvp = React.createClass({
              return (typeof entry === 'string' ? entry : false);
           }
 
-          // If we already have a response, show it 
+          // If we already have a response, show it
           if (d.response){
             this.setState({ finished : true });
           }
@@ -149,7 +149,7 @@ var Rsvp = React.createClass({
           var invitation = this.state.invitation;
           invitation.people = people;
           this.setState({ invitation : invitation });
-          this.backup = JSON.stringify(invitation); 
+          this.backup = JSON.stringify(invitation);
           this.render();
 
         }.bind(this));
@@ -157,7 +157,7 @@ var Rsvp = React.createClass({
     this.updateAlignment();
   },
   finish : function(){
-    
+
     var id = this.state.id || 'Unknown';
 
     // Validate
@@ -171,7 +171,6 @@ var Rsvp = React.createClass({
     }
 
     if (pass){
-
       request
         .post('/api/invitation/' + id)
         .send(this.state.invitation)
@@ -180,8 +179,14 @@ var Rsvp = React.createClass({
           this.setState({ finished : true });
         }.bind(this));
 
+      if (window.ga){
+        window.ga('send', 'event', 'RSVP', 'Success');
+      }
     } else {
       this.setState({ error : "Please make sure to accept or decline each event." });
+      if (window.ga){
+        window.ga('send', 'event', 'RSVP', 'Fail');
+      }
     }
   },
   addNew : function(e){
@@ -200,7 +205,7 @@ var Rsvp = React.createClass({
 
     invitation.id = id
 
-    this.setState({ 
+    this.setState({
       invitation: invitation,
       error:      false,
       id:         id,
@@ -219,7 +224,7 @@ var Rsvp = React.createClass({
       }.bind(this));
   },
   showGuests : function(){
-   
+
     var people = this.state.invitation.people;
 
     if (!this.state.id){
@@ -238,7 +243,7 @@ var Rsvp = React.createClass({
         var question = shuffled[(i+1) % shuffled.length],
             answer = question.a[0],
             update = function(person, restore, save){
-              
+
               // Restore backup
               if (restore){
                 this.setState({ invitation : JSON.parse(this.backup) });
@@ -252,7 +257,7 @@ var Rsvp = React.createClass({
                 }
                 invitation.people[i] = person;
                 this.setState({ invitation : invitation });
-              
+
                 if (save){
                   this.backup = JSON.stringify(invitation);
                 }
@@ -261,14 +266,14 @@ var Rsvp = React.createClass({
             }.bind(this),
             changeFocus = function(i, e){
               e.preventDefault();
-              this.setState({ 
+              this.setState({
                 focus : this.state.focus == i+1 ? 0 : i+1,
                 error : false
               });
             };
-        
+
         return (
-          <Guest 
+          <Guest
             person      = {d}
             backup      = {d}
             update      = {update}
@@ -292,11 +297,11 @@ var Rsvp = React.createClass({
   updateAlignment : function(){
     if (!this.timeout){
       var viewport = window.innerHeight - 100;
-      var element = document.getElementById('form').offsetHeight; 
+      var element = document.getElementById('form').offsetHeight;
       this.timeout = setTimeout(function(){
-        this.timeout = false; 
+        this.timeout = false;
       }.bind(this), 1000);
-      this.setState({ 
+      this.setState({
         centered: viewport > element
       });
     }
@@ -388,4 +393,4 @@ function shuffle(array) {
   return array;
 }
 
-module.exports = Rsvp; 
+module.exports = Rsvp;

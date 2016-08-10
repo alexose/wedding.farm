@@ -87,7 +87,23 @@ var Rsvp = React.createClass({
       id : this.props.params && this.props.params.id ? this.props.params.id.toUpperCase() : false
     };
   },
+  navWarning: function(e){
+    if (this.state.isDirty){
+      var str = 'It looks like you haven\'t submitted your RSVP yet!  Are you sure you want to leave?';
+      e.returnValue = str;
+      return str;
+    } else {
+      return null;
+    }
+  },
+  componentWillUnmount : function(){
+    window.onbeforeunload = null;
+  },
   componentDidMount : function(stuff){
+
+    // Make sure people don't accidentally navigate away
+    window.onbeforeunload = this.navWarning;
+
     var id = this.state.id;
     if (id){
       id = id.toUpperCase();
@@ -160,6 +176,8 @@ var Rsvp = React.createClass({
 
     var id = this.state.id || 'Unknown';
 
+    var setState = this.setState.bind(this);
+
     // Validate
     var pass = true;
     var people = this.state.invitation.people;
@@ -176,14 +194,16 @@ var Rsvp = React.createClass({
         .send(this.state.invitation)
         .set('Accept', 'application/json')
         .end(function(){
-          this.setState({ finished : true });
+          setState({ finished : true });
         }.bind(this));
+
+      setState({ isDirty: false });
 
       if (window.ga){
         window.ga('send', 'event', 'RSVP', 'Success');
       }
     } else {
-      this.setState({ error : "Please make sure to accept or decline each event." });
+      setState({ error : "Please make sure to accept or decline each event." });
       if (window.ga){
         window.ga('send', 'event', 'RSVP', 'Fail');
       }
@@ -216,6 +236,7 @@ var Rsvp = React.createClass({
   startOver : function(e){
     e.preventDefault();
     var id = this.state.id;
+    this.setState = { isDirty: false };
     request
       .del('/api/invitation/' + id)
       .set('Accept', 'application/json')
@@ -256,7 +277,10 @@ var Rsvp = React.createClass({
                   person.question = question.q;
                 }
                 invitation.people[i] = person;
-                this.setState({ invitation : invitation });
+                this.setState({
+                  invitation : invitation,
+                  isDirty : true
+                });
 
                 if (save){
                   this.backup = JSON.stringify(invitation);

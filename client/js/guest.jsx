@@ -26,12 +26,12 @@ var Guest = React.createClass({
             </div>
           </div>
         </div>
-        <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}> 
-          <Form 
+        <div className={'guest-form animated' + (this.props.focused ? '' : ' fadeout')}>
+          <Form
             person={this.props.person}
             index={this.props.index}
-            question={this.props.question} 
-            answer={this.props.answer} 
+            question={this.props.question}
+            answer={this.props.answer}
             update={this.props.update}
             changeFocus={this.props.changeFocus}
           />
@@ -41,4 +41,4 @@ var Guest = React.createClass({
   }
 });
 
-module.exports = Guest; 
+module.exports = Guest;

@@ -22,13 +22,13 @@ var Form = React.createClass({
     this.props.changeFocus(e);
   },
   save : function(e){
-    
+
     e.preventDefault();
 
     // Save backup
     this.props.update(this.props.person, null, true);
     this.props.changeFocus(e);
-    
+
   },
   update : function(e){
 
@@ -37,12 +37,19 @@ var Form = React.createClass({
     if (e && e.target){
       var name = e.target.name,
           value = e.target.value;
-   
+
       person[name] = value;
+
+      if (window.ga){
+        window.ga('send', 'event', 'RSVP', 'Update', e.target.name, e.target.value);
+      }
     } else {
 
       // Slider gives a value instead of an event yay
       person.fancy = e;
+      if (window.ga){
+        window.ga('send', 'event', 'RSVP', 'Update', 'fancy', e);
+      }
     }
 
     this.props.update(person);
@@ -58,7 +65,7 @@ var Form = React.createClass({
             <input onChange={this.update} id="name" name="name" type="text" value={this.props.person.name} className="form-control input-xs" required="" />
           </div>
         </div>
-        
+
         <div className="form-group">
           <label className="control-label col-xs-4" htmlFor="email">Electronic mail address</label>
           <div className="col-xs-6">
@@ -68,7 +75,7 @@ var Form = React.createClass({
 
         <div className="form-group">
           <label className="col-xs-4 control-label" htmlFor={"checkbox-" + i}>Under 21?</label>
-          
+
           <div className="col-xs-6">
             <div className="checkbox">
               <label htmlFor={"checkbox-" + i}>
@@ -93,7 +100,7 @@ var Form = React.createClass({
             </div>
           </div>
         </div>
-      
+
         <div className="form-group">
           <label className="col-xs-4 control-label">Party in Kea'au?</label>
           <div className="col-xs-6">
@@ -109,8 +116,8 @@ var Form = React.createClass({
             </div>
           </div>
         </div>
-        
-       
+
+
         <div className="row">
           <div className="col-xs-4"></div>
           <div className="col-xs-6">
@@ -121,20 +128,20 @@ var Form = React.createClass({
         <div className={"animated" + (this.state.advanced ? '' : ' fadeout')}>
           <div className="form-group">
             <label className="col-xs-4 control-label" htmlFor="diet">Any dietary restrictions?</label>
-            <div className="col-xs-6">                     
+            <div className="col-xs-6">
               <textarea onChange={this.update} rows="4" className="form-control" id="textarea" name="diet" />
             </div>
           </div>
 
           <div className="form-group">
             <label className="col-xs-4 control-label" htmlFor="answer">{this.props.question}</label>
-            <div className="col-xs-6">                     
+            <div className="col-xs-6">
               <textarea onChange={this.update} rows="4" className="form-control" id="textarea" name="answer" defaultValue={this.props.answer} />
             </div>
           </div>
 
           <div className="form-group">
-            <label className="control-label col-xs-4" htmlFor="needs">How fancy are you?</label>  
+            <label className="control-label col-xs-4" htmlFor="needs">How fancy are you?</label>
             <div className="col-xs-6 slider-wrap">
               <Slider
                 defaultValue={7}
@@ -145,7 +152,7 @@ var Form = React.createClass({
             </div>
           </div>
         </div>
-       
+
         <div className="form-group">
           <div className="col-xs-4"></div>
           <div className="col-xs-6">
@@ -158,4 +165,4 @@ var Form = React.createClass({
   }
 });
 
-module.exports = Form; 
+module.exports = Form;

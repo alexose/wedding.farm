@@ -6,6 +6,7 @@ var Clothes = require('./clothes.jsx');
 var Rsvp = require('./rsvp.jsx');
 var Activities = require('./activities.jsx');
 var Accomodations = require('./accomodations.jsx');
+var Registry = require('./registry.jsx');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -63,6 +64,11 @@ var tabList = [
     name : '/accomodations',
     display : 'Accomodations',
     component : <Accomodations />
+  },
+  {
+    name : '/registry',
+    display : 'Registry',
+    component : <Registry />
   },
   {
     name : '/rsvp',
@@ -173,6 +179,7 @@ ReactDOM.render(
       <Route path="/attire" component={Clothes} />
       <Route path="/activities" component={Activities} />
       <Route path="/accomodations" component={Accomodations} />
+      <Route path="/registry" component={Registry} />
     </Route>
   </Router>,
   document.getElementById('app')

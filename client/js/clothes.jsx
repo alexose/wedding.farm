@@ -3,17 +3,25 @@ var DropdownButton = require('react-bootstrap/lib/DropdownButton');
 var MenuItem = require('react-bootstrap/lib/MenuItem');
 var Draggable = require('react-draggable');
 
+var pubsub = require('./pubsub.js');
+
 // Read contents of directories
 var clothingFiles = require('fs').readdirSync('./img/clothes');
 var paperdollFiles = require('fs').readdirSync('./img/bodies');
 
 var Garment = React.createClass({
+  handleStart : function(e, i){
+
+    // Shameful hack
+    if (i.node && i.node.src && i.node.src.indexOf && i.node.src.indexOf('randoshoe') !== -1){
+      pubsub.publish('open-clothes-modal');
+    }
+  },
   render : function(){
-    console.log(this.props.size);
     return(
-      <Draggable>
+      <Draggable onStart={this.handleStart}>
         <img 
-          src={'img/clothes/' + this.props.src} 
+          src={'img/clothes/' + this.props.src}
           className="garment" 
           draggable="false" 
           style={{'max-width': this.props.size}} />
@@ -29,7 +37,6 @@ var Paperdoll = React.createClass({
     )
   }
 });
-
 
 var text = [
   'Loading analysis protocol...',
@@ -52,7 +59,10 @@ var Analysis = React.createClass({
         context.setState({ text : d });
       }, i * 2000);
     });
-
+  },
+  handleWhat : function(e){
+    e.preventDefault();
+    pubsub.publish('open-what-modal');
   },
   render : function(){
     return(
@@ -61,6 +71,9 @@ var Analysis = React.createClass({
           <button onClick={this.handleClick} className="analysis">Submit for approval</button>
           <p>{this.state.text}</p>
         </div>
+        <p>
+          <a onClick={this.handleWhat} href="#" style={{'font-size':'15px'}}>Ok, what should <br /> I actually wear?</a>
+        </p>
       </div>
     )
   }

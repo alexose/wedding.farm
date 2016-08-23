@@ -5,7 +5,7 @@ var Accomodations = React.createClass({
     return(
       <div className="container">
         <hr className="spacer" />
-        <h1 className="title">Accomodations</h1>
+        <h1 className="title"><img width="500px" src="img/accomodations.png" /></h1>
         <h3 className="middle section-title">Oregon</h3>
         <p>
           <div className="aside left">

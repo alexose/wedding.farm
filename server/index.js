@@ -15,6 +15,7 @@ app.use(express.static('../client'));
 app.use('/attire', express.static('../client'));
 app.use('/activities', express.static('../client'));
 app.use('/accomodations', express.static('../client'));
+app.use('/registry', express.static('../client'));
 app.use('/rsvp', express.static('../client'));
 app.use('/rsvp/:id', express.static('../client'));
 

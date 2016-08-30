@@ -34,7 +34,7 @@ var Accomodations = React.createClass({
           </div>
           Guests who enjoy a rural aesthetic may be interested in checking vacation rentals around the Applegate Valley [<a href="http://airbnb.com">AirBnB</a>, <a href="http://vrbo.com">VRBO</a>].  There are plenty of ranch-style rentals that to cater to the Wine tourism crowd.  While there is a hotel in Applegate, it is best left to the adventurous.
           <br /><br />
-          Our good friend in the valley runs <a href="https://www.airbnb.com/rooms/2987960">The Crashpad</a>, a hostel-style vacation rental.  Located halfway between the wedding ceremony and the after party in the town of Ruch, The Crash Pad is a great option for a group of up to 12.  Please contact us directly if you’re interested in booking it.
+          Our good friend in the valley runs <a href="https://www.airbnb.com/rooms/2987960">The Crashpad</a>, a hostel-style vacation rental.  Located halfway between the wedding ceremony and the after party in the town of Ruch, The Crash Pad is a great option for a group of up to 12.  Please contact <a href="mailto:flyinghobogirl@gmail.com">the proprietor</a> directly if you’re interested in booking it.
           <br /><br />
         </p>
         <h3 className="middle section-title">Hawai'i</h3>

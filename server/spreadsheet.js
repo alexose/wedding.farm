@@ -10,6 +10,7 @@ var oauth2Client = new google.auth.OAuth2(config.client_id, config.client_secret
 var data;
 var index = {};
 
+var registry;
 var mainSheet;
 var resultsSheet;
 
@@ -58,6 +59,7 @@ function proceed(err, tokens){
     
   console.log('Fetching spreadsheet...');
 
+  loadRegistry(tokens);
   loadSource(tokens);
   loadSink(tokens);
 }
@@ -78,6 +80,37 @@ function loadSource(tokens){
   }, function sheetReady(err, spreadsheet){
     mainSheet = spreadsheet;
     updateIndex()
+  });
+}
+
+function loadRegistry(tokens){
+
+  cached = cached || tokens; 
+
+  Spreadsheet.load({
+    debug:         true,
+    spreadsheetId: config.key,
+    worksheetName: 'Registry',
+    oauth2: {
+      client_id:     config.client_id,
+      client_secret: config.client_secret,
+      refresh_token: cached.refresh_token
+    }
+  }, function sheetReady(err, spreadsheet){
+    spreadsheet.receive({ getValues: true }, function(err, rows, info){
+      var arr = []
+      for (var i in rows){
+        var row = rows[i];
+        var obj = {};
+        obj.item = row[1];
+        obj.description = row[2];
+        obj.cost = row[3];
+        obj.quantity = row[4];
+        arr.push(obj);
+      }
+      arr.shift();
+      registry = arr; 
+    });
   });
 }
 
@@ -192,6 +225,9 @@ function getResults(cb){
 module.exports = {
   get: function(id){ 
     return index[id]; 
+  },
+  getRegistry: function(){
+    return registry;
   },
   remove : function(id, cb) {
 

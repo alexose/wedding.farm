@@ -59,8 +59,12 @@ app.get('/api/search/:id', function (req, res){
   res.send('Hello World!');
 });
 
-app.listen(3301, function(){
+app.get('/api/registry/', function (req, res){
+  var registry = JSON.stringify(spreadsheet.getRegistry());
+  res.send(registry);
 });
+
+app.listen(3301, function(){});
 
 function notify(json){
 

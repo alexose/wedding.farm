@@ -1,4 +1,4 @@
-@media all and (max-width:400px) and (min-width:0px) {
+@media all and (max-width:600px) and (min-width:0px) {
   body #app { font-size: 16px; }
   #app #logo { width: 300px; }
   #app .main-nav { font-size: 12px; }
@@ -7,21 +7,47 @@
   #app h4 { font-size: 16px; }
   #app .rsvp { font-size: 14px; }
   #app .btn-lg { padding: 3px 8px; margin: 10px 0; font-size: 13px; }
+  #app .date.bigger { font-size: 17px; }
+  #app .date { font-size: 16px; }
+  #app .date img { margin-left: 0; }
+  #app .paperdolls { padding: 10px 0 0 0; min-width: 135px; } 
+  #app .paperdoll { max-height: 180px; } 
+  #app .garment { max-height: 58px; } 
+  #app .analysis { width: 130px; } 
+  #app .page.full { padding: 5px; }
+  #app h1.title img { max-width: 350px; }
+  #app h3.section-title { font-size: 20px; }
+  #app .aside { width: 135px; }
+  #app p { max-width: 300px; }
+  .ReactModalPortal { font-size: 14px; }
+  .ReactModalPortal p { margin-top: 5px; }
+  .ReactModalPortal h3 { margin-top: 5px; }
 }
 
-@media all and (max-width:600px) and (min-width:400px) {
-  body #app { font-size: 20px; }
-  #app #logo { width: 330px; }
-  #app .main-nav { font-size: 14px; }
-  #app .main-nav ul li { margin: 5px 10px; }
-  #app h2 { font-size: 30px; }
-  #app .rsvp { font-size: 20px; }
-}
-
-@media all and (max-width:800px) and (min-width:600px) {
+@media all and (max-width:1000px) and (min-width:600px) {
+  body #app { font-size: 16px; }
   #app #logo { width: 500px; }
-  #app .main-nav { font-size: 16px; }
+  #app .main-nav { font-size: 15px; }
   #app .main-nav ul li { margin: 5px 10px; }
+  #app h2 { font-size: 26px; }
+  #app h4 { font-size: 16px; }
+  #app .rsvp { font-size: 14px; }
+  #app .btn-lg { padding: 3px 8px; margin: 10px 0; font-size: 13px; }
+  #app .date.bigger { font-size: 17px; }
+  #app .date { font-size: 16px; }
+  #app .date img { margin-left: 0; }
+  #app .paperdolls { padding: 10px 0 0 0; min-width: 200px; } 
+  #app .paperdoll { max-height: 280px; } 
+  #app .garment { max-height: 120px; } 
+  #app .analysis { width: 200px; } 
+  #app .page.full { padding: 5px; }
+  #app h1.title img { max-width: 350px; }
+  #app h3.section-title { font-size: 20px; }
+  #app .aside { width: 135px; }
+  #app p { max-width: 300px; }
+  .ReactModalPortal { font-size: 14px; }
+  .ReactModalPortal p { margin-top: 5px; }
+  .ReactModalPortal h3 { margin-top: 5px; }
 }
 
 html, body {

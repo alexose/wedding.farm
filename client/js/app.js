@@ -61,8 +61,8 @@ var tabList = [
     component : <Activities />
   },
   {
-    name : '/accomodations',
-    display : 'Accomodations',
+    name : '/logistics',
+    display : 'Logistics',
     component : <Accomodations />
   },
   {
@@ -178,7 +178,7 @@ ReactDOM.render(
       </Route>
       <Route path="/attire" component={Clothes} />
       <Route path="/activities" component={Activities} />
-      <Route path="/accomodations" component={Accomodations} />
+      <Route path="/logistics" component={Accomodations} />
       <Route path="/registry" component={Registry} />
     </Route>
   </Router>,

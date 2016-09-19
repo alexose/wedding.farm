@@ -376,3 +376,21 @@ hr.spacer {
   left: 0;
   right: 0;
 }
+
+.logistics {
+  text-align: center; 
+  margin: 0 20%; 
+}
+
+.logisitcs h3{
+  margin: 30px 0;
+}
+
+.logistics p{
+  margin: 30px 0;
+}
+
+.logistics ul {
+  list-style:none;
+  padding:none;
+}

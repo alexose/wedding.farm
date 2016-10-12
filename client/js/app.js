@@ -30,8 +30,10 @@ var Home = React.createClass({
         <img id="logo" src="/img/text.png"/>
         <ul className="dates">
           <li className="date bigger">
-            <img id="oregon" src="/img/oregon.png"/>
-            Ceremony October 8th, 2016
+            <strike>
+              <img id="oregon" src="/img/oregon.png"/>
+              Ceremony October 8th, 2016
+            </strike>
           </li>
           <li className="date">
             <img id="hawaii" src="/img/hawaii.png"/>

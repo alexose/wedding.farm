@@ -36,8 +36,10 @@ var Home = React.createClass({
             </strike>
           </li>
           <li className="date">
-            <img id="hawaii" src="/img/hawaii.png"/>
-            Reception November 26th, 2016
+            <strike>
+              <img id="hawaii" src="/img/hawaii.png"/>
+              Reception November 26th, 2016
+            </strike>
           </li>
         </ul>
       </div>
@@ -93,6 +95,7 @@ var App = React.createClass({
     pubsub.subscribe('open-what-modal', function(){
       this.setState({ whatIsOpen: true });
     }.bind(this));
+    this.setState({ doneIsOpen: true });
   },
   componentWillUnmount : function(){
     pubsub.clearAllSubscriptions();
@@ -105,6 +108,10 @@ var App = React.createClass({
   handleWhatClick : function(e){
     e.preventDefault();
     this.setState({ whatIsOpen: false });
+  },
+  handleDoneClick : function(e){
+    e.preventDefault();
+    this.setState({ doneIsOpen: false });
   },
   render : function(){
 
@@ -162,6 +169,19 @@ var App = React.createClass({
           <p>Dress for comfort, but don't sacrifice your personal brand.</p>
           <p>
             <button onClick={this.handleWhatClick}>Great!</button>
+          </p>
+        </Modal>
+        <Modal 
+          isOpen={this.state.doneIsOpen}
+          style={what}>
+          <img width="220" height="100" src="/img/thanks.png"/>
+          <p style={{'margin-top': '10px'}}>We're married now!  Thank you to all of our friends and family for an unforgettable summer.  We hope to see you around the farm.</p>
+          <ul style={{'list-style': 'none', 'padding': '0'}}>
+            <li><a href="http://timdawweddingsandevents.pixieset.com/maluandalex/">Official photos</a></li>
+            <li><a href="http://alexose.com/photodump/#wedding">Unofficial photos</a></li>
+          </ul>
+          <p>
+            <button onClick={this.handleDoneClick}>Hooray!</button>
           </p>
         </Modal>
         {this.props.children}
